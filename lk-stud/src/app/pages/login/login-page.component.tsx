@@ -1,19 +1,20 @@
 import React from "react";
 import "./login-page.component.css";
 import { InputTextComponent } from "../../../shared/ui/input-text/input-text.component";
-import { CheckboxComponent } from "../../../shared/ui/checkbox/checkbox.component";
 import { ButtonComponent } from "../../../shared/ui/button/button.component";
+import { SwitchComponent } from "../../../shared/ui/switch/switch.component";
+import { LanguageToggleComponent } from "../../../shared/ui/language-toggle/language-toggle.component";
 
 
 export const LoginPageComponent = () =>{
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [isChecked, setIsChecked] = React.useState(false);
 
     return(
         <div className="login-page-component">
             <div className="login-page-component__header">
-                <img src="/assets/svg/language/ru-language.svg"/>
-                <img src="/assets/svg/language/en-language.svg"/>
+                <LanguageToggleComponent/>
             </div>
             <div className="login-page-component__content">
                 <img    
@@ -38,7 +39,10 @@ export const LoginPageComponent = () =>{
                                 />
                             </div>
                             <div className="login-page-component__actions">
-                                <CheckboxComponent/>
+                                <SwitchComponent
+                                    checked={isChecked}
+                                    onChange={(checked => setIsChecked(checked))}
+                                />
                                 <ButtonComponent>
                                     Войти
                                 </ButtonComponent>
