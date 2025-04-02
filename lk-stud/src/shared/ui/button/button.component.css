@@ -1,0 +1,105 @@
+
+.button-component {
+	--background-color: rgba(55, 95, 255, 1);
+	--background-hover-color: rgba(0, 47, 234, 1);
+	--background-active-color: rgba(32, 76, 255, 1);
+	--background-disabled-color: rgba(151, 169, 241, 1);
+	background-color: var(--background-color);
+
+	--border-size: 0;
+	--border-hover-size: 0;
+	--border-active-size: 0;
+	--border-disabled-size: 0;
+
+	--border-color: transparent;
+	--border-hover-color: transparent;
+	--border-active-color: transparent;
+	--border-disabled-color: transparent;
+	border-width: var(--border-size);
+	border-style: solid;
+	border-color: var(--border-color);
+
+	--text-color: rgba(58, 58, 58, 1);
+	--text-hover-color: rgba(58, 58, 58, 1);
+	--text-active-color: rgba(32, 76, 255, 1);
+	--text-disabled-color: rgba(151, 169, 241, 1);
+	color: var(--text-color);
+	
+	height: 49px;
+	text-align: center;
+	align-items: center;
+	border-radius: 8px;
+	padding: 0 42px;
+	transition: 
+		background-color 300ms ease-in-out, 
+		color 300ms ease-in-out, 
+		border-color 300ms ease-in-out, 
+		border-width 300ms ease-in-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.button-component:hover {
+	background-color: var(--background-hover-color);
+	border-width: var(--border-hover-size);
+	border-color: var(--border-hover-color);
+	color: var(--text-hover-color);
+}
+.button-component:active {
+	background-color: var(--background-active-color);
+	border-width: var(--border-active-size);
+	border-color: var(--border-active-color);
+	color: var(--text-active-color);
+}
+
+.button-component_primary {
+	--background-color: rgba(55, 95, 255, 1);
+	--background-hover-color: rgba(0, 47, 234, 1);
+	--background-active-color: rgba(32, 76, 255, 1);
+	--background-disabled-color: rgba(151, 169, 241, 1);
+
+	--border-color: transparent;
+	--border-hover-color: transparent;
+	--border-active-color: transparent;
+	--border-disabled-color: transparent;
+
+	--border-size: 0;
+	--border-hover-size: 0;
+	--border-active-size: 0;
+	--border-disabled-size: 0;
+
+	--text-color: rgba(255, 255, 255, 1);
+	--text-hover-color: rgba(255, 255, 255, 1);
+	--text-active-color: rgba(255, 255, 255, 1);
+	--text-disabled-color: rgba(255, 255, 255, 1);
+}
+
+.button-component_outlined {
+	--background-color: transparent;
+	--background-hover-color: transparent;
+	--background-active-color: transparent;
+	--background-disabled-color: transparent;
+
+	--border-color: rgba(58, 58, 58, 1);
+	--border-hover-color: rgba(58, 58, 58, 1);
+	--border-active-color: rgba(32, 76, 255, 1);
+	--border-disabled-color: rgba(151, 169, 241, 1);
+
+	--border-size: 1px;
+	--border-hover-size: 2px;
+	--border-active-size: 2px;
+	--border-disabled-size: 1px;
+
+	--text-color: rgba(58, 58, 58, 1);
+	--text-hover-color: rgba(58, 58, 58, 1);
+	--text-active-color: rgba(32, 76, 255, 1);
+	--text-disabled-color: rgba(151, 169, 241, 1);
+}
+
+.button-component_disabled,
+.button-component_disabled:hover,
+.button-component_disabled:active {
+	background-color: var(--background-disabled-color);
+	border: var(--border-size) solid var(--border-disabled-color);
+	color: var(--text-disabled-color);
+	cursor: default;
+}

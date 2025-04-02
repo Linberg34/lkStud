@@ -1,10 +1,7 @@
 import "../shared/styles/fonts.css"
 import "../shared/styles/typography.css"
+import { LoginPageComponent } from "./pages/login/login-page.component"
 
 export const App = () => {
-    return (
-        <div>
-            <h1>lk-stud</h1>
-        </div>
-    )
+    return (<LoginPageComponent/>)
 }

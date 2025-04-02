@@ -1,0 +1,73 @@
+
+.login-page-component {
+	min-height: 100%;
+	display: grid;
+	grid-template-rows: 64px 1fr;
+	padding: 0 10% 32px 10%;
+}
+
+.login-page-component__header {
+	width: 100%;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+
+.login-page-component__content {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	grid-template-columns: 1fr;
+	gap: 32px;
+	justify-items: center;
+	
+	@media(min-width: 1200px) {
+		align-items: center;
+		grid-template-columns: 4fr 3fr;
+		grid-template-rows: 1fr;
+	}
+}
+
+.login-page-component__poster {
+	width: 100%;
+	max-width: 400px;
+	@media(min-width: 1200px) {
+		max-width: unset;
+	}
+}
+
+.login-page-component__card {
+	display: flex;
+	width: 100%;
+	max-width: 600px;
+	flex-direction: column;
+	align-items: center;
+	gap: 48px;
+	background-color: #fff;
+	border-radius: 20px;
+	padding: 20px;
+	
+	@media(min-width: 1200px) {
+		padding: 45px 30px;
+	}
+}
+
+.login-page-component__form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
+.login-page-component__fields {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.login-page-component__actions {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
