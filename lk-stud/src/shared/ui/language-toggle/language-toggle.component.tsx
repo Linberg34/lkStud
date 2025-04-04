@@ -26,6 +26,9 @@ export const LanguageToggleComponent: React.FC<LanguageToggleProps> = ({
     return (
         <div className="language-toggle-component">
             <div className="language-toggle-component__current" onClick={toggleMenu}>
+                <span className="language-toggle-component__name">
+                    {selectedLanguage === "ru" ? "Русский" : "English"}
+                </span>
                 <img
                     src={`/assets/svg/language/${selectedLanguage}-language.svg`}
                     alt={`${selectedLanguage} language`}
@@ -42,17 +45,18 @@ export const LanguageToggleComponent: React.FC<LanguageToggleProps> = ({
                 <div className="language-toggle-component__menu">
                     <div
                         className="language-toggle-component__option"
-                        onClick={() => handleLanguageSelect("ru")}
-                    >
-                        <span className="language-toggle-component__label">Русский</span>
-                        <img src="/assets/svg/language/ru-language.svg" alt="Russian" />
-                    </div>
-                    <div
-                        className="language-toggle-component__option"
                         onClick={() => handleLanguageSelect("en")}
                     >
                         <span className="language-toggle-component__label">English</span>
                         <img src="/assets/svg/language/en-language.svg" alt="English" />
+                    </div>
+                    <hr className="language-toggle-component__divider"/>
+                    <div
+                        className="language-toggle-component__option"
+                        onClick={() => handleLanguageSelect("ru")}
+                    >
+                        <span className="language-toggle-component__label">Русский</span>
+                        <img src="/assets/svg/language/ru-language.svg" alt="Russian" />
                     </div>
                 </div>
             )}

@@ -39,10 +39,13 @@ export const LoginPageComponent = () =>{
                                 />
                             </div>
                             <div className="login-page-component__actions">
-                                <SwitchComponent
-                                    checked={isChecked}
-                                    onChange={(checked => setIsChecked(checked))}
-                                />
+                                <div className="login-page-component__remember">
+                                    <SwitchComponent
+                                        checked={isChecked}
+                                        onChange={(checked => setIsChecked(checked))}
+                                    />
+                                    <span className="login-page-component__label">Запомнить меня</span>
+                                </div>
                                 <ButtonComponent>
                                     Войти
                                 </ButtonComponent>

@@ -1,14 +1,18 @@
 .language-toggle-component {
     position: relative;
     display: inline-block;
+    width: 147px;
+    height: 44px;
 }
 
 .language-toggle-component__current {
     display: flex;
     align-items: center;
+    width: 100%;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 4px;
+    justify-content: space-between;
+    padding: 10px 8px 10px 8px;
+    border-radius: 8px;
     transition: background-color 300ms ease-in-out;
 }
 
@@ -16,6 +20,9 @@
     background-color: #f0f0f0;
 }
 
+.language-toggle-component__name{
+    padding-right: 15px;
+}
 .language-toggle-component__arrow {
     margin-left: 8px;
     transition: transform 300ms ease-in-out;
@@ -26,21 +33,31 @@
 }
 
 .language-toggle-component__menu {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    flex-grow: 1;
+    width: 166px;
+    gap:10px;
+    padding: 8px;
     position: absolute;
-    top: 100%;
     right: 0;
-    background-color: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    margin-top: 4px;
+    background-color: #F9F9F9;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+.language-toggle-component__divider{
+    width:100%;
+    border: 1px solid #D9D9D9;
 }
 
 .language-toggle-component__option {
+    width: 100%;
+    height: fit-content;
     display: flex;
     align-items: center;
-    gap:14px;
+    justify-content: space-between;
     padding: 8px 12px;
     cursor: pointer;
     transition: background-color 300ms ease-in-out;
@@ -51,12 +68,11 @@
 }
 
 .language-toggle-component__option img {
-    width: 24px;
-    height: 24px;
-    margin-left: 8px;
+    width: fit-content;
+    height: fit-content;
 }
 
 .language-toggle-component__label {
-    font-size: 14px;
-    color: #333;
+    font-size: 16px;
+    color: #3A3A3A;
 }
