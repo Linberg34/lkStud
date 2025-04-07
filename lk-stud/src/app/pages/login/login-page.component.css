@@ -1,9 +1,12 @@
-
 .login-page-component {
 	min-height: 100%;
 	display: grid;
 	grid-template-rows: 64px 1fr;
 	padding: 0 10% 32px 10%;
+
+	@media only screen and (max-width: 375px) {
+		padding: 0 5% 0 5%;
+	}
 }
 
 .login-page-component__header {
@@ -19,8 +22,8 @@
 	grid-template-columns: 1fr;
 	gap: 32px;
 	justify-items: center;
-	
-	@media(min-width: 1200px) {
+
+	@media (min-width: 1200px) {
 		align-items: center;
 		grid-template-columns: 4fr 3fr;
 		grid-template-rows: 1fr;
@@ -29,9 +32,12 @@
 
 .login-page-component__poster {
 	width: 100%;
-	max-width: 400px;
-	@media(min-width: 1200px) {
+	max-width: 350px;
+	max-height: 234px;
+
+	@media (min-width: 1200px) {
 		max-width: unset;
+		max-height: unset;
 	}
 }
 
@@ -45,11 +51,20 @@
 	background-color: #fff;
 	border-radius: 20px;
 	padding: 20px;
-	
-	@media(min-width: 1200px) {
+
+	@media (min-width: 1200px) {
 		padding: 45px 30px;
 	}
+
+	@media only screen and (max-width: 375px) {
+		max-width: 343px;
+		height: fit-content;
+		gap:30px;
+		padding: 20px;
+	}
+	
 }
+
 
 .login-page-component__form {
 	width: 100%;
@@ -72,16 +87,16 @@
 	gap: 20px;
 }
 
-.login-page-component__remember{
+.login-page-component__remember {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	width: fit-content;
 	height: 100%;
-	gap:16px;
+	gap: 16px;
 }
 
-.login-page-component__label{
+.login-page-component__label {
 	font-family: "Raleway";
 	font-style: normal;
 	font-weight: 500;

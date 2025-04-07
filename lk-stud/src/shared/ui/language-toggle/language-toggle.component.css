@@ -11,7 +11,7 @@
     width: 100%;
     cursor: pointer;
     justify-content: space-between;
-    padding: 10px 8px 10px 8px;
+    padding: 10px 8px;
     border-radius: 8px;
     transition: background-color 300ms ease-in-out;
 }
@@ -20,9 +20,10 @@
     background-color: #f0f0f0;
 }
 
-.language-toggle-component__name{
+.language-toggle-component__name {
     padding-right: 15px;
 }
+
 .language-toggle-component__arrow {
     margin-left: 8px;
     transition: transform 300ms ease-in-out;
@@ -38,7 +39,7 @@
     height: fit-content;
     flex-grow: 1;
     width: 166px;
-    gap:10px;
+    gap: 10px;
     padding: 8px;
     position: absolute;
     right: 0;
@@ -47,8 +48,8 @@
     margin-top: 8px;
 }
 
-.language-toggle-component__divider{
-    width:100%;
+.language-toggle-component__divider {
+    width: 100%;
     border: 1px solid #D9D9D9;
 }
 
@@ -75,4 +76,29 @@
 .language-toggle-component__label {
     font-size: 16px;
     color: #3A3A3A;
+}
+
+@media only screen and (max-width: 375px) {
+    .language-toggle-component__name{
+        display: none;
+    }
+    .language-toggle-component {
+        width: 120px;
+        height: 46px;
+    }
+
+    .language-toggle-component__current {
+        justify-content: flex-end;
+        padding: 8px 6px;
+    }
+
+    .language-toggle-component__menu {
+        width: 140px;
+        padding: 6px;
+        gap: 8px;
+    }
+
+    .language-toggle-component__option {
+        padding: 6px 10px;
+    }
 }
