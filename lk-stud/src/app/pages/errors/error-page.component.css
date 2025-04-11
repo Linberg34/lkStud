@@ -1,0 +1,143 @@
+.error-page-component {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 5% 10% 32px 10%;
+    position: relative;
+    overflow: hidden;
+
+    @media (max-width: 1440px) {
+        padding: 10% 10% 32px 10%;
+    }
+
+    /* Добавим медиа-запрос для экранов с высотой до 800px */
+    @media (max-height: 800px) {
+        padding-top: 3%;
+        padding-bottom: 16px;
+        gap: 20px; /* Уменьшим промежуток между элементами, если он есть */
+    }
+}
+
+.error-page-component__title {
+    font-family: "Roboto", sans-serif;
+    font-size: 380px;
+    color: #375FFF;
+    line-height: 1;
+
+    @media (max-width: 1440px) {
+        font-size: calc(150px + 230 * (100vw / 1920));
+    }
+}
+
+@media (max-width: 768px) {
+    .error-page-component__title {
+        font-size: calc(100px + 150 * (100vw / 768));
+    }
+}
+
+@media (max-width: 480px) {
+    .error-page-component__title {
+        font-size: calc(80px + 100 * (100vw / 480));
+    }
+}
+
+.error-page-component__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+
+    @media (max-height: 800px) {
+        gap: 50px; /* Уменьшим промежуток */
+    }
+}
+
+.error-page-component__subtitle-title-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.error-page-component__subtitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+    width: fit-content;
+    gap: 68px;
+
+    @media (max-height: 800px) {
+        gap: 30px; /* Уменьшим промежуток */
+    }
+}
+
+.error-page-component__description {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    @media (max-height: 800px) {
+        gap: 14px; /* Уменьшим промежуток */
+    }
+}
+
+.error-page-component__not-found {
+    display: flex;
+    flex-direction: column;
+}
+
+.error-line {
+    display: flex;
+    white-space: nowrap;
+    font-size: calc(24px + 24 * (100vw / 1440));
+    background-color: #375FFF;
+    color: white;
+    padding: 10px;
+    border: 2px solid #FFFFFF;
+    position: absolute;
+}
+
+/* Скрываем полоски на экранах меньше 1400px */
+@media (max-width: 1399px) {
+    .error-line--top,
+    .error-line--bottom {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .error-line {
+        font-size: calc(18px + 18 * (100vw / 768));
+    }
+}
+
+@media (max-width: 480px) {
+    .error-line {
+        font-size: calc(16px + 12 * (100vw / 480));
+    }
+}
+
+.error-line--top {
+    bottom: 25%;
+    width: 200%;
+    transform: rotate(34.18deg);
+    gap: 100px;
+}
+
+.error-line--bottom {
+    top: 5%;
+    left: 20%;
+    width: 200%;
+    transform: rotate(-36.9deg);
+    gap: 100px;
+}
+
+.error-line__item {
+    font-family: Raleway;
+    font-weight: 700;
+    letter-spacing: 1%;
+    text-align: center;
+}
+
+.error-page-component__feedback{
+    color:#375FFF;
+    cursor: pointer;
+}
