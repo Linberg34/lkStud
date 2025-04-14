@@ -12,7 +12,7 @@ export const App = () => {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/login" element={<LoginPageComponent />} />
-				<Route path="/404" element={<NotFoundPageComponent />} />
+				<Route path="*" element={<NotFoundPageComponent />} />
 				<Route path="/500" element={<InternalServerErrPageComponent />} />
 				<Route path="/profile" element={<ProfilePageComponent/>} />
 			</Routes>

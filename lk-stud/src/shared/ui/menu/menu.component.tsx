@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./menu.components.css";
 import { MenuItem } from "../menu-item/menu-item.component";
 
 export const MenuComponent = () => {
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+
+        };
+    }, []);
+
 
     return (
-        <div className={`menu-component ${isOpen ? "open" : "closed"}`}>
+        <div ref={menuRef} className={`menu-component ${isOpen ? "open" : "closed"}`}>
             <div className="menu-component__avatar-wrapper">
                 <img
-                    src="/assets/imgs/login-poster.png  "
+                    src="/assets/imgs/login-poster.png "
                     alt="avatar"
                     className="menu-component__avatar"
                 />
@@ -32,6 +48,7 @@ export const MenuComponent = () => {
                     srcBlue="/assets/svg/menu/blue/User.svg"
                     className="menu-component__profile"
                     isOpen={isOpen}
+                    link="/profile"
                 />
                 <MenuItem
                     text="Администрирование"
@@ -39,6 +56,7 @@ export const MenuComponent = () => {
                     srcBlue="/assets/svg/menu/blue/Administrator.svg"
                     className="menu-component__admin"
                     isOpen={isOpen}
+                    link="/admin"
                 />
                 <MenuItem
                     text="Справки"
@@ -46,6 +64,7 @@ export const MenuComponent = () => {
                     srcBlue="/assets/svg/menu/blue/Certificates.svg"
                     className="menu-component__certificates"
                     isOpen={isOpen}
+                    link="/certificates"
                 />
                 <MenuItem
                     text="Полезные сервисы"
@@ -53,6 +72,7 @@ export const MenuComponent = () => {
                     srcBlue="/assets/svg/menu/blue/Links.svg"
                     className="menu-component__services"
                     isOpen={isOpen}
+                    link="/services"
                 />
                 <MenuItem
                     text="Мероприятия"
@@ -60,8 +80,11 @@ export const MenuComponent = () => {
                     srcBlue="/assets/svg/menu/blue/Map.svg"
                     className="menu-component__events"
                     isOpen={isOpen}
+                    link="/events"
                 />
             </div>
         </div>
     );
 };
+
+

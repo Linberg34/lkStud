@@ -1,4 +1,7 @@
+import "./menu-item.components.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 interface MenuItemProps {
     text: string;
@@ -6,6 +9,7 @@ interface MenuItemProps {
     srcBlue: string;
     className?: string;
     isOpen: boolean;
+    link: string;
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({
@@ -14,11 +18,14 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     srcBlue,
     className = "",
     isOpen,
+    link,
 }) => {
     const [iconSrc, setIconSrc] = useState(srcBlack);
 
-    return (
+
+    const content = (
         <div
+            data-active={isOpen}
             className={`menu-item ${className}`}
             onMouseEnter={() => setIconSrc(srcBlue)}
             onMouseLeave={() => setIconSrc(srcBlack)}
@@ -27,4 +34,5 @@ export const MenuItem: React.FC<MenuItemProps> = ({
             {isOpen && <span className="menu-item__text">{text}</span>}
         </div>
     );
+    return <Link className="menu-item__link" to={link}>{content}</Link>
 };

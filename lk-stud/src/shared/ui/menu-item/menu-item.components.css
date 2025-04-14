@@ -2,17 +2,29 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
+    width: 100%;
     gap: 8px;
     padding: 4px 32px;
     cursor: pointer;
-    transition: all 0.2s ease;
+}
+
+div[data-active="false"] {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .menu-item:hover {
     background-color: #375fff1a;
     border-left: 3px solid #375fff;
     color: #375fff;
+}
+.menu-item__link{
+    all:unset;
+    cursor: pointer;
 }
 
 .menu-item img {
