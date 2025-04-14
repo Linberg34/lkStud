@@ -22,8 +22,9 @@ div[data-active="false"] {
     border-left: 3px solid #375fff;
     color: #375fff;
 }
-.menu-item__link{
-    all:unset;
+
+.menu-item__link {
+    all: unset;
     cursor: pointer;
 }
 

@@ -5,7 +5,7 @@ import { InternalServerErrPageComponent } from "./pages/errors/internal-server-e
 import { NotFoundPageComponent } from "./pages/errors/not-found-page.component";
 import { LoginPageComponent } from "./pages/login/login-page.component";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ProfilePageComponent } from "./pages/profile/profile-page.components";
+import { ProfilePageComponent } from "./pages/profile/profile-page.component";
 
 export const App = () => {
 	return (

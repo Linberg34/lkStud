@@ -1,0 +1,80 @@
+.profile-personal-data-component {
+    width: 343px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap:24px;
+
+    @media only screen and (min-width: 599px) {
+        width: 536px;
+    }
+
+    @media only screen and (min-width: 899px) {
+        width: 322px;
+    }
+
+    @media only screen and (min-width: 1199px) {
+        width: 363px;
+    }
+
+    @media only screen and (min-width: 1535px) {
+        width: 397px;
+    }
+
+    @media only screen and (min-width: 1919px) {
+        width: 493px;
+    }
+}
+
+.profile-personal-data-component__image {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden; 
+}
+
+.profile-personal-data-component__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.profile-personal-data-component__data-wrapper {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    gap:16px;
+    padding: 32px;
+    width: 100%;
+    background-color: #F9F9F9;
+}
+
+.profile-personal-data-component__contacts-wrapper {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    gap:16px;
+    padding: 32px;
+    width: 100%;
+    background-color: #F9F9F9;
+}
+
+.profile-personal-data-component__data{
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.profile-personal-data-component__data:last-of-type {
+    border-bottom: none;
+}
+
+
+.profile-personal-data-component__label{
+    color:#666666;
+}
+
+.profile-personal-data-component__value{
+    color:#3A3A3A
+}
