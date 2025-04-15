@@ -25,88 +25,90 @@ export const ProfileEducationDataComponent: React.FC<ProfileEducationDataProps> 
     const [openIndexes, setOpenIndexes] = useState<number[]>([0]);
 
     const toggleOpen = (index: number) => {
-        setOpenIndexes(prev =>
-            prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+        setOpenIndexes((prev) =>
+            prev.includes(index)
+                ? prev.filter((i) => i !== index)
+                : [...prev, index]
         );
     };
 
-    const [activeTab, setActiveTab] = useState("education");
-
     return (
         <div className="profile-education-data-component">
-            <div className="profile-education-data__tabs">
-                <span 
-                    className={activeTab === "education" ? "active" : ""} 
-                    onClick={() => setActiveTab("education")}
-                >
-                    Образование
-                </span>
-                <span 
-                    className={activeTab === "work" ? "active" : ""} 
-                    onClick={() => setActiveTab("work")}
-                >
-                    Работа
-                </span>
-            </div>
-            
-            {activeTab === "education" && educationList.map((edu, index) => (
+            {educationList.map((edu, index) => (
                 <div key={index} className="education-block">
-                    <div className="education-block__header" onClick={() => toggleOpen(index)}>
+                    <div
+                        className="education-block__header"
+                        onClick={() => toggleOpen(index)}
+                    >
                         <div className="p1 education-block__level">{edu.level}</div>
                         <div className="p1 education-block__status">{edu.status}</div>
-                        <div className={`education-block__arrow ${openIndexes.includes(index) ? "open" : ""}`}>
-                            <img src="/assets/svg/Arrow/red/Chevron_Up.svg" alt="Toggle details" />
+                        <div
+                            className={`education-block__arrow ${openIndexes.includes(index) ? "open" : ""
+                                }`}
+                        >
+                            <img
+                                src="/assets/svg/Arrow/red/Chevron_Up.svg"
+                                alt="Toggle details"
+                            />
                         </div>
                     </div>
                     {openIndexes.includes(index) && (
                         <div className="education-block__content">
                             <div className="row">
-                                <span>Года обучения</span>
-                                <span>{edu.years}</span>
+                                <div className="row__element">
+                                    <span className="p2 row__element-label">Года обучения</span>
+                                    <span className="p1 row__element-value">{edu.years}</span>
+                                </div>
+                                <div className="row__element">
+                                    <span className="p2 row__element-label">
+                                        Номер зачетной книжки
+                                    </span>
+                                    <span className="p1 row__element-value">
+                                        {edu.recordBook}
+                                    </span>
+                                </div>
                             </div>
+
                             <div className="row">
-                                <span>Номер зачетной книжки</span>
-                                <span>{edu.recordBook}</span>
+                                <div className="row__element">
+                                    <span className="p2 row__element-label">Форма обучения</span>
+                                    <span className="p1 row__element-value">{edu.studyForm}</span>
+                                </div>
+                                <div className="row__element">
+                                    <span className="p2 row__element-label">База</span>
+                                    <span className="p1 row__element-value">{edu.basis}</span>
+                                </div>
                             </div>
-                            <div className="row">
-                                <span>Форма обучения</span>
-                                <span>{edu.studyForm}</span>
+
+                            <div className="row__element-single">
+                                <span className="p2 row__element-label">Факультет</span>
+                                <span className="p1 row__element-value">{edu.faculty}</span>
                             </div>
-                            <div className="row">
-                                <span>База</span>
-                                <span>{edu.basis}</span>
+
+                            <div className="row__element-single">
+                                <span className="p2 row__element-label">Направление</span>
+                                <span className="p1 row__element-value">{edu.direction}</span>
                             </div>
-                            <div className="row">
-                                <span>Факультет</span>
-                                <span>{edu.faculty}</span>
+
+                            <div className="row__element-single">
+                                <span className="p2 row__element-label">Профиль</span>
+                                <span className="p1 row__element-value">{edu.profile}</span>
                             </div>
+
                             <div className="row">
-                                <span>Направление</span>
-                                <span>{edu.direction}</span>
-                            </div>
-                            <div className="row">
-                                <span>Профиль</span>
-                                <span>{edu.profile}</span>
-                            </div>
-                            <div className="row">
-                                <span>Курс</span>
-                                <span>{edu.course}</span>
-                            </div>
-                            <div className="row">
-                                <span>Группа</span>
-                                <span>{edu.group}</span>
+                                <div className="row__element">
+                                    <span className="p2 row__element-label">Курс</span>
+                                    <span className="p1 row__element-value">{edu.course}</span>
+                                </div>
+                                <div className="row__element">
+                                    <span className="p2 row__element-label">Группа</span>
+                                    <span className="p1 row__element-value">{edu.group}</span>
+                                </div>
                             </div>
                         </div>
                     )}
                 </div>
             ))}
-            
-            {activeTab === "work" && (
-                <div className="work-content">
-                    {/* Future work history content */}
-                    <p>Информация о работе не доступна</p>
-                </div>
-            )}
         </div>
     );
 };

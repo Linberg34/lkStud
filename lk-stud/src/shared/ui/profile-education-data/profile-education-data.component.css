@@ -1,63 +1,72 @@
 .profile-education-data-component {
     display: flex;
     flex-direction: column;
-    gap:27px;
+    gap: 27px;
     background-color: #F9F9F9;
     border-radius: 8px;
-    width: 343px;
+    width: 100%;
+    min-width: 343px;
+    height: fit-content;
 
-    @media only screen and (min-width: 599px) {
-        width: 536px;
-    }
-
-    @media only screen and (min-width: 899px) {
-        width: 458px;
-    }
-
-    @media only screen and (min-width: 1199px) {
-        width: 617px;
-    }
-
-    @media only screen and (min-width: 1535px) {
-        width: 815px;
-    }
-
-    @media only screen and (min-width: 1919px) {
-        width: 1007px;
-    }
 
 }
 
 .profile-education-data__tabs {
     display: flex;
-    gap:8px;
+    gap: 8px;
     padding: 20px 32px 20px 32px;
-    border-bottom:1px solid #D9D9D9;
-    .active{
+    border-bottom: 1px solid #D9D9D9;
+
+    .active {
         color: #2D6BF6;
         border-bottom: 3px solid #375FFF
     }
-    
+
 }
 
 
+.profile-education-data__tabs span {
+    padding: 8px 0;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+}
+
+.profile-education-data__tabs .active {
+    color: #2D6BF6;
+    font-weight: 500;
+}
+
+.profile-education-data__tabs .active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #2D6BF6;
+    border-radius: 2px 2px 0 0;
+}
+
 .education-block {
-    padding-bottom: 16px;
+    border-bottom: 1px solid #EAEAEA;
 }
 
 .education-block__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.education-block__level,
-.education-block__status {
-    flex: 1;
+    padding: 16px 32px;
+    cursor: pointer;
 }
 
 .education-block__arrow {
-    transition: transform 0.4s ease;
+    transition: transform 0.3s ease;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .education-block__arrow.open {
@@ -67,13 +76,43 @@
 .education-block__content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding-left: 2px;
+    gap:8px;
+    padding: 0 32px 16px;
 }
 
 .row {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    border-bottom: 1px solid #E5E5E5;
-    padding: 6px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.row__element {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+    
+}
+.row__element-single {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+
+.row__element-label {
+    color:#666666;
+}
+
+.row__element-value {
+    color:#3A3A3A;
+}
+
+.row:last-child,
+.row__element-single:last-child {
+    border-bottom: none;
 }

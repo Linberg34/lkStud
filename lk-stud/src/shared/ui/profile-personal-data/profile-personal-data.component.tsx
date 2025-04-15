@@ -1,76 +1,56 @@
-import "./profile-personal-data.component.css"
+import React from "react";
+import "./profile-personal-data.component.css";
 
-interface ProfilePersonalDataProps {
-    imageSrc: string,
-    gender: string,
-    birthDate: string,
-    citizenship: string,
-    snils: string,
-    email: string,
-    phoneNumbers: string[],
-    extraEmail?: string,
-    address: string,
+// Определяем универсальный тип для элемента данных
+export interface PersonalDataItem {
+    label: string;
+    value: string;
 }
 
+interface ProfilePersonalDataProps {
+    imageSrc: string;
+    // Массив с данными личных характеристик
+    personalData: PersonalDataItem[];
+    // Массив с контактной информацией
+    contacts: PersonalDataItem[];
+}
 
 export const ProfilePersonalDataComponent: React.FC<ProfilePersonalDataProps> = ({
     imageSrc,
-    gender,
-    birthDate,
-    citizenship,
-    snils,
-    email,
-    phoneNumbers,
-    extraEmail,
-    address,
+    personalData,
+    contacts,
 }) => {
     return (
         <div className="profile-personal-data-component">
             <div className="profile-personal-data-component__image">
-                <img src={imageSrc} alt="" />
+                <img src={imageSrc} alt="Фото профиля" />
             </div>
             <div className="profile-personal-data-component__data-wrapper">
                 <h3>Личные данные</h3>
-                <div className="profile-personal-data-component__data">
-                    <span className="p2 profile-personal-data-component__label">Пол </span>
-                    <span className="p1 profile-personal-data-component__value">{gender}</span>
-                </div>
-                <div className="profile-personal-data-component__data">
-                    <span className="p2 profile-personal-data-component__label">Дата рождения </span>
-                    <span className="p1 profile-personal-data-component__value">{birthDate}</span>
-                </div>
-                <div className="profile-personal-data-component__data">
-                    <span className="p2 profile-personal-data-component__label">Гражданство: </span>
-                    <span className="p1 profile-personal-data-component__value">{citizenship}</span>
-                </div>
-                <div className="profile-personal-data-component__data">
-                    <span className="p2 profile-personal-data-component__label">СНИЛС: </span>
-                    <span className="p1 profile-personal-data-component__value">{snils}</span>
-                </div>
-                <div className="profile-personal-data-component__data">
-                    <span className="p2 profile-personal-data-component__label">Email: </span>
-                    <span className="p1 profile-personal-data-component__value">{email}</span>
-                </div>
+                {personalData.map((item, index) => (
+                    <div key={index} className="profile-personal-data-component__data">
+                        <span className="p2 profile-personal-data-component__label">
+                            {item.label}
+                        </span>
+                        <span className="p1 profile-personal-data-component__value">
+                            {item.value}
+                        </span>
+                    </div>
+                ))}
             </div>
             <div className="profile-personal-data-component__contacts-wrapper">
                 <h3>Контакты</h3>
-                <div className="profile-personal-data-component__data">
-                    <span className="p2 profile-personal-data-component__label">Телефон </span>
-                    <span className="p1 profile-personal-data-component__value">{phoneNumbers[0]}</span>
-                </div>
-                <div className="profile-personal-data-component__data">
-                    <span className="p2 profile-personal-data-component__label">Телефон 2 </span>
-                    <span className="p1 profile-personal-data-component__value">{phoneNumbers[1]}</span>
-                </div>
-                <div className="profile-personal-data-component__data">
-                    <span className="p2 profile-personal-data-component__label">Дополнительный E-mail: </span>
-                    <span className="p1 profile-personal-data-component__value">{extraEmail}</span>
-                </div>
-                <div className="profile-personal-data-component__data">
-                    <span className="p2 profile-personal-data-component__label">Адрес </span>
-                    <span className="p1 profile-personal-data-component__value">{address}</span>
-                </div>
+                {contacts.map((item, index) => (
+                    <div key={index} className="profile-personal-data-component__data">
+                        <span className="p2 profile-personal-data-component__label">
+                            {item.label}
+                        </span>
+                        <span className="p1 profile-personal-data-component__value">
+                            {item.value}
+                        </span>
+                    </div>
+                ))}
             </div>
         </div>
-    )
+    );
 };

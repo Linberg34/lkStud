@@ -5,25 +5,6 @@
     flex-direction: column;
     gap:24px;
 
-    @media only screen and (min-width: 599px) {
-        width: 536px;
-    }
-
-    @media only screen and (min-width: 899px) {
-        width: 322px;
-    }
-
-    @media only screen and (min-width: 1199px) {
-        width: 363px;
-    }
-
-    @media only screen and (min-width: 1535px) {
-        width: 397px;
-    }
-
-    @media only screen and (min-width: 1919px) {
-        width: 493px;
-    }
 }
 
 .profile-personal-data-component__image {
