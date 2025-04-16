@@ -1,0 +1,16 @@
+.header-component {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: fit-content;
+    max-height: 80px;
+    padding: 15px 15px;
+
+}
+
+@media (max-width: 1200px) {
+    .header-component {
+        background-color: #EFEFEF;
+    }
+}

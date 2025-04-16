@@ -7,8 +7,39 @@
     width: 100%;
     min-width: 343px;
     height: fit-content;
+    transition: width 0.3s ease;
 
 
+}
+
+@media (max-width: 599px) {
+    .profile-education-data-component {
+        width: 536px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+    .profile-education-data-component{
+        width: 458px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+    .profile-education-data-component{
+        width: 617px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1535px) {
+    .profile-education-data-component{
+        width: 815px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .profile-education-data-component{
+        width: 1007px;
+    }
 }
 
 .profile-education-data__tabs {

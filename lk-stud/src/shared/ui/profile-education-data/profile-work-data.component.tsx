@@ -41,12 +41,11 @@ export const ProfileWorkDataComponent: React.FC<ProfileWorkDataProps> = ({
 
     return (
         <div className="profile-education-data-component">
-            {/* Experience block shown only once at the top */}
             {workList[0]?.totalExperience && (
                 <div className="education-block">
                     <div
                         className="education-block__header"
-                        onClick={() => toggleOpen(-1)} // Using -1 as a special index for the experience section
+                        onClick={() => toggleOpen(-1)} 
                     >
                         <div className="p1 education-block__level">Стаж</div>
                         <div

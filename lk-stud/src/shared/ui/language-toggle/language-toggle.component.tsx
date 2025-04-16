@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./language-toggle.component.css";
 
 interface LanguageToggleProps {
@@ -10,10 +10,25 @@ export const LanguageToggleComponent: React.FC<LanguageToggleProps> = ({
 }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [selectedLanguage, setSelectedLanguage] = React.useState<"ru" | "en">("ru");
+    const menuRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+
+        };
+    }, []);
 
     const handleLanguageSelect = (language: "ru" | "en") => {
         setSelectedLanguage(language);
@@ -24,7 +39,7 @@ export const LanguageToggleComponent: React.FC<LanguageToggleProps> = ({
     };
 
     return (
-        <div className="language-toggle-component">
+        <div ref={menuRef} className="language-toggle-component">
             <div className="language-toggle-component__current" onClick={toggleMenu}>
                 <span className="language-toggle-component__name">
                     {selectedLanguage === "ru" ? "Русский" : "English"}
@@ -50,7 +65,7 @@ export const LanguageToggleComponent: React.FC<LanguageToggleProps> = ({
                         <span className="language-toggle-component__label">English</span>
                         <img src="/assets/svg/language/en-language.svg" alt="English" />
                     </div>
-                    <hr className="language-toggle-component__divider"/>
+                    <hr className="language-toggle-component__divider" />
                     <div
                         className="language-toggle-component__option"
                         onClick={() => handleLanguageSelect("ru")}

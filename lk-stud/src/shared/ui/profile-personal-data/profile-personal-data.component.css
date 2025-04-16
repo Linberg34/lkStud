@@ -3,14 +3,44 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
-    gap:24px;
-
+    gap: 24px;
 }
+
+@media (max-width: 599px) {
+    .profile-personal-data-component {
+        width: 536px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+    .profile-personal-data-component {
+        width: 322px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+    .profile-personal-data-component {
+        width: 363px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1535px) {
+    .profile-personal-data-component {
+        width: 397px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .profile-personal-data-component {
+        width: 493px;
+    }
+}
+
 
 .profile-personal-data-component__image {
     width: 100%;
     border-radius: 8px;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .profile-personal-data-component__image img {
@@ -24,7 +54,7 @@
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    gap:16px;
+    gap: 16px;
     padding: 32px;
     width: 100%;
     background-color: #F9F9F9;
@@ -34,13 +64,13 @@
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    gap:16px;
+    gap: 16px;
     padding: 32px;
     width: 100%;
     background-color: #F9F9F9;
 }
 
-.profile-personal-data-component__data{
+.profile-personal-data-component__data {
     display: flex;
     flex-direction: column;
     padding: 8px 0;
@@ -52,10 +82,10 @@
 }
 
 
-.profile-personal-data-component__label{
-    color:#666666;
+.profile-personal-data-component__label {
+    color: #666666;
 }
 
-.profile-personal-data-component__value{
-    color:#3A3A3A
+.profile-personal-data-component__value {
+    color: #3A3A3A
 }

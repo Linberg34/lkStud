@@ -1,0 +1,32 @@
+.profile-page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    width: 100%;
+}
+
+.profile-page-wrapper__content {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 0% 0 0%;
+}
+
+.profile-page-component__menu-wrapper {
+    width: 280px;
+}
+
+.profile-page-component__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 3.3% 10% 0 5%;
+
+}
+
+.profile-page-component__content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    margin-top: 30px;
+}
+
