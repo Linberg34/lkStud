@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./profile-education-data.component.css";
 
-interface EducationItem {
+export interface EducationItem {
     level: string;
     status: string;
     years: string;

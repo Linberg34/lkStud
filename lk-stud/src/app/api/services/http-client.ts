@@ -33,6 +33,13 @@ class HttpClient {
         return this.axiosInstance.put<T>(url, data, config);
     }
 
+    getBlob(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<Blob>> {
+        return this.axiosInstance.get<Blob>(url, {
+            ...config,
+            responseType: "blob",
+        });
+    }
+    
     delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
         return this.axiosInstance.delete<T>(url, config);
     }

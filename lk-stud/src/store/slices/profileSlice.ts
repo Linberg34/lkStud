@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import * as profileAPI from '../../app/api/services/profile-service'
-
 import {
     Profile as ProfileDTO,
     StudentProfile as StudentProfileDTO,
@@ -13,6 +12,7 @@ interface ProfileState {
     employee: EmployeeProfileDTO | null
     status: 'idle' | 'loading' | 'succeeded' | 'failed'
     error: string | null
+    avatarUrl: string | null 
 }
 
 const initialState: ProfileState = {
@@ -21,6 +21,7 @@ const initialState: ProfileState = {
     employee: null,
     status: 'idle',
     error: null,
+    avatarUrl: null,
 }
 
 export const fetchProfile = createAsyncThunk<ProfileDTO>(
@@ -33,7 +34,7 @@ export const fetchProfile = createAsyncThunk<ProfileDTO>(
 export const fetchStudentProfile = createAsyncThunk<StudentProfileDTO>(
     'profile/fetchStudent',
     async () => {
-        return  await profileAPI.getStudentProfile()
+        return await profileAPI.getStudentProfile()
     }
 )
 
@@ -54,6 +55,10 @@ const profileSlice = createSlice({
             state.employee = null
             state.status = 'idle'
             state.error = null
+            state.avatarUrl = null 
+        },
+        setAvatarUrl(state, action: PayloadAction<string | null>) {
+            state.avatarUrl = action.payload
         },
     },
     extraReducers: builder => {
@@ -70,7 +75,6 @@ const profileSlice = createSlice({
                 state.status = 'failed'
                 state.error = action.error.message ?? 'Не удалось загрузить профиль'
             })
-
             .addCase(fetchStudentProfile.pending, state => {
                 state.status = 'loading'
                 state.error = null
@@ -83,7 +87,6 @@ const profileSlice = createSlice({
                 state.status = 'failed'
                 state.error = action.error.message ?? 'Не удалось загрузить данные студента'
             })
-
             .addCase(fetchEmployeeProfile.pending, state => {
                 state.status = 'loading'
                 state.error = null
@@ -99,5 +102,5 @@ const profileSlice = createSlice({
     },
 })
 
-export const { clearProfile } = profileSlice.actions
+export const { clearProfile, setAvatarUrl } = profileSlice.actions
 export default profileSlice.reducer

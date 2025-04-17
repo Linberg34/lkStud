@@ -1,7 +1,7 @@
 import httpClient from "./http-client";
 import { LoginRequest, LoginResult, RefreshRequest, TokenPair } from '../models/Auth/index';
 
-const AuthUrl:string = '/auth';
+const AuthUrl:string = '/Auth';
 
 export async function login(request: LoginRequest): Promise<LoginResult> {
     const response = await httpClient.post<LoginResult>(AuthUrl+'/login', request);

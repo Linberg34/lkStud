@@ -7,7 +7,7 @@ import {
     UpdateAvatarRequest
 } from '../models/profile'
 
-const baseUrl = '/api/Profile'
+const baseUrl = '/Profile'
 
 export async function getProfile(): Promise<ProfileDTO> {
     const response = await httpClient.get<ProfileDTO>(baseUrl)

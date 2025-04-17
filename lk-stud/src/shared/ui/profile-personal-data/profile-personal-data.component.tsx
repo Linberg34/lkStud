@@ -1,7 +1,6 @@
 import React from "react";
 import "./profile-personal-data.component.css";
 
-// Определяем универсальный тип для элемента данных
 export interface PersonalDataItem {
     label: string;
     value: string;
@@ -9,9 +8,7 @@ export interface PersonalDataItem {
 
 interface ProfilePersonalDataProps {
     imageSrc: string;
-    // Массив с данными личных характеристик
     personalData: PersonalDataItem[];
-    // Массив с контактной информацией
     contacts: PersonalDataItem[];
 }
 

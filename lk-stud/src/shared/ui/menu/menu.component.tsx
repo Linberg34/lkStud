@@ -1,12 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "@mui/material";
 import "./menu.component.css";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../store/store";
 import { MenuItem } from "../menu-item/menu-item.component";
 
 export const MenuComponent = () => {
     const [isOpen, setIsOpen] = useState(false);
     const isMobile = useMediaQuery("(max-width:1200px)");
     const menuRef = useRef<HTMLDivElement>(null);
+    const profileId = useSelector((s: RootState) => s.profile.profile?.id);
+    const avatarUrl = useSelector((s: RootState) => s.profile.avatarUrl);
+    
+    
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -31,7 +37,7 @@ export const MenuComponent = () => {
                     <>
                         <div className="menu-component__avatar-wrapper">
                             <img
-                                src="/assets/imgs/login-poster.png"
+                                src={avatarUrl || ""}
                                 alt="avatar"
                                 className="menu-component__avatar"
                             />
@@ -61,7 +67,7 @@ export const MenuComponent = () => {
                 <>
                     <div className="menu-component__avatar-wrapper">
                         <img
-                            src="/assets/imgs/login-poster.png"
+                            src={avatarUrl || ""}
                             alt="avatar"
                             className="menu-component__avatar"
                         />
@@ -87,7 +93,7 @@ export const MenuComponent = () => {
                         srcBlue="/assets/svg/menu/blue/User.svg"
                         className="menu-component__profile"
                         isOpen={isOpen}
-                        link="/profile"
+                        link={profileId ? `/profile/${profileId}` : "/profile"}
                     />
                     <MenuItem
                         text="Администрирование"

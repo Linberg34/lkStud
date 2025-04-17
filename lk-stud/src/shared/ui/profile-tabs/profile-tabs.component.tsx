@@ -1,36 +1,7 @@
 import React, { useState } from "react";
-import { ProfileEducationDataComponent } from "../profile-education-data/profile-education-data.component";
-import { ProfileWorkDataComponent } from "../profile-education-data/profile-work-data.component";
+import { ProfileEducationDataComponent, EducationItem} from "../profile-education-data/profile-education-data.component";
+import { ProfileWorkDataComponent , WorkItem} from "../profile-education-data/profile-work-data.component";
 import "./profile-tabs.component.css";
-
-interface EducationItem {
-    level: string;
-    status: string;
-    years: string;
-    recordBook: string;
-    studyForm: string;
-    basis: string;
-    faculty: string;
-    direction: string;
-    profile: string;
-    course: string;
-    group: string;
-}
-
-interface WorkItem {
-    positionName: string;
-    rate: string;
-    employmentType: string;
-    workPlace: string;
-    department: string;
-    positionType: string;
-    direction?: string;
-    startDate: string;
-    endDate: string;
-    totalExperience?: string;
-    pedagogyExperience?: string;
-    currentWorkExperience?: string;
-}
 
 interface ProfileTabsProps {
     educationList: EducationItem[];

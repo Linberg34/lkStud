@@ -16,7 +16,7 @@ export const App = () => {
 				<Route path="*" element={<NotFoundPageComponent />} />
 				<Route path="/500" element={<InternalServerErrPageComponent />} />
 				<Route path="/" element={<PageWrapperComponent />}>
-					<Route path="profile" element={<ProfilePageComponent />} />
+					<Route path="profile/:id?" element={<ProfilePageComponent />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

@@ -29,6 +29,8 @@ export const LoginPageComponent: React.FC = () => {
         }
     }, [status, navigate])
 
+
+    
     return (
         <div className="login-page-component">
             <div className="login-page-component__header">

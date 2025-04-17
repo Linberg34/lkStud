@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./profile-education-data.component.css";
 
-interface WorkItem {
+export interface WorkItem {
     positionName: string;
     rate: string;
     employmentType: string;
