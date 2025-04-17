@@ -7,7 +7,6 @@
 .profile-page-wrapper__content {
     display: flex;
     flex-direction: column;
-    padding: 50px 0% 0 0%;
 }
 
 .profile-page-component__menu-wrapper {

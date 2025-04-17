@@ -1,14 +1,12 @@
-
 .menu-component {
-    height: 916px;
     position: relative;
     background-color: #F9F9F9;
     transition: all 0.3s ease;
+    z-index: 100;
 }
 
 .menu-component.open {
     width: 280px;
-    min-height: 694px;
 }
 
 .menu-component.closed {
@@ -17,19 +15,13 @@
 
 @media (max-width: 1200px) {
     .menu-component {
-        height: 100%;
         background-color: #EFEFEF;
     }
     
     .menu-component.open {
-        min-height: 694px;
-        max-height: 916px;
         background-color: #F9F9F9;
     }
     
-    .menu-component.closed {
-        height: 100%;
-    }
     
     .menu-component__avatar-wrapper,
     .menu-component__arrow {
