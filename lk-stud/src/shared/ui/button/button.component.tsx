@@ -4,7 +4,9 @@ import "./button.component.css";
 interface ButtonProps {
 	children: React.ReactNode
 	type?: "primary" | "outlined"
-	disabled?: boolean
+	disabled?: boolean,
+	onClick?: () => void
+
 }
 
 const buttonClassNameBase = "button-component";
@@ -12,7 +14,8 @@ const buttonClassNameBase = "button-component";
 export const ButtonComponent: React.FC<ButtonProps> = ({
 	children,
 	type = "primary",
-	disabled = false
+	disabled = false,
+	onClick
 }) => {
 
 	const buttonClassName = () => {
@@ -27,8 +30,10 @@ export const ButtonComponent: React.FC<ButtonProps> = ({
 
 	return (
 		<button 
+			type="button"
 			className={buttonClassName()} 
 			disabled={disabled}
+			onClick={onClick}
 		>
 			{children}
 		</button>
