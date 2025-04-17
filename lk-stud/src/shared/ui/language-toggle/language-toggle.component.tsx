@@ -1,42 +1,32 @@
-import React, { useEffect, useRef } from "react";
-import "./language-toggle.component.css";
+import React, { useEffect, useRef, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import type { RootState, AppDispatch } from "../../../store/store"
+import { setLanguage } from "../../../store/slices/languageSlice"
+import "./language-toggle.component.css"
 
-interface LanguageToggleProps {
-    onLanguageChange?: (language: "ru" | "en") => void;
-}
+export const LanguageToggleComponent: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>()
+    const selectedLanguage = useSelector((state: RootState) => state.language.selected)
 
-export const LanguageToggleComponent: React.FC<LanguageToggleProps> = ({
-    onLanguageChange,
-}) => {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [selectedLanguage, setSelectedLanguage] = React.useState<"ru" | "en">("ru");
-    const menuRef = useRef<HTMLDivElement>(null);
+    const [isOpen, setIsOpen] = useState(false)
+    const menuRef = useRef<HTMLDivElement>(null)
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+    const toggleMenu = () => setIsOpen(open => !open)
 
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
+        const handleClickOutside = (e: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+                setIsOpen(false)
             }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-
-        };
-    }, []);
-
-    const handleLanguageSelect = (language: "ru" | "en") => {
-        setSelectedLanguage(language);
-        setIsOpen(false);
-        if (onLanguageChange) {
-            onLanguageChange(language);
         }
-    };
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => document.removeEventListener("mousedown", handleClickOutside)
+    }, [])
+
+    const handleLanguageSelect = (lang: "ru" | "en") => {
+        dispatch(setLanguage(lang))
+        setIsOpen(false)
+    }
 
     return (
         <div ref={menuRef} className="language-toggle-component">
@@ -76,5 +66,5 @@ export const LanguageToggleComponent: React.FC<LanguageToggleProps> = ({
                 </div>
             )}
         </div>
-    );
-};
+    )
+}

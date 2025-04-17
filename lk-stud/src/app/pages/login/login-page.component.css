@@ -44,6 +44,7 @@
 .login-page-component__card {
 	display: flex;
 	width: 100%;
+	height: fit-content;
 	max-width: 600px;
 	flex-direction: column;
 	align-items: center;
