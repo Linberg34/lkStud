@@ -17,6 +17,9 @@ import { contactTypesMap } from "../../../shared/utils/maps/contact-types-map"
 import { employmentTypesMap } from "../../../shared/utils/maps/employment-types-map"
 import { usePageTranslations } from "../../../shared/hooks/usePageTranslations"
 
+// TODO: доделать перевод (опционально)
+
+
 export const ProfilePageComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
     const { profile, student, employee, status, error } = useSelector(
