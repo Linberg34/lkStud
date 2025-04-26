@@ -18,6 +18,7 @@ import { employmentTypesMap } from "../../../shared/utils/maps/employment-types-
 import { usePageTranslations } from "../../../shared/hooks/usePageTranslations"
 
 // TODO: доделать перевод (опционально)
+//TODO: добавить обновление аватарки и кроп
 
 
 export const ProfilePageComponent: React.FC = () => {

@@ -7,6 +7,7 @@ import { LoginPageComponent } from "./pages/login/login-page.component";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProfilePageComponent } from "./pages/profile/profile-page.component";
 import { PageWrapperComponent } from "./pages/page-wrapper/page-wrapper.component";
+import { UsefulServicesComponent } from "./pages/useful-services/useful-services.component";
 
 export const App = () => {
 	return (
@@ -18,6 +19,7 @@ export const App = () => {
 				<Route path="/" element={<PageWrapperComponent />}>
 					<Route path="profile/:id?" element={<ProfilePageComponent />} />
 				</Route>
+				<Route path="/usefulservices" element={<UsefulServicesComponent />} />
 			</Routes>
 		</BrowserRouter>
 	);

@@ -149,7 +149,7 @@ export const MenuComponent = () => {
                         srcBlue="/assets/svg/menu/blue/Links.svg"
                         className="menu-component__services"
                         isOpen={isOpen}
-                        link="/services"
+                        link="/usefulservices"
                     />
                     <MenuItem
                         text={t.events}

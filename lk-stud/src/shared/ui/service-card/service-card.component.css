@@ -1,0 +1,19 @@
+.service-card-component{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    border-radius: 8px;
+    padding: 24px;
+    gap:10px;
+    background-color: #f9f9f9;
+}
+.service-card-component__content{
+    display: flex;
+    flex-direction: column;
+    gap:16px;
+}
+.service-card-component__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
