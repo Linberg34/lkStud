@@ -15,6 +15,7 @@ import { userTypeMap } from "../../../shared/utils/maps/user-type-map"
 import { userGenderMap } from "../../../shared/utils/maps/user-gender-map"
 import { contactTypesMap } from "../../../shared/utils/maps/contact-types-map"
 import { employmentTypesMap } from "../../../shared/utils/maps/employment-types-map"
+import { usePageTranslations } from "../../../shared/hooks/usePageTranslations"
 
 export const ProfilePageComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -23,6 +24,7 @@ export const ProfilePageComponent: React.FC = () => {
     )
 
     const fileId = profile?.avatar?.id
+    const t = usePageTranslations("profile")
     const { url: avatarUrl } = useAvatarUrl(fileId)
 
     useEffect(() => {
@@ -44,11 +46,11 @@ export const ProfilePageComponent: React.FC = () => {
     if (!profile) return null
 
     const personalData = [
-        { label: "Пол", value: userGenderMap[profile.gender] || profile.gender },
-        { label: "Дата рождения", value: profile.birthDate },
-        { label: "Гражданство", value: profile.citizenship.name },
-        { label: "Адрес", value: profile.address },
-        { label: "Email", value: profile.email },
+        { label: t.gender, value: userGenderMap[profile.gender] || profile.gender },
+        { label: t.birthday, value: profile.birthDate },
+        { label: t.citizenship, value: profile.citizenship.name },
+        { label: t.address, value: profile.address },
+        { label: t.email, value: profile.email },
         { label: "Тип пользователя", value: profile.userTypes.map((type) => userTypeMap[type] || type).join(", ") },
     ]
 
@@ -99,7 +101,7 @@ export const ProfilePageComponent: React.FC = () => {
     return (
         <div className="profile-page-component">
             <div className="profile-page-component__title-name">
-                <h1 className="profile-page-component__title">Профиль</h1>
+                <h1 className="profile-page-component__title">{t.title}</h1>
                 <h2 className="profile-page-component__title-profile-name">
                     {profile.lastName} {profile.firstName} {profile.patronymic}
                 </h2>

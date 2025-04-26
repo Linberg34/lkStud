@@ -12,5 +12,6 @@ export default{
     extraPhone:"Телефон 2",
     contacts:"Контакты",
     address:"Адрес",
-    
+    education:"Образование",
+    employment:"Работа"
 }

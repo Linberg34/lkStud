@@ -5,15 +5,20 @@ import loginEn from '../locales/eng/login'
 import loginRu from '../locales/ru/login'
 import menuEn from '../locales/eng/menu'
 import menuRu from '../locales/ru/menu'
+import profileRu from '../locales/ru/profile'
+import profileEn from '../locales/eng/profile'
 
 const translations = {
     en: {
         login: loginEn,
         menu: menuEn,
+        profile:profileEn
+
     },
     ru: {
         login: loginRu,
         menu: menuRu,
+        profile:profileRu,
     },
 }
 

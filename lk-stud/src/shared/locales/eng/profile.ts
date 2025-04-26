@@ -12,5 +12,7 @@ export default{
     extraPhone:"Extra phone",
     contacts:"Contacts",
     address:"Address",
+    education:"Education",
+    employment:"Employment",
     
 }

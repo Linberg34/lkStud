@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ProfileEducationDataComponent, EducationItem } from "../profile-education-data/profile-education-data.component";
 import { ProfileWorkDataComponent, WorkItem } from "../profile-education-data/profile-work-data.component";
 import "./profile-tabs.component.css";
+import { usePageTranslations } from "../../hooks/usePageTranslations";
 
 interface ProfileTabsProps {
     educationList: EducationItem[];
@@ -16,7 +17,8 @@ export const ProfileTabsComponent: React.FC<ProfileTabsProps> = ({
     const hasWork = workList.length > 0
     const defaultTab: "education" | "work" = hasEducation ? "education" : "work"
     const [activeTab, setActiveTab] = useState<"education" | "work">(defaultTab)
-
+    const t = usePageTranslations("profile")
+    
 
     return (
         <div className="profile-education-data-component">
@@ -26,7 +28,7 @@ export const ProfileTabsComponent: React.FC<ProfileTabsProps> = ({
                         className={activeTab === "education" ? "active" : ""}
                         onClick={() => setActiveTab("education")}
                     >
-                        Образование
+                        {t.education}
                     </span>
                 )}
                 {hasWork && (
@@ -34,7 +36,7 @@ export const ProfileTabsComponent: React.FC<ProfileTabsProps> = ({
                         className={activeTab === "work" ? "active" : ""}
                         onClick={() => setActiveTab("work")}
                     >
-                        Работа
+                        {t.employment}
                     </span>
                 )}
             </div>

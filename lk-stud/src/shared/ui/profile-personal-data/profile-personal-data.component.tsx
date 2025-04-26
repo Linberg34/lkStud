@@ -1,5 +1,6 @@
 import React from "react";
 import "./profile-personal-data.component.css";
+import { usePageTranslations } from "../../hooks/usePageTranslations";
 
 export interface PersonalDataItem {
     label: string;
@@ -17,13 +18,15 @@ export const ProfilePersonalDataComponent: React.FC<ProfilePersonalDataProps> = 
     personalData,
     contacts,
 }) => {
+        const t = usePageTranslations("profile")
+    
     return (
         <div className="profile-personal-data-component">
             <div className="profile-personal-data-component__image">
                 <img src={imageSrc} />
             </div>
             <div className="profile-personal-data-component__data-wrapper">
-                <h3>Личные данные</h3>
+                <h3>{t.personalData}</h3>
                 {personalData.map((item, index) => (
                     <div key={index} className="profile-personal-data-component__data">
                         <span className="p2 profile-personal-data-component__label">
@@ -36,7 +39,7 @@ export const ProfilePersonalDataComponent: React.FC<ProfilePersonalDataProps> = 
                 ))}
             </div>
             <div className="profile-personal-data-component__contacts-wrapper">
-                <h3>Контакты</h3>
+                <h3>{t.contacts}</h3>
                 {contacts.map((item, index) => (
                     <div key={index} className="profile-personal-data-component__data">
                         <span className="p2 profile-personal-data-component__label">
