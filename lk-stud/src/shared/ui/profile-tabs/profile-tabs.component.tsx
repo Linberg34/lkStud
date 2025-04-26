@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { ProfileEducationDataComponent, EducationItem} from "../profile-education-data/profile-education-data.component";
-import { ProfileWorkDataComponent , WorkItem} from "../profile-education-data/profile-work-data.component";
+import { ProfileEducationDataComponent, EducationItem } from "../profile-education-data/profile-education-data.component";
+import { ProfileWorkDataComponent, WorkItem } from "../profile-education-data/profile-work-data.component";
 import "./profile-tabs.component.css";
 
 interface ProfileTabsProps {
@@ -12,29 +12,38 @@ export const ProfileTabsComponent: React.FC<ProfileTabsProps> = ({
     educationList,
     workList
 }) => {
-    const [activeTab, setActiveTab] = useState<"education" | "work">("education");
+    const hasEducation = educationList.length > 0
+    const hasWork = workList.length > 0
+    const defaultTab: "education" | "work" = hasEducation ? "education" : "work"
+    const [activeTab, setActiveTab] = useState<"education" | "work">(defaultTab)
+
 
     return (
         <div className="profile-education-data-component">
             <div className="profile-education-data__tabs">
-                <span 
-                    className={activeTab === "education" ? "active" : ""} 
-                    onClick={() => setActiveTab("education")}
-                >
-                    Образование
-                </span>
-                <span 
-                    className={activeTab === "work" ? "active" : ""} 
-                    onClick={() => setActiveTab("work")}
-                >
-                    Работа
-                </span>
+                {hasEducation && (
+                    <span
+                        className={activeTab === "education" ? "active" : ""}
+                        onClick={() => setActiveTab("education")}
+                    >
+                        Образование
+                    </span>
+                )}
+                {hasWork && (
+                    <span
+                        className={activeTab === "work" ? "active" : ""}
+                        onClick={() => setActiveTab("work")}
+                    >
+                        Работа
+                    </span>
+                )}
             </div>
-            
+
+
             {activeTab === "education" && (
                 <ProfileEducationDataComponent educationList={educationList} />
             )}
-            
+
             {activeTab === "work" && (
                 <ProfileWorkDataComponent workList={workList} />
             )}

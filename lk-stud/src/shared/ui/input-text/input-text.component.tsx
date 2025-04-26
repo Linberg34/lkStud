@@ -60,7 +60,7 @@ export const InputTextComponent: React.FC<InputTextProps> = ({
 						onClick={onClickLeftIcon}
 						disabled={disabled}
 					>
-						<img src={leftIconSrc} alt="icon"/>
+						<img src={leftIconSrc} />
 					</button>}
 					<input 
 						className="input-text-component__input" 
@@ -76,7 +76,7 @@ export const InputTextComponent: React.FC<InputTextProps> = ({
 						onClick={onClickRightIcon}
 						disabled={disabled}
 					>
-						<img src={rightIconSrc} alt="icon"/>
+						<img src={rightIconSrc} />
 					</button>}
 				</span>
 			</label>

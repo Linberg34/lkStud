@@ -20,4 +20,5 @@ export const refresh = (data: RefreshRequest): Promise<TokenPair> => {
 export async function logout() { 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+    
 }

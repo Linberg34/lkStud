@@ -53,7 +53,7 @@ export const ProfileWorkDataComponent: React.FC<ProfileWorkDataProps> = ({
                         >
                             <img
                                 src="/assets/svg/Arrow/red/Chevron_Up.svg"
-                                alt="Toggle details"
+                                
                             />
                         </div>
                     </div>
@@ -93,7 +93,7 @@ export const ProfileWorkDataComponent: React.FC<ProfileWorkDataProps> = ({
                         >
                             <img
                                 src="/assets/svg/Arrow/red/Chevron_Up.svg"
-                                alt="Toggle details"
+                                
                             />
                         </div>
                     </div>

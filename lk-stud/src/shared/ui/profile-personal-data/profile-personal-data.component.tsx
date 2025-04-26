@@ -20,7 +20,7 @@ export const ProfilePersonalDataComponent: React.FC<ProfilePersonalDataProps> = 
     return (
         <div className="profile-personal-data-component">
             <div className="profile-personal-data-component__image">
-                <img src={imageSrc} alt="Фото профиля" />
+                <img src={imageSrc} />
             </div>
             <div className="profile-personal-data-component__data-wrapper">
                 <h3>Личные данные</h3>

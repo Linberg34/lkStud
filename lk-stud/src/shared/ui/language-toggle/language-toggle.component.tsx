@@ -42,7 +42,7 @@ export const LanguageToggleComponent: React.FC = () => {
                     className={`language-toggle-component__arrow ${isOpen ? "language-toggle-component__arrow--open" : ""
                         }`}
                 >
-                    <img src="/assets/svg/Arrow/black/Caret_Down_MD.svg" alt="Toggle arrow" />
+                    <img src="/assets/svg/Arrow/black/Caret_Down_MD.svg"  />
                 </div>
             </div>
 
@@ -53,7 +53,7 @@ export const LanguageToggleComponent: React.FC = () => {
                         onClick={() => handleLanguageSelect("en")}
                     >
                         <span className="language-toggle-component__label">English</span>
-                        <img src="/assets/svg/language/en-language.svg" alt="English" />
+                        <img src="/assets/svg/language/en-language.svg" />
                     </div>
                     <hr className="language-toggle-component__divider" />
                     <div
@@ -61,7 +61,7 @@ export const LanguageToggleComponent: React.FC = () => {
                         onClick={() => handleLanguageSelect("ru")}
                     >
                         <span className="language-toggle-component__label">Русский</span>
-                        <img src="/assets/svg/language/ru-language.svg" alt="Russian" />
+                        <img src="/assets/svg/language/ru-language.svg"  />
                     </div>
                 </div>
             )}

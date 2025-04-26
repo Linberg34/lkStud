@@ -48,7 +48,6 @@ export const ProfileEducationDataComponent: React.FC<ProfileEducationDataProps> 
                         >
                             <img
                                 src="/assets/svg/Arrow/red/Chevron_Up.svg"
-                                alt="Toggle details"
                             />
                         </div>
                     </div>

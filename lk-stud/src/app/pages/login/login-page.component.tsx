@@ -9,11 +9,14 @@ import { ButtonComponent } from "../../../shared/ui/button/button.component"
 import { SwitchComponent } from "../../../shared/ui/switch/switch.component"
 import { LanguageToggleComponent } from "../../../shared/ui/language-toggle/language-toggle.component"
 import "./login-page.component.css"
+import { usePageTranslations } from "../../../shared/hooks/usePageTranslations"
 
 export const LoginPageComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
     const { status, error } = useSelector((s: RootState) => s.auth)
+
+    const t = usePageTranslations("login");
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -40,10 +43,10 @@ export const LoginPageComponent: React.FC = () => {
                 <img
                     className="login-page-component__poster"
                     src="/assets/imgs/login-poster.png"
-                    alt="Poster"
+                    
                 />
                 <div className="login-page-component__card">
-                    <h1>Вход в аккаунт</h1>
+                    <h1>{t.title}</h1>
 
                     {error && (
                         <div className="login-page-component__error">
@@ -53,13 +56,13 @@ export const LoginPageComponent: React.FC = () => {
 
                     <div className="login-page-component__fields">
                         <InputTextComponent
-                            label="Электронная почта"
+                            label={t.emailLabel}
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                             placeholder="example@mail.com"
                         />
                         <InputTextComponent
-                            label="Пароль"
+                            label={t.passwordLabel}
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                             placeholder="**********"
@@ -73,14 +76,14 @@ export const LoginPageComponent: React.FC = () => {
                                 onChange={setRememberMe}
                             />
                             <span className="login-page-component__label">
-                                Запомнить меня
+                                {t.rememberMe}
                             </span>
                         </div>
                         <ButtonComponent
                             onClick={handleLoginClick}
                             disabled={status === "loading"}
                         >
-                            ВОЙТИ
+                            {t.loginButton}
                         </ButtonComponent>
                     </div>
                 </div>
