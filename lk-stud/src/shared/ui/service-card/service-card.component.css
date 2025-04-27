@@ -17,3 +17,15 @@
     justify-content: space-between;
     align-items: center;
 }
+.service-card-component__body{
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    gap: 16px;
+}
+
+.service-card-component__body__image{
+    width: 175px;
+    height: 75px;
+    background-color: #e0e0e0;
+}

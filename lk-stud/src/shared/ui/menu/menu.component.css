@@ -13,7 +13,7 @@
     width: 118px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1201px) {
     .menu-component {
         background-color: #EFEFEF;
     }

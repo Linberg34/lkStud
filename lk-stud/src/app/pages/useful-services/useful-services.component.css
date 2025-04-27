@@ -1,5 +1,28 @@
 .useful-services-component {
-    width: 100vh;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
+    width: 100%;
+}
+
+.useful-services-component__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 3.3% 10% 0 5%;
+
+}
+
+.useful-services-component__content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 1000px;
+    width: 100%;
+}
+
+@media (max-width: 1201px) {
+    .useful-services-component>.menu-component {
+        display: none;
+    }
 }

@@ -1,4 +1,4 @@
-export interface Citizenship {
+export interface Country {
     id: string
     name: string
     code: string

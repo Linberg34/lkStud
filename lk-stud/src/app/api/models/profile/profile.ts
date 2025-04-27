@@ -1,5 +1,5 @@
 import { Avatar } from './avatar'
-import { Citizenship } from './citizenship'
+import { Country } from './country'
 import { Contact } from './contact'
 
 export type Gender = 'Male' | 'Female' | 'NotDefined' | string
@@ -14,7 +14,7 @@ export interface Profile {
     birthDate: string      
     gender: Gender
     avatar: Avatar
-    citizenship: Citizenship
+    citizenship: Country
     address: string
     contacts: Contact[]
     userTypes: UserType[]

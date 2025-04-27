@@ -13,7 +13,7 @@ export const MenuComponent = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [showLogout, setShowLogout] = useState(false);
     const navigate = useNavigate();
-    const isMobile = useMediaQuery("(max-width:1200px)");
+    const isMobile = useMediaQuery("(max-width:1201px)");
     const menuRef = useRef<HTMLDivElement>(null);
     const profileId = useSelector((s: RootState) => s.profile.profile?.id);
     const avatarUrl = useSelector((s: RootState) => s.profile.avatarUrl);
