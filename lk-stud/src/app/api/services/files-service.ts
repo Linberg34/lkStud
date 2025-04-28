@@ -11,16 +11,18 @@ export async function getFileBlob(fileId: string): Promise<Blob> {
 }
 
 export async function uploadFile(file: File): Promise<FileResultDto> {
-    const blob = await file.arrayBuffer()
+    const form = new FormData();
+    form.append("file", file);
+    console.log("FormData entries:", Array.from(form.entries()));
     const response = await httpClient.post<FileResultDto>(
         FilesUrl,
-        blob,
+        form,
         {
             headers: {
-                "Content-Type": file.type || "application/octet-stream",
                 Accept: "application/json",
+                "Content-Type": "multipart/form-data"
             },
         }
-    )
+    );
     return response.data
 }

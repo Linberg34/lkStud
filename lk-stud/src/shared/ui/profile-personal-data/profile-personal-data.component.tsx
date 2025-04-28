@@ -11,19 +11,25 @@ interface ProfilePersonalDataProps {
     imageSrc: string;
     personalData: PersonalDataItem[];
     contacts: PersonalDataItem[];
+    onAvatarClick?: () => void;
 }
 
 export const ProfilePersonalDataComponent: React.FC<ProfilePersonalDataProps> = ({
     imageSrc,
     personalData,
     contacts,
+    onAvatarClick,
 }) => {
-        const t = usePageTranslations("profile")
-    
+    const t = usePageTranslations("profile")
+
     return (
         <div className="profile-personal-data-component">
             <div className="profile-personal-data-component__image">
-                <img src={imageSrc} />
+                <img
+                    src={imageSrc}
+                    onClick={onAvatarClick}
+                    style={{ cursor: onAvatarClick ? "pointer" : undefined }}
+                />
             </div>
             <div className="profile-personal-data-component__data-wrapper">
                 <h3>{t.personalData}</h3>

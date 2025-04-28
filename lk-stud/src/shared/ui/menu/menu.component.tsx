@@ -1,15 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "@mui/material";
 import "./menu.component.css";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../../store/store";
 import { MenuItem } from "../menu-item/menu-item.component";
 import { logout } from "../../../app/api/services/auth-service";
 import { useNavigate } from "react-router-dom";
 import { usePageTranslations } from "../../hooks/usePageTranslations";
+import { fetchProfile } from "../../../store/slices/profileSlice";
 
 
 export const MenuComponent = () => {
+    const dispatch = useDispatch<AppDispatch>();
     const [isOpen, setIsOpen] = useState(false);
     const [showLogout, setShowLogout] = useState(false);
     const navigate = useNavigate();
@@ -23,6 +25,12 @@ export const MenuComponent = () => {
         logout();
         navigate("/login");
     }
+
+
+
+    useEffect(() => {
+        dispatch(fetchProfile());
+    }, [dispatch]);
 
     const handleAvatarClick = () => {
         setShowLogout(prev => !prev);

@@ -19,13 +19,10 @@ export async function getStudentProfile(): Promise<StudentProfileDTO> {
     return response.data
 }
 
-
 export async function getEmployeeProfile(): Promise<EmployeeProfileDTO> {
     const response = await httpClient.get<EmployeeProfileDTO>(`${baseUrl}/employee`)
     return response.data
 }
-
-
 
 export async function updateAvatar(request: UpdateAvatarRequest): Promise<void> {
     await httpClient.put(`${baseUrl}/avatar`, request)

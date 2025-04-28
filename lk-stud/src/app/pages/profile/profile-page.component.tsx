@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Outlet } from "react-router-dom"
 import "./profile-page.component.css"
@@ -16,8 +16,11 @@ import { userGenderMap } from "../../../shared/utils/maps/user-gender-map"
 import { contactTypesMap } from "../../../shared/utils/maps/contact-types-map"
 import { employmentTypesMap } from "../../../shared/utils/maps/employment-types-map"
 import { usePageTranslations } from "../../../shared/hooks/usePageTranslations"
+import Cropper, { Area } from "react-easy-crop"
+import { uploadFile } from "../../api/services/files-service"
+import { getCroppedImg } from "../../../shared/utils/getCropImage"
+import { updateAvatar } from "../../api/services/profile-service"
 
-// TODO: доделать перевод (опционально)
 //TODO: добавить обновление аватарки и кроп
 
 
@@ -27,10 +30,17 @@ export const ProfilePageComponent: React.FC = () => {
         (s: RootState) => s.profile
     )
 
+    const fileInputRef = useRef<HTMLInputElement>(null)
+    const [src, setSrc] = useState<string | null>(null)
+    const [crop, setCrop] = useState({ x: 0, y: 0 })
+    const [zoom, setZoom] = useState(1)
+    const [croppedPixels, setCroppedPixels] = useState<Area | null>(null)
+    const [showCropper, setShowCropper] = useState(false)
+
     const fileId = profile?.avatar?.id
     const t = usePageTranslations("profile")
     const { url: avatarUrl } = useAvatarUrl(fileId)
-    
+
     useEffect(() => {
         dispatch(fetchProfile())
     }, [dispatch])
@@ -44,6 +54,24 @@ export const ProfilePageComponent: React.FC = () => {
         }
     }, [dispatch, profile])
 
+
+    const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const f = e.target.files?.[0]
+        if (!f) return
+        setSrc(URL.createObjectURL(f))
+        setShowCropper(true)
+    }
+
+    const onSaveCropped = async () => {
+        if (!src || !croppedPixels) return
+        const blob = await getCroppedImg(src, croppedPixels)
+        console.log("Blob size:", blob.size);
+        const file = new File([blob], "avatar.jpg", { type: "image/jpeg" })
+        const result = await uploadFile(file)
+        await updateAvatar({ fileId: result.id })
+        dispatch(fetchProfile())
+        setShowCropper(false)
+    }
 
     if (status === "loading") return <div>Загрузка профиля…</div>
     if (error) return <div className="error">Ошибка: {error}</div>
@@ -114,8 +142,17 @@ export const ProfilePageComponent: React.FC = () => {
             <div className="profile-page-component__all-content-wrapper">
                 <ProfilePersonalDataComponent
                     imageSrc={avatarUrl || ""}
+                    onAvatarClick={() => fileInputRef.current?.click()}
                     personalData={personalData}
                     contacts={contacts}
+                />
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    style={{ display: "none" }}
+                    onChange={onSelectFile}
                 />
 
                 <div className="profile-page-component__main">
@@ -130,7 +167,28 @@ export const ProfilePageComponent: React.FC = () => {
                 </div>
             </div>
 
+            {showCropper && src && (
+                <div className="cropper-overlay">
+                    <div className="cropper-container">
+                        <Cropper
+                            image={src}
+                            crop={crop}
+                            zoom={zoom}
+                            aspect={1}
+                            onCropChange={setCrop}
+                            onCropComplete={(_, pixels) => setCroppedPixels(pixels)}
+                            onZoomChange={setZoom}
+                        />
+                        <div className="cropper-controls">
+                            <button onClick={onSaveCropped}>Сохранить</button>
+                            <button onClick={() => setShowCropper(false)}>Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <Outlet />
         </div>
     )
+
 }
