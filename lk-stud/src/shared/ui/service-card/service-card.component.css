@@ -1,6 +1,5 @@
 .service-card-component {
     width: 100%;
-    height: fit-content;
     display: flex;
     border-radius: 8px;
     padding: 24px;
@@ -10,41 +9,33 @@
 
 .service-card-component__content {
     display: flex;
-    width: 100%;
     flex-direction: column;
+    width: 100%;
     gap: 16px;
 }
 
-
 .service-card-component__header {
     display: flex;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
 }
 
-.service-card-component__header>.button-component {
-    width: fit-content;
-    height: 32px;
-    padding: 0 16px;
-
-    border-radius: 8px;
-
-    .button-component__text {
-        font-family: "Roboto", sans-serif;
-        text-transform: none;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 20px;
-    }
+.service-card-component__title {
+    margin: 0;
 }
 
 .service-card-component__body {
     display: flex;
-    flex-direction: row;
     align-items: center;
     width: 100%;
     gap: 16px;
+}
+
+.service-card-component__body__img {
+    width: 175px;
+    height: 75px;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
 .service-card-component__body__img__img {
@@ -54,17 +45,59 @@
     display: block;
 }
 
-
-.service-card-component__body__img {
-    width: 175px;
-    height: 75px;
-    flex-shrink: 0;
-    overflow: hidden;
-}
-
 .service-card-component__body__text__wrapper {
     display: flex;
     flex-direction: column;
     gap: 16px;
     width: 100%;
+}
+
+.service-card-component__body__subtext__title {
+    color:#666666;
+}
+
+.service-card-component__content>.button-component {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .service-card-component__header>.button-component {
+        display: none;
+    }
+
+    .service-card-component__content>.button-component {
+        display: inline-flex;
+        margin-top: 8px;
+    }
+
+    .service-card-component__body__img {
+        width: 100%;
+        height: 70px;
+    }
+}
+
+@media (min-width: 601px) {
+    .service-card-component__header>.button-component {
+        display: inline-flex;
+    }
+
+    .service-card-component__content>.button-component {
+        display: none;
+        width: 100%;
+    }
+}
+
+.service-card-component__header>.button-component,
+.service-card-component__content>.button-component {
+    height: 32px;
+    padding: 0 16px;
+    border-radius: 8px;
+}
+
+.button-component__text {
+    font-family: "Roboto", sans-serif;
+    text-transform: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
 }
