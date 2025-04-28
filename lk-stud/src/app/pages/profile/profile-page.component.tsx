@@ -30,7 +30,7 @@ export const ProfilePageComponent: React.FC = () => {
     const fileId = profile?.avatar?.id
     const t = usePageTranslations("profile")
     const { url: avatarUrl } = useAvatarUrl(fileId)
-
+    
     useEffect(() => {
         dispatch(fetchProfile())
     }, [dispatch])

@@ -1,39 +1,79 @@
-import React from "react"
+import React, { useState, useEffect, useMemo } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { HeaderComponent } from "../../../shared/ui/header/header.component"
 import { MenuComponent } from "../../../shared/ui/menu/menu.component"
 import "./useful-services.component.css"
-import { UsefulServiceDtoPagedListWithMetadata } from "../../api/models/useful-services"
-import { useState, useEffect } from "react"
+import {
+    UsefulServiceDtoPagedListWithMetadata,
+    UsefulServiceCategory,
+} from "../../api/models/useful-services"
 import { getUsefulServices } from "../../api/services/usefulService-service"
 import { ServiceCard } from "../../../shared/ui/service-card/service-card.component"
-import { Pagination } from "@mui/material"
+import { AppDispatch, RootState } from "../../../store/store"
+import {
+    fetchProfile,
+    fetchStudentProfile,
+    fetchEmployeeProfile,
+} from "../../../store/slices/profileSlice"
+import { PaginationComponent } from "../../../shared/ui/pagination/pagination.component"
+
+type CategoryKey = keyof UsefulServiceCategory
 
 export const UsefulServicesComponent: React.FC = () => {
-    const [i, setI] = useState<UsefulServiceDtoPagedListWithMetadata["results"]>([]);
-    const [meta, setMeta] = useState<UsefulServiceDtoPagedListWithMetadata["metaData"] | null>(null);
-    const [page, setPage] = useState(1);
-    const pageSize = 3;
+    const dispatch = useDispatch<AppDispatch>()
+    const { profile, status: profileStatus } = useSelector(
+        (st: RootState) => st.profile
+    )
+
+    const [items, setItems] = useState<
+        UsefulServiceDtoPagedListWithMetadata["results"]
+    >([])
+    const [meta, setMeta] =
+        useState<UsefulServiceDtoPagedListWithMetadata["metaData"] | null>(null)
+    const [page, setPage] = useState(1)
+    const pageSize = 3
 
     useEffect(() => {
-        async function load() {
-            try {
-                const response = await getUsefulServices({ page, pageSize });
-                setI(response.results);
-                setMeta(response.metaData);
-            } catch (err) {
-                console.error("Не удалось загрузить сервисы", err);
-            }
+        dispatch(fetchProfile())
+    }, [dispatch])
+
+    useEffect(() => {
+        if (profile?.userTypes.includes("Student")) {
+            dispatch(fetchStudentProfile())
         }
-        load();
-    }, [page]);
+        if (profile?.userTypes.includes("Employee")) {
+            dispatch(fetchEmployeeProfile())
+        }
+    }, [dispatch, profile])
 
-    const [isWide, setIsWide] = useState(window.innerWidth > 1200);
+    const categories = useMemo<CategoryKey[]>(() => {
+        const cats: CategoryKey[] = ["ForAll"]
+        if (profile?.userTypes.includes("Student")) cats.push("Students")
+        if (profile?.userTypes.includes("Employee")) cats.push("Employees")
+        return cats
+    }, [profile?.userTypes])
+
+
     useEffect(() => {
-        const onResize = () => setIsWide(window.innerWidth > 1200);
-        window.addEventListener("resize", onResize);
-        return () => window.removeEventListener("resize", onResize);
-    }, []);
+        if (profileStatus !== "succeeded") return
+        getUsefulServices({
+            page,
+            pageSize,
+            categories: categories as unknown as UsefulServiceCategory[],
+        })
+            .then((res) => {
+                setItems(res.results)
+                setMeta(res.metaData)
+            })
+            .catch((err) => console.error(err))
+    }, [page, pageSize, profileStatus, categories])
 
+    const [isWide, setIsWide] = useState(window.innerWidth > 1200)
+    useEffect(() => {
+        const onResize = () => setIsWide(window.innerWidth > 1200)
+        window.addEventListener("resize", onResize)
+        return () => window.removeEventListener("resize", onResize)
+    }, [])
 
     return (
         <div className="useful-services-component">
@@ -43,33 +83,31 @@ export const UsefulServicesComponent: React.FC = () => {
                 <p className="p2 useful-services-component__navigation">
                     Главная / Полезные сервисы
                 </p>
-
                 <div className="useful-services-component__content">
-                    {i.map((s) => (
+                    {items.map((s) => (
                         <ServiceCard
-                            category={s.category}
                             key={s.id}
                             title={s.title}
                             description={s.description!}
                             link={s.link!}
                             termsOfDisсtribution={s.termsOfDisctribution!}
-                            logoId={s.logo.id}
+                            logoId={s.logo?.id}
                         />
                     ))}
                 </div>
-
                 {meta && meta.pageCount > 1 && (
                     <div className="useful-services-component__pagination">
-                        <Pagination
+                        <PaginationComponent
                             count={meta.pageCount}
                             page={page}
-                            onChange={(_, newPage) => setPage(newPage)}
+                            onChange={(newPage) => setPage(newPage)}
                             showFirstButton
                             showLastButton
+                            siblingCount={1}
                         />
                     </div>
                 )}
             </div>
         </div>
-    );
+    )
 }

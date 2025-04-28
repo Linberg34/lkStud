@@ -1,4 +1,3 @@
-
 .button-component {
 	--background-color: rgba(55, 95, 255, 1);
 	--background-hover-color: rgba(0, 47, 234, 1);
@@ -24,26 +23,28 @@
 	--text-active-color: rgba(32, 76, 255, 1);
 	--text-disabled-color: rgba(151, 169, 241, 1);
 	color: var(--text-color);
-	
+
 	height: 49px;
 	text-align: center;
 	align-items: center;
 	border-radius: 8px;
 	padding: 0 42px;
-	transition: 
-		background-color 300ms ease-in-out, 
-		color 300ms ease-in-out, 
-		border-color 300ms ease-in-out, 
+	transition:
+		background-color 300ms ease-in-out,
+		color 300ms ease-in-out,
+		border-color 300ms ease-in-out,
 		border-width 300ms ease-in-out;
 	box-sizing: border-box;
 	cursor: pointer;
 }
+
 .button-component:hover {
 	background-color: var(--background-hover-color);
 	border-width: var(--border-hover-size);
 	border-color: var(--border-hover-color);
 	color: var(--text-hover-color);
 }
+
 .button-component:active {
 	background-color: var(--background-active-color);
 	border-width: var(--border-active-size);
@@ -102,4 +103,18 @@
 	border: var(--border-size) solid var(--border-disabled-color);
 	color: var(--text-disabled-color);
 	cursor: default;
+}
+
+.button-component__content{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	gap: 8px;
+}
+
+.button-component__icon {
+	height: 24px;
+	width: 24px;
 }

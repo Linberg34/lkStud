@@ -1,31 +1,70 @@
-.service-card-component{
+.service-card-component {
     width: 100%;
     height: fit-content;
     display: flex;
     border-radius: 8px;
     padding: 24px;
-    gap:10px;
+    gap: 10px;
     background-color: #f9f9f9;
 }
-.service-card-component__content{
+
+.service-card-component__content {
     display: flex;
+    width: 100%;
     flex-direction: column;
-    gap:16px;
-}
-.service-card-component__header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.service-card-component__body{
-    display: flex;
-    flex-direction:row;
-    align-items: center;
     gap: 16px;
 }
 
-.service-card-component__body__image{
+
+.service-card-component__header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.service-card-component__header>.button-component {
+    width: fit-content;
+    height: 32px;
+    padding: 0 16px;
+
+    border-radius: 8px;
+
+    .button-component__text {
+        font-family: "Roboto", sans-serif;
+        text-transform: none;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+}
+
+.service-card-component__body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+}
+
+.service-card-component__body__img__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+.service-card-component__body__img {
     width: 175px;
     height: 75px;
-    background-color: #e0e0e0;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.service-card-component__body__text__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
 }

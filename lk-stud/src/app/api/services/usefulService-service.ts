@@ -4,19 +4,30 @@ import {
     UsefulServiceCategory,
     UsefulServiceEditCreateDto
 } from "../models/useful-services"
-
+import qs from "qs"
 const baseUrl = "/UsefulServices"
 
-export async function getUsefulServices(
-    params?: {
-        categories?: UsefulServiceCategory[]
-        page?: number
-        pageSize?: number
-    }
-): Promise<UsefulServiceDtoPagedListWithMetadata> {
+
+export async function getUsefulServices(params?: {
+    categories?: UsefulServiceCategory[]
+    page?: number
+    pageSize?: number
+}): Promise<UsefulServiceDtoPagedListWithMetadata> {
+    const {
+        categories = [],
+        page = 1,
+        pageSize = 20,
+    } = params || {}
+
+    const query = { page, pageSize, categories }
+
     const response = await httpClient.get<UsefulServiceDtoPagedListWithMetadata>(
         baseUrl,
-        { params }
+        {
+            params: query,
+            paramsSerializer: params =>
+                qs.stringify(params, { arrayFormat: 'repeat' })
+        }
     )
     return response.data
 }

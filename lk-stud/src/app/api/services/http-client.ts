@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 class HttpClient {
     private axiosInstance: AxiosInstance;
@@ -20,8 +20,8 @@ class HttpClient {
         });
 
         this.axiosInstance.interceptors.response.use(
-            response => response,
-            async error => {
+            (response) => response,
+            async (error) => {
                 const originalRequest = error.config;
 
                 if (
@@ -33,10 +33,11 @@ class HttpClient {
 
                     try {
                         const refreshToken = localStorage.getItem('refreshToken');
-                        const refreshResponse = await axios.post<{ accessToken: string; refreshToken: string }>(
-                            'https://lk-stud.api.kreosoft.space/api/auth/refresh',
-                            { refreshToken }
-                        );
+                        const refreshResponse = await axios.post<{
+                            loginSucceeded: boolean;
+                            accessToken: string;
+                            refreshToken: string;
+                        }>('https://lk-stud.api.kreosoft.space/api/auth/refresh', { refreshToken });
 
                         const { accessToken, refreshToken: newRefreshToken } = refreshResponse.data;
 
@@ -46,6 +47,7 @@ class HttpClient {
                         originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
                         return this.axiosInstance(originalRequest);
                     } catch (refreshError) {
+                        console.error('Refresh token failed:', refreshError);
                         localStorage.removeItem('accessToken');
                         localStorage.removeItem('refreshToken');
                         window.location.href = '/login';
@@ -56,6 +58,33 @@ class HttpClient {
                 return Promise.reject(error);
             }
         );
+
+        this.startTokenRefresh();
+    }
+
+    private startTokenRefresh() {
+        setInterval(async () => {
+            const refreshToken = localStorage.getItem('refreshToken');
+            if (refreshToken) {
+                try {
+                    const refreshResponse = await axios.post<{
+                        loginSucceeded: boolean;
+                        accessToken: string;
+                        refreshToken: string;
+                    }>('https://lk-stud.api.kreosoft.space/api/auth/refresh', { refreshToken });
+
+                    const { accessToken, refreshToken: newRefreshToken } = refreshResponse.data;
+
+                    localStorage.setItem('accessToken', accessToken);
+                    localStorage.setItem('refreshToken', newRefreshToken);
+                } catch (error) {
+                    console.error('Proactive refresh failed:', error);
+                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('refreshToken');
+                    window.location.href = '/login';
+                }
+            }
+        }, 45000); 
     }
 
     get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
@@ -77,7 +106,7 @@ class HttpClient {
     getBlob(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<Blob>> {
         return this.axiosInstance.get<Blob>(url, {
             ...config,
-            responseType: "blob",
+            responseType: 'blob',
         });
     }
 }

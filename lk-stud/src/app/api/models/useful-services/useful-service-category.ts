@@ -1,5 +1,5 @@
-export enum UsefulServiceCategory {
-    ForAll,
-    Students, 
-    Employees
+export interface UsefulServiceCategory {
+    ForAll:"ForAll",
+    Students:"Students", 
+    Employees:"Employees"
 }

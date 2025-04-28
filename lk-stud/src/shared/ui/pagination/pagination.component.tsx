@@ -4,67 +4,85 @@ import "./pagination.component.css";
 const DOTS = "...";
 
 interface PaginationProps {
-    currentPage: number;
-    totalPages: number;
-    onPageChange: (page: number) => void;
-    siblingCount?: number; 
+    count: number; 
+    page: number; 
+    onChange: (page: number) => void;
+    siblingCount?: number;
+    showFirstButton?: boolean;
+    showLastButton?: boolean;
 }
 
-export const Pagination: React.FC<PaginationProps> = ({
-    currentPage,
-    totalPages,
-    onPageChange,
+export const PaginationComponent: React.FC<PaginationProps> = ({
+    count,
+    page,
+    onChange,
     siblingCount = 1,
+    showFirstButton = false,
+    showLastButton = false,
 }) => {
     const paginationRange = React.useMemo<(number | string)[]>(() => {
         const totalPageNumbers = siblingCount * 2 + 5;
-        if (totalPages <= totalPageNumbers) {
-            return Array.from({ length: totalPages }, (_, i) => i + 1);
+        if (count <= totalPageNumbers) {
+            return Array.from({ length: count }, (_, i) => i + 1);
         }
 
-        const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
-        const rightSiblingIndex = Math.min(currentPage + siblingCount, totalPages);
+        const leftSiblingIndex = Math.max(page - siblingCount, 1);
+        const rightSiblingIndex = Math.min(page + siblingCount, count);
 
         const showLeftDots = leftSiblingIndex > 2;
-        const showRightDots = rightSiblingIndex < totalPages - 1;
+        const showRightDots = rightSiblingIndex < count - 1;
 
         const pages: (number | string)[] = [];
 
-        pages.push(1);
+        if (showFirstButton || !showLeftDots) {
+            pages.push(1);
+        }
 
         if (showLeftDots) {
             pages.push(DOTS);
         }
 
-        for (let page = leftSiblingIndex; page <= rightSiblingIndex; page++) {
-            pages.push(page);
+        for (let p = leftSiblingIndex; p <= rightSiblingIndex; p++) {
+            pages.push(p);
         }
 
         if (showRightDots) {
             pages.push(DOTS);
         }
 
-        pages.push(totalPages);
+        if (showLastButton || !showRightDots) {
+            pages.push(count);
+        }
 
         return pages;
-    }, [currentPage, totalPages, siblingCount]);
+    }, [page, count, siblingCount, showFirstButton, showLastButton]);
 
-    if (totalPages < 2) {
+    if (count < 2) {
         return null;
     }
 
     return (
         <nav className="pagination">
+            {showFirstButton && (
+                <button
+                    className="pagination__button"
+                    onClick={() => onChange(1)}
+                    disabled={page === 1}
+                >
+                    &laquo;
+                </button>
+            )}
+
             <button
                 className="pagination__button"
-                onClick={() => onPageChange(currentPage - 1)}
-                disabled={currentPage === 1}
+                onClick={() => onChange(page - 1)}
+                disabled={page === 1}
             >
                 &lt;
             </button>
 
-            {paginationRange.map((page, idx) => {
-                if (page === DOTS) {
+            {paginationRange.map((p, idx) => {
+                if (p === DOTS) {
                     return (
                         <span key={`dots-${idx}`} className="pagination__dots">
                             {DOTS}
@@ -74,26 +92,36 @@ export const Pagination: React.FC<PaginationProps> = ({
 
                 return (
                     <button
-                        key={page}
+                        key={p}
                         className={
-                            page === currentPage
+                            p === page
                                 ? "pagination__button pagination__button--active"
                                 : "pagination__button"
                         }
-                        onClick={() => onPageChange(page as number)}
+                        onClick={() => onChange(p as number)}
                     >
-                        {page}
+                        {p}
                     </button>
                 );
             })}
 
             <button
                 className="pagination__button"
-                onClick={() => onPageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
+                onClick={() => onChange(page + 1)}
+                disabled={page === count}
             >
                 &gt;
             </button>
+
+            {showLastButton && (
+                <button
+                    className="pagination__button"
+                    onClick={() => onChange(count)}
+                    disabled={page === count}
+                >
+                    &raquo;
+                </button>
+            )}
         </nav>
     );
 };
