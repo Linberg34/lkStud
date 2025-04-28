@@ -4,8 +4,8 @@ import "./pagination.component.css";
 const DOTS = "...";
 
 interface PaginationProps {
-    count: number; 
-    page: number; 
+    count: number;
+    page: number;
     onChange: (page: number) => void;
     siblingCount?: number;
     showFirstButton?: boolean;
@@ -63,22 +63,13 @@ export const PaginationComponent: React.FC<PaginationProps> = ({
 
     return (
         <nav className="pagination">
-            {showFirstButton && (
-                <button
-                    className="pagination__button"
-                    onClick={() => onChange(1)}
-                    disabled={page === 1}
-                >
-                    &laquo;
-                </button>
-            )}
 
             <button
                 className="pagination__button"
                 onClick={() => onChange(page - 1)}
                 disabled={page === 1}
             >
-                &lt;
+                <img src="/assets/svg/Arrow/black/Chevron_Left_MD.svg" />
             </button>
 
             {paginationRange.map((p, idx) => {
@@ -110,18 +101,9 @@ export const PaginationComponent: React.FC<PaginationProps> = ({
                 onClick={() => onChange(page + 1)}
                 disabled={page === count}
             >
-                &gt;
+                <img src="/assets/svg/Arrow/black/Chevron_Right_MD.svg" />
             </button>
 
-            {showLastButton && (
-                <button
-                    className="pagination__button"
-                    onClick={() => onChange(count)}
-                    disabled={page === count}
-                >
-                    &raquo;
-                </button>
-            )}
         </nav>
     );
 };

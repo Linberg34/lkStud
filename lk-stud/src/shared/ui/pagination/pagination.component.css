@@ -1,16 +1,17 @@
 .pagination {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 8px;
-    padding: 8px 0;
+    gap: 16px;
 }
 
 .pagination__button {
     border: none;
     background: none;
     cursor: pointer;
-    padding: 4px 8px;
-    font-size: 14px;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+
 }
 
 .pagination__button:disabled {
@@ -19,8 +20,8 @@
 }
 
 .pagination__button--active {
-    font-weight: bold;
-    text-decoration: underline;
+    color: #861F41;
+
 }
 
 .pagination__dots {

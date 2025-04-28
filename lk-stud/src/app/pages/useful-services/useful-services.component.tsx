@@ -31,7 +31,7 @@ export const UsefulServicesComponent: React.FC = () => {
     const [meta, setMeta] =
         useState<UsefulServiceDtoPagedListWithMetadata["metaData"] | null>(null)
     const [page, setPage] = useState(1)
-    const pageSize = 3
+    const pageSize = 1
 
     useEffect(() => {
         dispatch(fetchProfile())

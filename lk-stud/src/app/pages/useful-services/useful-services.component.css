@@ -21,6 +21,12 @@
     width: 100%;
 }
 
+.useful-services-component__pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (max-width: 1201px) {
     .useful-services-component>.menu-component {
         display: none;
