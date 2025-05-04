@@ -16,8 +16,12 @@ import {
     fetchEmployeeProfile,
 } from "../../../store/slices/profileSlice"
 import { PaginationComponent } from "../../../shared/ui/pagination/pagination.component"
+import { NavigationComponent } from "../../../shared/ui/navigation/navigation.component"
 
 type CategoryKey = keyof UsefulServiceCategory
+
+
+//TODO: сделать компонент с отображением текущей локации на сайте 
 
 export const UsefulServicesComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -80,9 +84,7 @@ export const UsefulServicesComponent: React.FC = () => {
             {isWide && <MenuComponent />}
             <div className="useful-services-component__wrapper">
                 <HeaderComponent title="Полезные сервисы" />
-                <p className="p2 useful-services-component__navigation">
-                    Главная / Полезные сервисы
-                </p>
+                <NavigationComponent />
                 <div className="useful-services-component__content">
                     {items.map((s) => (
                         <ServiceCard

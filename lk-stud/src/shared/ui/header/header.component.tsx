@@ -8,7 +8,6 @@ interface HeaderComponentProps {
     title: string;
 }
 
-// TODO: пофиксить на мобильной версии
 export const HeaderComponent: React.FC<HeaderComponentProps> = ({ title }) => {
     const isMobile = useMediaQuery("(max-width: 1201px)");
 

@@ -1,0 +1,20 @@
+.navigation-component {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.navigation__link {
+    text-decoration: none;
+}
+.navigation__sep{
+    margin: 0 8px;
+}
+
+.navigation__current {
+    color: #375FFF;
+    cursor: pointer;
+}

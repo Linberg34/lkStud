@@ -21,8 +21,8 @@ import { uploadFile } from "../../api/services/files-service"
 import { getCroppedImg } from "../../../shared/utils/getCropImage"
 import { updateAvatar } from "../../api/services/profile-service"
 
-//TODO: добавить обновление аватарки и кроп
-
+//TODO: Пофиксить отображение хедера в мобильной версии
+// TODO: Сделать кастомные ошибки
 
 export const ProfilePageComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
