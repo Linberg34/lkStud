@@ -1,0 +1,12 @@
+.admin-page-component{
+    min-height: 100vh;
+    min-width: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+.admin-page-component__wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 3.3% 10% 0 5%;
+}
