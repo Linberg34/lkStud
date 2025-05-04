@@ -3,7 +3,7 @@ import './mini-avatar.component.css'
 
 
 interface MiniAvatarProps {
-    src: string
+    src?: string
 }
 
 export const MiniAvatarComponent: React.FC<MiniAvatarProps> = ({
@@ -11,7 +11,7 @@ export const MiniAvatarComponent: React.FC<MiniAvatarProps> = ({
 }) => {
     return (
         <div className="mini-avatar-component" >
-            <img src = {src}/>
+            <img className="mini-avatar-component__avatar" src = {src}/>
         </div>
     );
 }

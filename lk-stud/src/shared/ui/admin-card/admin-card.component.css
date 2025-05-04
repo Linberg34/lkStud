@@ -1,0 +1,48 @@
+/* admin-card.component.css */
+
+/* 1) Сбрасываем все стили у ссылки */
+.admin-card-component__link,
+.admin-card-component__link:link,
+.admin-card-component__link:visited,
+.admin-card-component__link:hover,
+.admin-card-component__link:active {
+    all: unset;
+    display: block;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none !important;
+}
+
+.admin-card-component__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 24px;
+    gap: 10px;
+
+}
+
+
+.admin-card-component__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-card-component__icon {
+    width: 32px;
+    height: 32px;
+}
+
+.admin-card-component__title {
+    font-size: 18px;
+    color: #000;
+    margin: 0;
+}
+
+.admin-card-component__description {
+    margin: 0;
+    color: #555;
+}
