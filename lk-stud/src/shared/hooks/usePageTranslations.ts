@@ -7,18 +7,26 @@ import menuEn from '../locales/eng/menu'
 import menuRu from '../locales/ru/menu'
 import profileRu from '../locales/ru/profile'
 import profileEn from '../locales/eng/profile'
+import usefulServicesRu from '../locales/ru/usefulServicesRu'
+import usefulServicesEn from '../locales/eng/usefulServicesEn'
+import navigationEn from '../locales/eng/navigationEn'
+import navigationRu from '../locales/ru/navigationRu'
 
 const translations = {
     en: {
         login: loginEn,
         menu: menuEn,
-        profile:profileEn
+        profile:profileEn,
+        usefulServices: usefulServicesEn,
+        navigation:navigationEn,
 
     },
     ru: {
         login: loginRu,
         menu: menuRu,
         profile:profileRu,
+        usefulServices: usefulServicesRu,
+        navigation:navigationRu,
     },
 }
 

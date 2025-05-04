@@ -17,14 +17,14 @@ import {
 } from "../../../store/slices/profileSlice"
 import { PaginationComponent } from "../../../shared/ui/pagination/pagination.component"
 import { NavigationComponent } from "../../../shared/ui/navigation/navigation.component"
+import { usePageTranslations } from "../../../shared/hooks/usePageTranslations"
 
 type CategoryKey = keyof UsefulServiceCategory
 
 
-//TODO: сделать компонент с отображением текущей локации на сайте 
-
 export const UsefulServicesComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
+    const t = usePageTranslations("usefulServices")
     const { profile, status: profileStatus } = useSelector(
         (st: RootState) => st.profile
     )
@@ -83,7 +83,7 @@ export const UsefulServicesComponent: React.FC = () => {
         <div className="useful-services-component">
             {isWide && <MenuComponent />}
             <div className="useful-services-component__wrapper">
-                <HeaderComponent title="Полезные сервисы" />
+                <HeaderComponent title={t.title} />
                 <NavigationComponent />
                 <div className="useful-services-component__content">
                     {items.map((s) => (

@@ -1,21 +1,24 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import './navigation.component.css';
+import { usePageTranslations } from "../../hooks/usePageTranslations";
 
-const NAVIGATION_NAME_MAP: Record<string, string> = {
-    '/': 'Главная',
-    '/profile': 'Профиль',
-    '/admin': 'Администрирование',
-    '/certificates': 'Справки',
-    '/usefulservices': 'Полезные сервисы',
-    '/events': 'Мероприятия',
-};
+
 
 
 export const NavigationComponent = () => {
-
+    const t = usePageTranslations('navigation');
     const { pathname } = useLocation();
     const pathnames = pathname.split('/').filter((x) => x);
+
+    const NAVIGATION_NAME_MAP: Record<string, string> = {
+        '/': t.header,
+        '/profile': t.profile,
+        '/admin': t.admin,
+        '/certificates': t.certificates,
+        '/usefulservices': t.usefulservices,
+        '/events': t.events,
+    };
 
     return (
         <nav className="navigation-component" aria-label="navigation">
