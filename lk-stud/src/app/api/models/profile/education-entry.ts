@@ -1,17 +1,17 @@
-import { LookupItem } from '../lookup-item'
+import { BaseDictionaryDto } from '../base-dictionary-dto'
 
 export interface EducationEntry {
     id: string
-    faculty: LookupItem
-    group: LookupItem
-    educationStatus: LookupItem
-    educationBase: LookupItem
-    educationDirection: LookupItem
-    educationProfile: LookupItem
-    educationQualification: LookupItem
-    educationLevel: LookupItem
-    educationForm: LookupItem
-    educationYears: LookupItem
+    faculty: BaseDictionaryDto
+    group: BaseDictionaryDto
+    educationStatus: BaseDictionaryDto
+    educationBase: BaseDictionaryDto
+    educationDirection: BaseDictionaryDto
+    educationProfile: BaseDictionaryDto
+    educationQualification: BaseDictionaryDto
+    educationLevel: BaseDictionaryDto
+    educationForm: BaseDictionaryDto
+    educationYears: BaseDictionaryDto
     creditBooknumber: string
     course: number
     admissionYear: number

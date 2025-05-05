@@ -1,4 +1,4 @@
-import { LookupItem } from '../lookup-item'
+import { LookupItem } from '../base-dictionary-dto'
 import { Department } from './department'
 
 export interface Post {

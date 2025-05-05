@@ -9,6 +9,7 @@ import { ProfilePageComponent } from "./pages/profile/profile-page.component";
 import { PageWrapperComponent } from "./pages/page-wrapper/page-wrapper.component";
 import { UsefulServicesComponent } from "./pages/useful-services/useful-services.component";
 import { AdminPageComponent } from "./pages/admin/admin-page.component";
+import { UsersPageComponent } from "./pages/users/users-page.component";
 
 export const App = () => {
 	return (
@@ -22,6 +23,7 @@ export const App = () => {
 				</Route>
 				<Route path="/usefulservices" element={<UsefulServicesComponent />} />
 				<Route path="/admin" element={<AdminPageComponent />} />
+				<Route path="/admin/users" element ={<UsersPageComponent/>} />
 			</Routes>
 		</BrowserRouter>
 	);

@@ -10,7 +10,12 @@
 .navigation__link {
     text-decoration: none;
 }
-.navigation__sep{
+
+.navigation__link:visited {
+    color:inherit;
+}
+
+.navigation__sep {
     margin: 0 8px;
 }
 

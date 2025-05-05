@@ -79,32 +79,37 @@ export const ProfilePageComponent: React.FC = () => {
 
     const personalData = [
         { label: t.gender, value: userGenderMap[profile.gender] || profile.gender },
-        { label: t.birthday, value: profile.birthDate },
-        { label: t.citizenship, value: profile.citizenship.name },
-        { label: t.address, value: profile.address },
-        { label: t.email, value: profile.email },
-        { label: "Тип пользователя", value: profile.userTypes.map((type) => userTypeMap[type] || type).join(", ") },
+        { label: t.birthday, value: profile.birthDate ?? "" },
+        { label: t.citizenship, value: profile.citizenship?.name ?? "" },
+        { label: t.address, value: profile.address ?? "" },
+        { label: t.email, value: profile.email ?? "" },
+        {
+            label: t.userTypes,
+            value: profile.userTypes.length
+                ? profile.userTypes.map(t => userTypeMap[t] || t).join(", ")
+                : ""
+        },
     ]
+
 
     const contacts = profile.contacts.map((c) => ({
         label: contactTypesMap[c.type] || c.type,
         value: c.value,
     }))
 
-    const educationList =
-        student?.educationEntries.map((e) => ({
-            level: e.educationLevel.name,
-            status: e.educationStatus.name,
-            years: e.educationYears.name,
-            recordBook: e.creditBooknumber,
-            studyForm: e.educationForm.name,
-            basis: e.educationBase.name,
-            faculty: e.faculty.name,
-            direction: e.educationDirection.name,
-            profile: e.educationProfile.name,
-            course: String(e.course),
-            group: e.group.name,
-        })) || []
+    const educationList = student?.educationEntries.map(e => ({
+        level: e.educationLevel?.name ?? "",
+        status: e.educationStatus?.name ?? "",
+        years: e.educationYears?.name ?? "",
+        recordBook: e.creditBooknumber ?? "",
+        studyForm: e.educationForm?.name ?? "",
+        basis: e.educationBase?.name ?? "",
+        faculty: e.faculty?.name ?? "",
+        direction: e.educationDirection?.name ?? "",
+        profile: e.educationProfile?.name ?? "",
+        course: String(e.course),
+        group: e.group?.name ?? "",
+    })) ?? []
 
     const workList = employee?.posts.map((p, index) => ({
         positionName: p.postName.name,
@@ -127,7 +132,7 @@ export const ProfilePageComponent: React.FC = () => {
                 : undefined
             : undefined,
         currentWorkExperience: undefined
-    })) || []
+    })) ?? []
 
 
     return (
