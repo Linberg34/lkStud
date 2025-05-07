@@ -4,5 +4,5 @@ export interface ProfileShortDto{
     lastName?: string,
     firstName?: string,
     patronymic?: string,
-    birthDate?: Date,
+    birthDate?: string,
 }

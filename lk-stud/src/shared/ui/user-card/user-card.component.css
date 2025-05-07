@@ -4,11 +4,17 @@
     width: 100%;
     padding: 12px 12px;
     background-color: #fff;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.user-card-component:last-child {
+    border-bottom: none;
 }
 
 .user-card-component:hover {
     border-left: 2px solid #375FFF;
     background-color: #efefef;
+    cursor: pointer;
 }
 
 .user-card-component__content {
@@ -17,7 +23,19 @@
     width: 100%;
 }
 
-.user-card-component__birthday,
-.user-card-component__email {
+.user-card-text__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.user-card-component__label {
+    color: #666666;
+}
+
+.user-card-component__name {
     color: #3A3A3A;
+}
+.user-card-component__birthday{
+    font-family: "Roboto";
 }

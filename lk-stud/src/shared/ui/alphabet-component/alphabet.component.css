@@ -1,0 +1,52 @@
+.alphabet-navigator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Roboto", sans-serif;
+}
+
+.arrow-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.letters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.letter-btn {
+    background: none;
+    border: none;
+    padding: 4px 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+}
+
+.letter-btn.active {
+    color: #1976d2;
+    border-bottom: 2px solid #1976d2;
+}
+
+.view-toggle {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.view-toggle button {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #888;
+}
+
+.view-toggle button.active {
+    color: #1976d2;
+}
