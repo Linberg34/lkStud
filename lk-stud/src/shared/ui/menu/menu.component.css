@@ -18,17 +18,28 @@
         background-color: #EFEFEF;
     }
 
-    .menu-component__menu {
+    .menu-component.open {
+        position: fixed !important;
+        top: 150px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: #EFEFEF;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .menu-componentmenu {
         width: 100%;
         background-color: #F9F9F9;
     }
 
-    .menu-component__avatar-wrapper,
-    .menu-component__arrow {
+    .menu-componentavatar-wrapper,
+    .menu-componentarrow {
         display: none;
     }
 
-    .menu-component__burger {
+    .menu-componentburger {
         display: flex;
         cursor: pointer;
         justify-content: center;

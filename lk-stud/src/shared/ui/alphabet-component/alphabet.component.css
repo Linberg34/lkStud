@@ -8,12 +8,14 @@
 .arrow-btn {
     background: none;
     border: none;
-    font-size: 16px;
     cursor: pointer;
     padding: 4px 8px;
 }
 
-.letters {
+.letters,
+.letters-collapsed {
+    font-size: 24px;
+
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
@@ -24,13 +26,12 @@
     border: none;
     padding: 4px 6px;
     cursor: pointer;
-    font-size: 14px;
-    color: #555;
+    font-family: "Roboto", sans-serif;
+    color: #3a3a3a;
 }
 
 .letter-btn.active {
-    color: #1976d2;
-    border-bottom: 2px solid #1976d2;
+    color: #861F41;
 }
 
 .view-toggle {

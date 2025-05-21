@@ -7,16 +7,12 @@ import { NavigationComponent } from "../../../shared/ui/navigation/navigation.co
 import { SearchComponent } from "../../../shared/ui/search/search.component"
 import { UserCardComponent } from "../../../shared/ui/user-card/user-card.component"
 import { AlphabetComponent } from "../../../shared/ui/alphabet-component/alphabet.component"
+import { ViewToggle } from "../../../shared/ui/toggle-view/toggle-view.component"
 import { AppDispatch } from "../../../store/store"
 import { fetchUsersList } from "../../../store/slices/usersSlice"
 import type { ProfileShortDtoPagedListWithMetadata } from "../../api/models/profile"
 import "./users-page.component.css"
 
-const RUSSIAN_ALPHABET = [
-    "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й",
-    "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф",
-    "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я",
-]
 
 export const UsersPageComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -26,7 +22,8 @@ export const UsersPageComponent: React.FC = () => {
     const pageSize = 20
 
     const [currentLetter, setCurrentLetter] = useState<string>("")
-    const [viewMode, setViewMode] = useState<"list" | "grid">("list")
+    const [collapsed, setCollapsed] = useState<boolean>(true)
+    const [view, setView] = useState<"list" | "grid">("list")
 
     useEffect(() => {
         dispatch(fetchUsersList({ page, pageSize }))
@@ -38,18 +35,8 @@ export const UsersPageComponent: React.FC = () => {
             })
     }, [dispatch, page, pageSize])
 
-    const currentIndex = RUSSIAN_ALPHABET.indexOf(currentLetter)
-    const onPrev = () =>
-        setCurrentLetter(RUSSIAN_ALPHABET[Math.max(0, currentIndex - 1)])
-    const onNext = () =>
-        setCurrentLetter(RUSSIAN_ALPHABET[
-            Math.min(RUSSIAN_ALPHABET.length - 1, currentIndex + 1)
-        ])
-
     const filtered = useMemo(() => {
-        if (!currentLetter) {
-            return users
-        }
+        if (!currentLetter) return users
         return users.filter(u => u.lastName?.startsWith(currentLetter))
     }, [users, currentLetter])
 
@@ -58,26 +45,28 @@ export const UsersPageComponent: React.FC = () => {
             <MenuComponent />
             <div className="users-page-component__content">
                 <HeaderComponent title="Пользователи" />
-
                 <NavigationComponent />
                 <SearchComponent />
 
-                <AlphabetComponent
-                    current={currentLetter}
-                    onSelect={setCurrentLetter}
-                    onPrev={onPrev}
-                    onNext={onNext}
-                    view={viewMode}
-                    onViewChange={setViewMode}
-                />
+                <div className="users-page-component__header-block">
+                    <AlphabetComponent
+                        current={currentLetter}
+                        onSelect={setCurrentLetter}
+                        collapsed={collapsed}
+                        onCollapse={() => setCollapsed(true)}
+                        onExpand={() => setCollapsed(false)}
+                    />
+                    <ViewToggle view={view} onViewChange={setView} />
+                </div>
 
-                <div className={`users-page-component__cards view-${viewMode}`}>
+                <div className={`users-page-component__cards view-${view}`}>
                     {filtered.map(user => (
                         <UserCardComponent
                             key={user.id}
                             name={`${user.lastName} ${user.firstName} ${user.patronymic}`}
                             birthday={user.birthDate}
                             email={user.email}
+                            viewMode={view}
                         />
                     ))}
                 </div>

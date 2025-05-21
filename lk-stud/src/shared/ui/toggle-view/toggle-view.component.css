@@ -1,0 +1,16 @@
+.view-toggle {
+    display: flex;
+    gap: 8px;
+}
+
+.view-toggle button {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #888;
+}
+
+.view-toggle button.active {
+    color: #1976d2;
+}
