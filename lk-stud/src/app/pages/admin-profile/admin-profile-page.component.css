@@ -1,0 +1,101 @@
+.admin-profile-page-component {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.admin-profile-page-component__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+    padding: 1% 10% 0 5%;
+}
+
+.admin-profile-page-component__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.admin-profile-page-component__info {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 20px;
+}
+
+.admin-profile-page-component__data {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+@media (max-width: 1201px) {
+    .admin-profile-page-component>.menu-component {
+        display: none;
+    }
+}
+
+.admin-profile-page-component__wrapper .profile-personal-data-component {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    gap: 24px;
+}
+
+.admin-profile-page-component__wrapper .profile-personal-data-component__image {
+    max-width: 365px;
+    max-height: 350px;
+    
+}
+.admin-profile-page-component__wrapper .profile-personal-data-component__image img {
+    width: 100%;
+    height: 100%;
+}
+
+.admin-profile-page-component__wrapper .profile-personal-data-component__info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+@media (max-width: 601px) {
+    .admin-profile-page-component__wrapper .profile-personal-data-component {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 1919px) {
+    .admin-profile-page-component__wrapper .profile-personal-data-component__info-wrapper {
+        width: 1135px;
+    }
+}
+
+@media ((min-width: 1536px) and (max-width: 1918px)) {
+    .admin-profile-page-component__wrapper .profile-personal-data-component__info-wrapper {
+        width: 815px;
+    }
+}
+
+@media ((min-width: 1200px) and (max-width: 1535px)) {
+    .admin-profile-page-component__wrapper .profile-personal-data-component__info-wrapper {
+        width: 617px;
+    }
+}
+
+@media ((min-width: 900) and (max-width: 1199px)) {
+    .admin-profile-page-component__wrapper .profile-personal-data-component__info-wrapper {
+        width: 458px;
+    }
+}
+
+@media ((min-width: 600) and (max-width: 899px)) {
+    .admin-profile-page-component__wrapper .profile-personal-data-component__info-wrapper {
+        width: 458px;
+    }
+}

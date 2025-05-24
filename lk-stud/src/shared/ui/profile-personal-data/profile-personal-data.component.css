@@ -69,6 +69,12 @@
     width: 100%;
     background-color: #F9F9F9;
 }
+.profile-personal-data-component__info-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap:24px;
+}
 
 .profile-personal-data-component__data {
     display: flex;

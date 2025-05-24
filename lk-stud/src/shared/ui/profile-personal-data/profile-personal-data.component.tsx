@@ -31,31 +31,33 @@ export const ProfilePersonalDataComponent: React.FC<ProfilePersonalDataProps> = 
                     style={{ cursor: onAvatarClick ? "pointer" : undefined }}
                 />
             </div>
-            <div className="profile-personal-data-component__data-wrapper">
-                <h3>{t.personalData}</h3>
-                {personalData.map((item, index) => (
-                    <div key={index} className="profile-personal-data-component__data">
-                        <span className="p2 profile-personal-data-component__label">
-                            {item.label}
-                        </span>
-                        <span className="p1 profile-personal-data-component__value">
-                            {item.value}
-                        </span>
-                    </div>
-                ))}
-            </div>
-            <div className="profile-personal-data-component__contacts-wrapper">
-                <h3>{t.contacts}</h3>
-                {contacts.map((item, index) => (
-                    <div key={index} className="profile-personal-data-component__data">
-                        <span className="p2 profile-personal-data-component__label">
-                            {item.label}
-                        </span>
-                        <span className="p1 profile-personal-data-component__value">
-                            {item.value}
-                        </span>
-                    </div>
-                ))}
+            <div className="profile-personal-data-component__info-wrapper">
+                <div className="profile-personal-data-component__data-wrapper">
+                    <h3>{t.personalData}</h3>
+                    {personalData.map((item, index) => (
+                        <div key={index} className="profile-personal-data-component__data">
+                            <span className="p2 profile-personal-data-component__label">
+                                {item.label}
+                            </span>
+                            <span className="p1 profile-personal-data-component__value">
+                                {item.value}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+                <div className="profile-personal-data-component__contacts-wrapper">
+                    <h3>{t.contacts}</h3>
+                    {contacts.map((item, index) => (
+                        <div key={index} className="profile-personal-data-component__data">
+                            <span className="p2 profile-personal-data-component__label">
+                                {item.label}
+                            </span>
+                            <span className="p1 profile-personal-data-component__value">
+                                {item.value}
+                            </span>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

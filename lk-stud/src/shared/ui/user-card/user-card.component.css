@@ -7,10 +7,6 @@
     border-bottom: 1px solid #D9D9D9;
 }
 
-.user-card-component:last-child {
-    border-bottom: none;
-}
-
 .user-card-component:hover {
     border-left: 2px solid #375FFF;
     background-color: #efefef;
