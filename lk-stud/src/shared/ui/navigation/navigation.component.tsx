@@ -18,6 +18,7 @@ export const NavigationComponent = () => {
         '/certificates': t.certificates,
         '/usefulservices': t.usefulservices,
         '/events': t.events,
+        '/admin/users':t.users,
     };
 
     return (

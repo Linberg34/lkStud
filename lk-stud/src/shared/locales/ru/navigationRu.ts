@@ -5,4 +5,5 @@ export default{
     certificates:"Справки",
     usefulservices:"Полезные сервисы",
     events:"События",
+    users:"Пользователи",
 }

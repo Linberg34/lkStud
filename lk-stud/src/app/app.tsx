@@ -10,6 +10,7 @@ import { PageWrapperComponent } from "./pages/page-wrapper/page-wrapper.componen
 import { UsefulServicesComponent } from "./pages/useful-services/useful-services.component";
 import { AdminPageComponent } from "./pages/admin/admin-page.component";
 import { UsersPageComponent } from "./pages/users/users-page.component";
+import { AdminProfilePageComponent } from "./pages/admin-profile/admin-profile-page.component";
 
 export const App = () => {
 	return (
@@ -24,6 +25,7 @@ export const App = () => {
 				<Route path="/usefulservices" element={<UsefulServicesComponent />} />
 				<Route path="/admin" element={<AdminPageComponent />} />
 				<Route path="/admin/users" element ={<UsersPageComponent/>} />
+				<Route path="/admin/users/:id" element={<AdminProfilePageComponent/>}/>
 			</Routes>
 		</BrowserRouter>
 	);

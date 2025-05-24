@@ -29,6 +29,15 @@
     padding: 3.3% 10% 0 5%;
 }
 
+.users-page-component__card-link{
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+.users-page-component__card-link:hover {
+    cursor: pointer;
+}
+
 .users-page-component__cards {
     display: flex;
     flex-direction: column;
@@ -37,4 +46,20 @@
     border-radius: 8px;
     padding: 15px 24px 15px 24px;
     background-color: #fff;
+}
+
+.users-page-component__cards.view-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.users-page-component__cards.view-grid .user-card-component {
+    width: 100%;
+}
+
+.users-page-component__cards.view-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }

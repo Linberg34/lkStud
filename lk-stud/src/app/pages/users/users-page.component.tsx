@@ -1,3 +1,4 @@
+import "./users-page.component.css"
 import React, { useEffect, useState, useMemo } from "react"
 import { useDispatch } from "react-redux"
 import { MenuComponent } from "../../../shared/ui/menu/menu.component"
@@ -11,7 +12,9 @@ import { ViewToggle } from "../../../shared/ui/toggle-view/toggle-view.component
 import { AppDispatch } from "../../../store/store"
 import { fetchUsersList } from "../../../store/slices/usersSlice"
 import type { ProfileShortDtoPagedListWithMetadata } from "../../api/models/profile"
-import "./users-page.component.css"
+import { usePageTranslations } from "../../../shared/hooks/usePageTranslations"
+import { Link } from "react-router-dom"
+
 
 
 export const UsersPageComponent: React.FC = () => {
@@ -19,6 +22,8 @@ export const UsersPageComponent: React.FC = () => {
     const [users, setUsers] = useState<ProfileShortDtoPagedListWithMetadata["results"]>([])
     const [meta, setMeta] = useState<ProfileShortDtoPagedListWithMetadata["metaData"] | null>(null)
     const [page, setPage] = useState(1)
+    const [searchQuery, setSearchQuery] = useState("")
+    const t = usePageTranslations('users');
     const pageSize = 20
 
     const [currentLetter, setCurrentLetter] = useState<string>("")
@@ -26,14 +31,14 @@ export const UsersPageComponent: React.FC = () => {
     const [view, setView] = useState<"list" | "grid">("list")
 
     useEffect(() => {
-        dispatch(fetchUsersList({ page, pageSize }))
+        dispatch(fetchUsersList({ page, pageSize, name: searchQuery }))
             .then(res => {
                 if (fetchUsersList.fulfilled.match(res)) {
                     setUsers(res.payload.results)
                     setMeta(res.payload.metaData)
                 }
             })
-    }, [dispatch, page, pageSize])
+    }, [dispatch, page, pageSize, searchQuery])
 
     const filtered = useMemo(() => {
         if (!currentLetter) return users
@@ -44,9 +49,17 @@ export const UsersPageComponent: React.FC = () => {
         <div className="users-page-component">
             <MenuComponent />
             <div className="users-page-component__content">
-                <HeaderComponent title="Пользователи" />
+                <HeaderComponent title={t.users} />
                 <NavigationComponent />
-                <SearchComponent />
+                <SearchComponent
+                    placeholder={t.hint}
+                    buttonText={t.search}
+                    onSearch={(query: string) => {
+                        setPage(1)
+                        setSearchQuery(query.trim())
+                    }}
+
+                />
 
                 <div className="users-page-component__header-block">
                     <AlphabetComponent
@@ -60,14 +73,22 @@ export const UsersPageComponent: React.FC = () => {
                 </div>
 
                 <div className={`users-page-component__cards view-${view}`}>
+
                     {filtered.map(user => (
-                        <UserCardComponent
+                        <Link
                             key={user.id}
-                            name={`${user.lastName} ${user.firstName} ${user.patronymic}`}
-                            birthday={user.birthDate}
-                            email={user.email}
-                            viewMode={view}
-                        />
+                            to={`/admin/users/${user.id}`}
+                            className="users-page-component__card-link"
+                        >
+                            <UserCardComponent
+                                key={user.id}
+                                name={`${user.lastName} ${user.firstName} ${user.patronymic}`}
+                                birthday={user.birthDate}
+                                email={user.email}
+                                viewMode={view}
+                            />
+                        </Link>
+
                     ))}
                 </div>
 

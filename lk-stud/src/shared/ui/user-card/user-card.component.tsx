@@ -1,4 +1,3 @@
-// src/shared/ui/user-card/user-card.component.tsx
 import React from "react"
 import "./user-card.component.css"
 
@@ -7,6 +6,7 @@ interface UserCardComponentProps {
     birthday?: string
     email?: string
     viewMode?: "list" | "grid"
+    
 }
 
 export const UserCardComponent: React.FC<UserCardComponentProps> = ({

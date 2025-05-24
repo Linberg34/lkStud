@@ -11,6 +11,8 @@ import usefulServicesRu from '../locales/ru/usefulServicesRu'
 import usefulServicesEn from '../locales/eng/usefulServicesEn'
 import navigationEn from '../locales/eng/navigationEn'
 import navigationRu from '../locales/ru/navigationRu'
+import usersEn from '../locales/eng/usersEn'
+import usersRu from '../locales/ru/usersRu'
 
 const translations = {
     en: {
@@ -19,6 +21,7 @@ const translations = {
         profile:profileEn,
         usefulServices: usefulServicesEn,
         navigation:navigationEn,
+        users: usersEn
 
     },
     ru: {
@@ -27,6 +30,7 @@ const translations = {
         profile:profileRu,
         usefulServices: usefulServicesRu,
         navigation:navigationRu,
+        users:usersRu
     },
 }
 
