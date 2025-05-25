@@ -18,7 +18,7 @@ export const AdminProfilePageComponent: React.FC = () => {
     const fullName = user ? `${user.lastName} ${user.firstName} ${user.patronymic}` : '';
 
     const triggerAdminMenu = () => {
-        
+
     }
 
     useEffect(() => {
@@ -33,17 +33,21 @@ export const AdminProfilePageComponent: React.FC = () => {
 
     if (!user) return null
 
-    const personalData: PersonalDataItem[] = [
+    const rawPersonalData: PersonalDataItem[] = [
         { label: 'Пол', value: user.gender },
         { label: 'Дата рождения', value: user.birthDate },
         { label: 'Гражданство', value: user.citizenship?.name },
         { label: 'Email', value: user.email },
-    ]
-    const contacts: PersonalDataItem[] = [
+    ];
+    const rawContacts: PersonalDataItem[] = [
         { label: 'Телефон', value: user.contacts.find(c => c.type === 'Phone')?.value || '' },
         { label: 'E-mail', value: user.contacts.find(c => c.type === 'Email')?.value || '' },
         { label: 'Адрес', value: user.address },
-    ]
+    ];
+
+    const personalData = rawPersonalData.filter(item => !!item.value);
+    const contacts = rawContacts.filter(item => !!item.value);
+
 
     return (
         <div className="admin-profile-page-component">

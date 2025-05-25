@@ -8,6 +8,7 @@ import { logout } from "../../../app/api/services/auth-service";
 import { useNavigate } from "react-router-dom";
 import { usePageTranslations } from "../../hooks/usePageTranslations";
 import { fetchProfile } from "../../../store/slices/profileSlice";
+import { useAvatarUrl } from "../../hooks/useAvatar";
 export const MenuComponent = () => {
     const dispatch = useDispatch<AppDispatch>();
     const [isOpen, setIsOpen] = useState(false);
@@ -16,22 +17,24 @@ export const MenuComponent = () => {
     const isMobile = useMediaQuery("(max-width:1201px)");
     const menuRef = useRef<HTMLDivElement>(null);
     const profileId = useSelector((s: RootState) => s.profile.profile?.id);
-    const avatarUrl = useSelector((s: RootState) => s.profile.avatarUrl);
+    const profile = useSelector((s: RootState) => s.profile.profile);
+    const fileId = profile?.avatar?.id;
+    const { url: avatarUrl } = useAvatarUrl(fileId);
     const t = usePageTranslations("menu");
-    
+
     const handleLogout = () => {
         logout();
         navigate("/login");
     }
-    
+
     useEffect(() => {
         dispatch(fetchProfile());
     }, [dispatch]);
-    
+
     const handleAvatarClick = () => {
         setShowLogout(prev => !prev);
     }
-    
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -44,7 +47,7 @@ export const MenuComponent = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-    
+
     return (
         <div
             ref={menuRef}
@@ -60,7 +63,7 @@ export const MenuComponent = () => {
                             src="/assets/svg/menu/black/Hamburger.svg"
                         />
                     </div>
-                    
+
                     {isOpen && (
                         <div className="menu-component__menu">
                             <MenuItem
@@ -131,7 +134,7 @@ export const MenuComponent = () => {
                             className={isOpen ? "rotated" : ""}
                         />
                     </div>
-                    
+
                     <div className="menu-component__menu">
                         <MenuItem
                             text={t.profile}

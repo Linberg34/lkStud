@@ -4,8 +4,12 @@ import { getFileBlob } from "../../app/api/services/files-service"
 import { setAvatarUrl } from "../../store/slices/profileSlice"
 import type { AppDispatch } from "../../store/store"
 
-const avatarCache: Record<string, { url: string, timestamp: number }> = {}
-const CACHE_EXPIRY = 1000 * 60 * 15 
+interface CacheEntry {
+    blob: Blob
+    timestamp: number
+}
+const avatarCache: Record<string, CacheEntry> = {}
+const CACHE_EXPIRY = 1000 * 60 * 15
 
 interface UseAvatarUrlResult {
     url: string | undefined
@@ -20,25 +24,26 @@ export function useAvatarUrl(fileId?: string): UseAvatarUrlResult {
         loading: false,
         error: null
     })
-
     const objectUrlRef = useRef<string | undefined>(undefined)
 
     useEffect(() => {
         if (!fileId) {
             setState({ url: undefined, loading: false, error: null })
-            dispatch(setAvatarUrl(null)) 
+            dispatch(setAvatarUrl(null))
             return
         }
 
         const cached = avatarCache[fileId]
         if (cached && Date.now() - cached.timestamp < CACHE_EXPIRY) {
-            setState({ url: cached.url, loading: false, error: null })
-            dispatch(setAvatarUrl(cached.url))
+            const url = URL.createObjectURL(cached.blob)
+            objectUrlRef.current = url
+            setState({ url, loading: false, error: null })
+            dispatch(setAvatarUrl(url))
             return
         }
 
         let isActive = true
-        setState(prev => ({ ...prev, loading: true, error: null }))
+        setState(s => ({ ...s, loading: true, error: null }))
 
         getFileBlob(fileId)
             .then(blob => {
@@ -48,23 +53,22 @@ export function useAvatarUrl(fileId?: string): UseAvatarUrlResult {
                     URL.revokeObjectURL(objectUrlRef.current)
                 }
 
-                const url = URL.createObjectURL(blob)
-                objectUrlRef.current = url
-
                 avatarCache[fileId] = {
-                    url,
+                    blob,
                     timestamp: Date.now()
                 }
 
+                const url = URL.createObjectURL(blob)
+                objectUrlRef.current = url
+
                 setState({ url, loading: false, error: null })
-                dispatch(setAvatarUrl(url)) 
+                dispatch(setAvatarUrl(url))
             })
             .catch(error => {
-                if (isActive) {
-                    console.error("Failed to load avatar:", error)
-                    setState({ url: undefined, loading: false, error })
-                    dispatch(setAvatarUrl(null)) 
-                }
+                if (!isActive) return
+                console.error("Failed to load avatar:", error)
+                setState({ url: undefined, loading: false, error })
+                dispatch(setAvatarUrl(null))
             })
 
         return () => {
