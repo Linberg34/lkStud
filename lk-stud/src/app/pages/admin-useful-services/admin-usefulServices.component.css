@@ -1,0 +1,26 @@
+
+.admin-useful-services {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.admin-useful-services__wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+}
+
+.admin-useful-services__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.admin-useful-services__pagination {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+}

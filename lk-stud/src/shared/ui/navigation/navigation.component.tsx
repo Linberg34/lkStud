@@ -23,6 +23,7 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
         '/usefulservices': t.usefulservices,
         '/events': t.events,
         '/admin/users': t.users,
+        '/admin/usefulservices': t.usefulservices,
     };
 
     return (
