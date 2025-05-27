@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import "./button.component.css"
 
 interface ButtonProps {
@@ -7,6 +7,7 @@ interface ButtonProps {
 	disabled?: boolean
 	onClick?: () => void
 	iconSrc?: string
+	hoverIconSrc?: string
 	iconPosition?: "start" | "end"
 }
 
@@ -18,13 +19,23 @@ export const ButtonComponent: React.FC<ButtonProps> = ({
 	disabled = false,
 	onClick,
 	iconSrc,
+	hoverIconSrc,
 	iconPosition = "end",
 }) => {
-	const classNames = [buttonClassNameBase]
+	const [isHovered, setIsHovered] = useState(false)
 
+	const classNames = [buttonClassNameBase]
 	if (type === "primary") classNames.push(`${buttonClassNameBase}_primary`)
 	if (type === "outlined") classNames.push(`${buttonClassNameBase}_outlined`)
 	if (disabled) classNames.push(`${buttonClassNameBase}_disabled`)
+
+	const currentIcon = () => {
+		if (!iconSrc) return undefined
+		if (isHovered && hoverIconSrc) {
+			return hoverIconSrc
+		}
+		return iconSrc
+	}
 
 	return (
 		<button
@@ -32,21 +43,21 @@ export const ButtonComponent: React.FC<ButtonProps> = ({
 			className={classNames.join(" ")}
 			disabled={disabled}
 			onClick={onClick}
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
 		>
 			<span className="button-component__content">
-				{iconSrc && iconPosition === "start" && (
+				{currentIcon() && iconPosition === "start" && (
 					<img
-						src={iconSrc}
+						src={currentIcon()}
 						alt=""
 						className="button-component__icon"
 					/>
 				)}
-				<span className="button-component__text">
-					{children}
-				</span>
-				{iconSrc && iconPosition === "end" && (
+				<span className="button-component__text">{children}</span>
+				{currentIcon() && iconPosition === "end" && (
 					<img
-						src={iconSrc}
+						src={currentIcon()}
 						alt=""
 						className="button-component__icon"
 					/>

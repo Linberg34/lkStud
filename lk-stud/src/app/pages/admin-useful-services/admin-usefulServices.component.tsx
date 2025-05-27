@@ -10,15 +10,17 @@ import {
 } from "../../api/models/useful-services";
 import { usePageTranslations } from "../../../shared/hooks/usePageTranslations";
 import "./admin-usefulServices.component.css";
+import { ButtonComponent } from "../../../shared/ui/button/button.component";
+import { UsefulServiceAddForm } from "../../../shared/ui/useful-service-add-form/useful-service-add-form.component";
 
 export const AdminUsefulServicesComponent: React.FC = () => {
     const t = usePageTranslations("usefulServices");
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [items, setItems] = useState<UsefulServiceDtoPagedListWithMetadata["results"]>([]);
     const [meta, setMeta] = useState<UsefulServiceDtoPagedListWithMetadata["metaData"] | null>(null);
 
     const [page, setPage] = useState(1);
-    const pageSize = 3;
+    const pageSize = 2;
 
     const [isWide, setIsWide] = useState(window.innerWidth > 1200);
     useEffect(() => {
@@ -26,6 +28,13 @@ export const AdminUsefulServicesComponent: React.FC = () => {
         window.addEventListener("resize", onResize);
         return () => window.removeEventListener("resize", onResize);
     }, []);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    }
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
     useEffect(() => {
         getUsefulServices({ page, pageSize, categories: [] })
@@ -46,11 +55,27 @@ export const AdminUsefulServicesComponent: React.FC = () => {
     return (
         <div className="admin-useful-services">
             {isWide && <MenuComponent />}
+            <UsefulServiceAddForm
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+            />
             <div className="admin-useful-services__wrapper">
                 <HeaderComponent title={t.title} />
                 <NavigationComponent />
+                <div className="admin-useful-services__button">
+                    <ButtonComponent
+                        type="outlined"
+                        iconSrc="/assets/svg/interface/red/Add.svg"
+                        hoverIconSrc="/assets/svg/interface/white/Add.svg"
+                        onClick={handleOpenModal}
+                    >
+                        Добавить сервис
+                    </ButtonComponent>
+                </div>
 
                 <div className="admin-useful-services__content">
+
+
                     {items.map(svc => (
                         <AdminUsefulServicesCard
                             key={svc.id}

@@ -1,0 +1,90 @@
+.useful-service-add-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.useful-service-add-form__component {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #FFF;
+    padding: 64px 40px 40px 64px;
+    height: fit-content;
+    width: 358px;
+    gap: 24px;
+    border-radius: 8px;
+    overflow-y: auto;
+    position: relative;
+
+
+    @media ((min-width: 600px) and (max-width:899px)) {
+        width: 536px;
+    }
+
+    @media ((min-width: 900px) and (max-width:1535px)) {
+        width: 550px;
+    }
+
+    @media (min-width: 1536px) {
+        width: 714px;
+    }
+}
+
+.useful-service-add-form__component .button-component {
+    .button-component__text {
+        color: #fff;
+    }
+}
+
+.useful-service-add-form__body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.useful-service-add-form__title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.useful-service-add-form__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+
+    .button-component {
+        width: 100%;
+    }
+
+}
+
+.useful-service-add-form__button-save {
+    width: 100%;
+
+    .button-component__text {
+        color: #fff;
+    }
+}
+
+.useful-service-add-form__button-cancel {
+    width: 100%;
+}
+
+.useful-service-add-form__button-cancel .button-component {
+    width: 100%;
+
+    .button-component__text {
+        color: #3a3a3a;
+    }
+}
