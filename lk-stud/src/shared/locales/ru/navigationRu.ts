@@ -6,4 +6,11 @@ export default{
     usefulservices:"Полезные сервисы",
     events:"События",
     users:"Пользователи",
+    placeholderNoS:"Введите название сервиса",
+    placeholderLink:"Введите ссылку на сервис",
+    placeholderDesc:"Введите описание сервиса",
+    placeholderTerms:"Введите условия предоставления сервиса",
+    forAll:"Для всех",
+    employees:"Для сотрудников",
+    students:"Для студентов",
 }

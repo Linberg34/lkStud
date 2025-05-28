@@ -19,8 +19,13 @@ import { PaginationComponent } from "../../../shared/ui/pagination/pagination.co
 import { NavigationComponent } from "../../../shared/ui/navigation/navigation.component"
 import { usePageTranslations } from "../../../shared/hooks/usePageTranslations"
 
-type CategoryKey = keyof UsefulServiceCategory
+const CATEGORIES = {
+    FOR_ALL: "ForAll",
+    STUDENTS: "Students",
+    EMPLOYEES: "Employees"
+} as const
 
+type CategoryValue = UsefulServiceCategory
 
 export const UsefulServicesComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -28,7 +33,6 @@ export const UsefulServicesComponent: React.FC = () => {
     const { profile, status: profileStatus } = useSelector(
         (st: RootState) => st.profile
     )
-
     const [items, setItems] = useState<
         UsefulServiceDtoPagedListWithMetadata["results"]
     >([])
@@ -50,20 +54,26 @@ export const UsefulServicesComponent: React.FC = () => {
         }
     }, [dispatch, profile])
 
-    const categories = useMemo<CategoryKey[]>(() => {
-        const cats: CategoryKey[] = ["ForAll"]
-        if (profile?.userTypes.includes("Student")) cats.push("Students")
-        if (profile?.userTypes.includes("Employee")) cats.push("Employees")
+    const categories = useMemo<CategoryValue[]>(() => {
+        const cats: CategoryValue[] = [CATEGORIES.FOR_ALL as CategoryValue]
+
+        if (profile?.userTypes.includes("Student")) {
+            cats.push(CATEGORIES.STUDENTS as CategoryValue)
+        }
+        if (profile?.userTypes.includes("Employee")) {
+            cats.push(CATEGORIES.EMPLOYEES as CategoryValue)
+        }
+
         return cats
     }, [profile?.userTypes])
 
-
     useEffect(() => {
         if (profileStatus !== "succeeded") return
+
         getUsefulServices({
             page,
             pageSize,
-            categories: categories as unknown as UsefulServiceCategory[],
+            categories,
         })
             .then((res) => {
                 setItems(res.results)
@@ -90,9 +100,9 @@ export const UsefulServicesComponent: React.FC = () => {
                         <ServiceCard
                             key={s.id}
                             title={s.title}
-                            description={s.description!}
-                            link={s.link!}
-                            termsOfDisсtribution={s.termsOfDisctribution!}
+                            description={s.description || ""}
+                            link={s.link || ""}
+                            termsOfDisсtribution={s.termsOfDisctribution || ""}
                             logoId={s.logo?.id}
                         />
                     ))}

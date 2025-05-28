@@ -17,45 +17,50 @@ export const PaginationComponent: React.FC<PaginationProps> = ({
     page,
     onChange,
     siblingCount = 1,
-    showFirstButton = false,
-    showLastButton = false,
 }) => {
     const paginationRange = React.useMemo<(number | string)[]>(() => {
-        const totalPageNumbers = siblingCount * 2 + 5;
-        if (count <= totalPageNumbers) {
+        
+        if (count <= 5) {
             return Array.from({ length: count }, (_, i) => i + 1);
         }
 
-        const leftSiblingIndex = Math.max(page - siblingCount, 1);
-        const rightSiblingIndex = Math.min(page + siblingCount, count);
-
-        const showLeftDots = leftSiblingIndex > 2;
-        const showRightDots = rightSiblingIndex < count - 1;
-
         const pages: (number | string)[] = [];
 
-        if (showFirstButton || !showLeftDots) {
-            pages.push(1);
-        }
-
-        if (showLeftDots) {
+        if (page <= 3) {
+            for (let i = 1; i <= 4; i++) {
+                pages.push(i);
+            }
             pages.push(DOTS);
-        }
-
-        for (let p = leftSiblingIndex; p <= rightSiblingIndex; p++) {
-            pages.push(p);
-        }
-
-        if (showRightDots) {
-            pages.push(DOTS);
-        }
-
-        if (showLastButton || !showRightDots) {
             pages.push(count);
+        }
+        else if (page >= count - 2) {
+            pages.push(1);
+            pages.push(DOTS);
+            for (let i = count - 3; i <= count; i++) {
+                pages.push(i);
+            }
+        }
+        else {
+            const distanceFromStart = page - 1;
+            const distanceFromEnd = count - page;
+
+            if (distanceFromStart <= distanceFromEnd) {
+                for (let i = 1; i <= page + siblingCount; i++) {
+                    pages.push(i);
+                }
+                pages.push(DOTS);
+                pages.push(count);
+            } else {
+                pages.push(1);
+                pages.push(DOTS);
+                for (let i = page - siblingCount; i <= count; i++) {
+                    pages.push(i);
+                }
+            }
         }
 
         return pages;
-    }, [page, count, siblingCount, showFirstButton, showLastButton]);
+    }, [page, count, siblingCount]);
 
     if (count < 2) {
         return null;
@@ -63,17 +68,16 @@ export const PaginationComponent: React.FC<PaginationProps> = ({
 
     return (
         <nav className="pagination">
-
             <button
                 className="pagination__button"
                 onClick={() => onChange(page - 1)}
                 disabled={page === 1}
             >
-                <img src="/assets/svg/Arrow/black/Chevron_Left_MD.svg" />
+                <img src="/assets/svg/Arrow/black/Chevron_Left_MD.svg" alt="Previous" />
             </button>
 
-            {paginationRange.map((p, idx) => {
-                if (p === DOTS) {
+            {paginationRange.map((pageNumber, idx) => {
+                if (pageNumber === DOTS) {
                     return (
                         <span key={`dots-${idx}`} className="pagination__dots">
                             {DOTS}
@@ -83,15 +87,15 @@ export const PaginationComponent: React.FC<PaginationProps> = ({
 
                 return (
                     <button
-                        key={p}
+                        key={pageNumber}
                         className={
-                            p === page
+                            pageNumber === page
                                 ? "pagination__button pagination__button--active"
                                 : "pagination__button"
                         }
-                        onClick={() => onChange(p as number)}
+                        onClick={() => onChange(pageNumber as number)}
                     >
-                        {p}
+                        {pageNumber}
                     </button>
                 );
             })}
@@ -101,9 +105,8 @@ export const PaginationComponent: React.FC<PaginationProps> = ({
                 onClick={() => onChange(page + 1)}
                 disabled={page === count}
             >
-                <img src="/assets/svg/Arrow/black/Chevron_Right_MD.svg" />
+                <img src="/assets/svg/Arrow/black/Chevron_Right_MD.svg" alt="Next" />
             </button>
-
         </nav>
     );
 };

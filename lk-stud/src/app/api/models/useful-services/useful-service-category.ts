@@ -1,5 +1,1 @@
-export interface UsefulServiceCategory {
-    ForAll:"ForAll",
-    Students:"Students", 
-    Employees:"Employees"
-}
+export type UsefulServiceCategory = "ForAll" | "Students" | "Employees";

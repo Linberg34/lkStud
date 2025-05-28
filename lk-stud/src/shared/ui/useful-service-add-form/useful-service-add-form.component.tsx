@@ -1,118 +1,123 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { ButtonComponent } from "../button/button.component";
 import { InputTextComponent } from "../input-text/input-text.component";
 import { SelectComponent } from "../input-text/select.component";
 import { FileUploadComponent } from "../upload-file/upload-file.component";
-import './useful-service-add-form.component.css';
+import { ButtonComponent } from "../button/button.component";
+import { UsefulServiceEditCreateDto } from "../../../app/api/models/useful-services";
+import "./useful-service-add-form.component.css";
+import { usePageTranslations } from "../../hooks/usePageTranslations";
 
 interface UsefulServiceAddFormProps {
-    isOpen?: boolean;
-    onClose?: () => void;
+    isOpen: boolean;
+    onClose: () => void;
+    mode: "add" | "edit";
+    initialData: (UsefulServiceEditCreateDto & { id?: string }) | null;
+    onSave: (data: UsefulServiceEditCreateDto) => void;
+    t: ReturnType<typeof usePageTranslations>;
 }
 
-const initialFormData = {
+const blank: UsefulServiceEditCreateDto = {
     title: "",
     link: "",
-    type: "",
+    category: "ForAll",
     description: "",
-    termsOfDistribution: "",
+    termsOfDisctribution: "",
+    logoId: "",
 };
 
 export const UsefulServiceAddForm: React.FC<UsefulServiceAddFormProps> = ({
     isOpen,
     onClose,
+    mode,
+    initialData,
+    onSave,
+    t
 }) => {
-    const [formData, setFormData] = useState(initialFormData);
-    const [file, setFile] = useState<File | null>(null);
+    const [formData, setFormData] = useState<UsefulServiceEditCreateDto>(blank);
 
-    const handleClose = () => {
-        setFormData(initialFormData);
-        setFile(null);
-        onClose?.();
-    };
+    useEffect(() => {
+        if (mode === "edit" && initialData) {
+            setFormData(initialData);
+        } else {
+            setFormData(blank);
+        }
+    }, [isOpen, mode, initialData]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData((p) => ({ ...p, [name]: value }));
     };
 
-    const handleSave = () => {
-        console.log("form", formData, "file", file);
-        handleClose();
+    const handleSubmit = () => {
+        onSave(formData);
     };
 
     if (!isOpen) return null;
 
     return ReactDOM.createPortal(
-        <div
-            className="useful-service-add-form"
-            onClick={e => {
-                if (e.target === e.currentTarget) {
-                    handleClose();
-                }
-            }}
-        >
-            <div
-                className="useful-service-add-form__component"
-                onClick={e => e.stopPropagation()}
-            >
-                <h3 className="useful-service-add-form__title">Добавление сервиса</h3>
+        <div className="useful-service-add-form" onClick={onClose}>
+            <div className="useful-service-add-form__component" onClick={(e) => e.stopPropagation()}>
+                <h3 className="useful-service-add-form__title">
+                    {mode === "add" ? "Добавить сервис" : "Редактировать сервис"}
+                </h3>
                 <div className="useful-service-add-form__body">
                     <InputTextComponent
-                        label="Название сервиса"
+                        label={t.nameOfService}
                         name="title"
-                        placeholder="Введите название сервиса"
                         value={formData.title}
                         onChange={handleChange}
+                        placeholder={t.placeholderNoS}
                     />
                     <InputTextComponent
-                        label="Ссылка"
+                        label={t.link}
                         name="link"
-                        placeholder="Введите ссылку на сервис"
                         value={formData.link}
                         onChange={handleChange}
+                        placeholder={t.placeholderLink}
                     />
                     <SelectComponent
-                        label="Тип"
-                        name="type"
-                        value={formData.type}
-                        onChange={e => setFormData(prev => ({ ...prev, type: e.target.value }))}
+                        label={t.type}
+                        name="category"
+                        value={formData.category}
+                        onChange={handleChange}
                         options={[
-                            { value: "ForAll", label: "Для всех" },
-                            { value: "Employees", label: "Для сотрудников" },
-                            { value: "Students", label: "Для студентов" },
+                            { value: "ForAll", label: t.forAll },
+                            { value: "Employees", label: t.employees },
+                            { value: "Students", label: t.students },
                         ]}
-                        placeholder="Выберите тип сервиса"
+                        placeholder={t.placeholder}
                     />
                     <InputTextComponent
-                        label="Описание"
+                        label={t.description}
                         name="description"
-                        placeholder="Введите описание сервиса"
                         value={formData.description}
                         onChange={handleChange}
+                        placeholder={t.placeholderDesc}
                     />
                     <InputTextComponent
-                        label="Условия предоставления"
-                        name="termsOfDistribution"
-                        placeholder="Введите условия предоставления сервиса"
-                        value={formData.termsOfDistribution}
+                        label={t.termsOfDisctribution}
+                        name="termsOfDisctribution"
+                        value={formData.termsOfDisctribution}
                         onChange={handleChange}
+                        placeholder={t.placeholderTerms}
                     />
                     <FileUploadComponent
-                        onFileSelect={setFile}
+                        onFileSelect={(id) => setFormData((p) => ({ ...p, logoId: id || "" }))}
                         accept={["image/*"]}
-                        label="Загрузить логотип"
+                        t={t}
                     />
                 </div>
                 <div className="useful-service-add-form__buttons">
                     <div className="useful-service-add-form__button-save">
-                        <ButtonComponent onClick={handleSave}>
-                            Сохранить
+                        <ButtonComponent onClick={handleSubmit}>
+                            {mode === "add" ? "Создать" : "Сохранить"}
                         </ButtonComponent>
                     </div>
                     <div className="useful-service-add-form__button-cancel">
-                        <ButtonComponent type="outlined" onClick={handleClose}>
+                        <ButtonComponent type="outlined" onClick={onClose}>
                             Отменить
                         </ButtonComponent>
                     </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./admin-usefulService-card.component.css";
 import { useFileBlob } from "../../hooks/fetchFile";
+import { usePageTranslations } from "../../hooks/usePageTranslations";
 
 interface AdminUsefulServicesCardProps {
     title: string;
@@ -11,6 +12,7 @@ interface AdminUsefulServicesCardProps {
     type: string;
     onEdit?: () => void;
     onDelete?: () => void;
+    t: ReturnType<typeof usePageTranslations>;
 }
 
 export const AdminUsefulServicesCard: React.FC<AdminUsefulServicesCardProps> = ({
@@ -22,6 +24,7 @@ export const AdminUsefulServicesCard: React.FC<AdminUsefulServicesCardProps> = (
     type,
     onEdit,
     onDelete,
+    t
 }) => {
     const { blobUrl: logoUrl, loading, error } = useFileBlob(logoId);
     const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +33,6 @@ export const AdminUsefulServicesCard: React.FC<AdminUsefulServicesCardProps> = (
     return (
         <div className="admin-useful-service-card__component">
             <div className="admin-useful-service-card__card-logo">
-                {loading && <div className="loader">Загрузка...</div>}
                 {!loading && !error && (
                     <img
                         src={logoUrl ?? "/assets/imgs/US-img.jpg"}
@@ -43,12 +45,12 @@ export const AdminUsefulServicesCard: React.FC<AdminUsefulServicesCardProps> = (
                 <div className="admin-useful-service-card__card-body">
                     <div className="admin-useful-service-card__body-row ">
                         <div className="admin-useful-service-card__body-column">
-                            <span className="admin-useful-service-card__label">Ссылка</span>
+                            <span className="admin-useful-service-card__label">{t.link}</span>
                             <a className="admin-useful-service-card__link"
                                 href={link} target="_blank" rel="noopener noreferrer">{link}</a>
                         </div>
                         <div className="admin-useful-service-card__body-column">
-                            <span className="admin-useful-service-card__label">Тип</span>
+                            <span className="admin-useful-service-card__label">{t.type}</span>
                             <span>{type}</span>
                         </div>
                     </div>
@@ -62,13 +64,13 @@ export const AdminUsefulServicesCard: React.FC<AdminUsefulServicesCardProps> = (
                         <div className="admin-useful-service-card__card-description">
                             <div className="p1 admin-useful-service-card__body-row">
                                 <div className="admin-useful-service-card__body-column">
-                                    <span className="p2 admin-useful-service-card__label">Описание</span>
+                                    <span className="p2 admin-useful-service-card__label">{t.description}</span>
                                     <span>{description}</span>
                                 </div>
                             </div>
                             <div className="p1 admin-useful-service-card__body-row">
                                 <div className="admin-useful-service-card__body-column">
-                                    <span className="p2 admin-useful-service-card__label">Условия предоставления</span>
+                                    <span className="p2 admin-useful-service-card__label">{t.termsOfDisctribution}</span>
                                     <span>{termsOfDistribution}</span>
                                 </div>
                             </div>

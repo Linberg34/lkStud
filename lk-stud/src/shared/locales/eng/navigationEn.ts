@@ -4,5 +4,5 @@ export default{
     admin:"Admin",
     certificates:"Certificates",
     usefulservices:"Useful services",
-    events:"Events",
+    events:"Events",  
 }

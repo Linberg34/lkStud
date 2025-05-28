@@ -33,8 +33,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
     const ImgBlock = (
         <div className="service-card-component__body__img">
-            {loading && <div>Загрузка...</div>}
-            {error && <div>Не удалось загрузить логотип</div>}
             {!loading && !error && (
                 <img
                     src={logoUrl ?? "/assets/imgs/US-img.jpg"}

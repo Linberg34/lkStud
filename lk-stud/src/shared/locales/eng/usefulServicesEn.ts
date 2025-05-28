@@ -1,3 +1,17 @@
-export default{
-    title:"Useful services",
+export default {
+    title: "Useful services",
+    buttonText: "Add service",
+    link: "Link",
+    type: "Type",
+    termsOfDisctribution: "Terms of distribution",
+    description: "Description",
+    nameOfService: "Name of service",
+    uploadImage: "Upload an image",
+    placeholderNoS: "Enter name of service",
+    placeholderLink: "Enter link to service",
+    placeholderDesc: "Enter description of service",
+    placeholderTerms: "Enter terms of distribution",
+    forAll: "For all",
+    employees: "Employees",
+    students: "Students",
 }

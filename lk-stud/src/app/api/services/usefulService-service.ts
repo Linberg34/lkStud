@@ -32,10 +32,11 @@ export async function getUsefulServices(params?: {
     return response.data
 }
 
-export async function createUsefulService(): Promise<UsefulServiceEditCreateDto> {
+export async function createUsefulService(data: UsefulServiceEditCreateDto): Promise<UsefulServiceEditCreateDto> {
     const response = await httpClient.post<UsefulServiceEditCreateDto>(
-        baseUrl
-    )
+        baseUrl,
+        data
+    );
     return response.data
 }
 

@@ -19,7 +19,7 @@ export const SelectComponent: React.FC<SelectProps> = ({
     value,
     onChange,
     options,
-    placeholder = "Выберите…",
+    placeholder,
     disabled = false,
 }) => (
     <div className="input-text-component">
