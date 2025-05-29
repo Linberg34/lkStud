@@ -4,6 +4,9 @@ import "./events-page.component.css";
 import { MenuComponent } from "../../../shared/ui/menu/menu.component";
 import { HeaderComponent } from "../../../shared/ui/header/header.component";
 import { NavigationComponent } from "../../../shared/ui/navigation/navigation.component";
+import { InputTextComponent } from "../../../shared/ui/input-text/input-text.component";
+import { ButtonComponent } from "../../../shared/ui/button/button.component";
+import { DatePickerComponent } from "../../../shared/ui/date-picker/date-picker.component";
 
 //TODO: подключить API. сделать компонент дейт пикера добавить компонент поиска пагинацию
 export const EventsPageComponent = () => {
@@ -15,6 +18,8 @@ export const EventsPageComponent = () => {
         return () => window.removeEventListener("resize", onResize);
     }, []);
 
+    const handleSearch = () => { };
+
     return (
         <div className="events-page-component">
             {isWide && <MenuComponent />}
@@ -22,8 +27,23 @@ export const EventsPageComponent = () => {
             <div className="events-page-component__wrapper">
                 <HeaderComponent title="Мероприятия" />
                 <NavigationComponent />
-                <div className="events-page-component__filters">
-
+                <div className="events-page-component__search-block">
+                    <div className="events-page-component__find">
+                        <InputTextComponent
+                            label="Название мероприятия"
+                            placeholder=""
+                            value=""
+                        />
+                        <ButtonComponent
+                            onClick={handleSearch}>
+                            Найти
+                        </ButtonComponent>
+                    </div>
+                    <DatePickerComponent
+                        label = "Дата проведения мероприятия"
+                        value=""
+                        onChange={() => {}}
+                    />
                 </div>
                 <div className="events-page-component__cards-container">
                     {/* <EventCardComponent
