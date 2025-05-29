@@ -4,7 +4,7 @@ export default{
     admin:"Администрирование",
     certificates:"Справки",
     usefulservices:"Полезные сервисы",
-    events:"События",
+    events:"Мероприятия",
     users:"Пользователи",
     placeholderNoS:"Введите название сервиса",
     placeholderLink:"Введите ссылку на сервис",
@@ -13,4 +13,5 @@ export default{
     forAll:"Для всех",
     employees:"Для сотрудников",
     students:"Для студентов",
+
 }
