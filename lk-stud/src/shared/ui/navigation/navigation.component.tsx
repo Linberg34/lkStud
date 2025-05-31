@@ -16,12 +16,12 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
     const pathnames = pathname.split('/').filter(x => x);
 
     const NAVIGATION_NAME_MAP: Record<string, string> = {
-        '/': t.header,
+        '/events': t.header,
         '/profile': t.profile,
         '/admin': t.admin,
         '/certificates': t.certificates,
         '/usefulservices': t.usefulservices,
-        '/events': t.events,
+        // '/events': t.events,
         '/admin/users': t.users,
         '/admin/usefulservices': t.usefulservices,
     };
@@ -42,7 +42,7 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
 
                 return (
                     <React.Fragment key={to}>
-                        <span className="p2 navigation__sep">/</span>
+                        {index > 0 && <span className="p2 navigation__sep">/</span>}
                         {isLast ? (
                             <span className="p2 navigation__current">{name}</span>
                         ) : (

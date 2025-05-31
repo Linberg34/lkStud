@@ -13,6 +13,8 @@ import navigationEn from '../locales/eng/navigationEn'
 import navigationRu from '../locales/ru/navigationRu'
 import usersEn from '../locales/eng/usersEn'
 import usersRu from '../locales/ru/usersRu'
+import eventsEn from '../locales/eng/eventsEn'
+import eventsRu from '../locales/ru/eventsRu'
 
 const translations = {
     en: {
@@ -21,7 +23,8 @@ const translations = {
         profile:profileEn,
         usefulServices: usefulServicesEn,
         navigation:navigationEn,
-        users: usersEn
+        users: usersEn,
+        events: eventsEn
 
     },
     ru: {
@@ -30,7 +33,8 @@ const translations = {
         profile:profileRu,
         usefulServices: usefulServicesRu,
         navigation:navigationRu,
-        users:usersRu
+        users:usersRu,
+        events: eventsRu
     },
 }
 

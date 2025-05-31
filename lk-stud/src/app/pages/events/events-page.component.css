@@ -32,14 +32,33 @@
     width: 100%;
     gap: 8px;
 
+    @media (max-width:599px) {
+        flex-direction: column;
+
+        .button-component {
+            width: 100%;
+        }
+    }
+
     .input-text-component {
-        width: 80%;
-    }
-
-    .button-component {
         width: 100%;
-        min-width: 236px;
-        max-width: 295px;
     }
 
+    @media (min-width:600px) {
+        .button-component {
+            width: 20%;
+        }
+    }
+}
+
+.events-page-component__cards-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap:20px;
+
+    @media (max-width:900px) {
+        display: flex;
+        flex-direction: column;
+    }
 }

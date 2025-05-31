@@ -5,12 +5,13 @@ import { Calendar } from "../calendar/calendar";
 
 type DatePickerProps = {
     label: string;
-    value: string;              
+    value: string;
     name?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     disabled?: boolean;
     caption?: string;
     isError?: boolean;
+    datePlaceholder:string,
 };
 
 const componentClass = "date-picker-component";
@@ -23,10 +24,10 @@ export const DatePickerComponent: React.FC<DatePickerProps> = ({
     disabled = false,
     caption,
     isError = false,
+    datePlaceholder
 }) => {
     const [isPicked, setIsPicked] = useState<boolean>(!!value);
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
-
     const [inputValue, setInputValue] = useState<string>(
         value ? format(parseISO(value), "dd.MM.yyyy") : ""
     );
@@ -45,6 +46,7 @@ export const DatePickerComponent: React.FC<DatePickerProps> = ({
     }, [value]);
 
     const containerRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (
@@ -61,8 +63,45 @@ export const DatePickerComponent: React.FC<DatePickerProps> = ({
         };
     }, [showCalendar]);
 
+    const applyMask = (value: string): string => {
+        const digits = value.replace(/\D/g, "");
+
+        if (digits.length <= 2) {
+            return digits;
+        } else if (digits.length <= 4) {
+            return `${digits.slice(0, 2)}.${digits.slice(2)}`;
+        } else if (digits.length <= 8) {
+            return `${digits.slice(0, 2)}.${digits.slice(2, 4)}.${digits.slice(4)}`;
+        } else {
+            return `${digits.slice(0, 2)}.${digits.slice(2, 4)}.${digits.slice(4, 8)}`;
+        }
+    };
+
     const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setInputValue(e.target.value);
+        const rawValue = e.target.value;
+        const maskedValue = applyMask(rawValue);
+        setInputValue(maskedValue);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        
+        const allowedKeys = [
+            'Backspace', 'Delete', 'Tab', 'Escape', 'Enter',
+            'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+            'Home', 'End'
+        ];
+
+        if (allowedKeys.includes(e.key)) {
+            return;
+        }
+
+        if (e.ctrlKey && ['a', 'c', 'v', 'x'].includes(e.key.toLowerCase())) {
+            return;
+        }
+
+        if (!/^\d$/.test(e.key)) {
+            e.preventDefault();
+        }
     };
 
     const handleInputBlur = () => {
@@ -76,7 +115,7 @@ export const DatePickerComponent: React.FC<DatePickerProps> = ({
             return;
         }
 
-        const parsed = parse(inputValue, "dd.mm.yyyy", new Date());
+        const parsed = parse(inputValue, "dd.MM.yyyy", new Date());
         if (isValid(parsed)) {
             const iso = format(parsed, "yyyy-MM-dd");
             lastValidRef.current = iso;
@@ -128,11 +167,12 @@ export const DatePickerComponent: React.FC<DatePickerProps> = ({
                         type="text"
                         name={name}
                         disabled={disabled}
-                        placeholder="дд.мм.гггг"
+                        placeholder={datePlaceholder}
                         value={inputValue}
                         onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
                         onBlur={handleInputBlur}
-                        onClick={() => !disabled && setShowCalendar((v) => !v)}
+                        maxLength={10} 
                     />
                     <img
                         className={`${componentClass}__icon`}

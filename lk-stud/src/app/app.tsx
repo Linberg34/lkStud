@@ -18,6 +18,8 @@ export const App = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route path="/events" element={<EventsPageComponent />} />
+				<Route path="/events/:id" element={<EventsPageComponent />} />
 				<Route path="/login" element={<LoginPageComponent />} />
 				<Route path="*" element={<NotFoundPageComponent />} />
 				<Route path="/500" element={<InternalServerErrPageComponent />} />
@@ -26,10 +28,9 @@ export const App = () => {
 				</Route>
 				<Route path="/usefulservices" element={<UsefulServicesComponent />} />
 				<Route path="/admin" element={<AdminPageComponent />} />
-				<Route path="/admin/users" element ={<UsersPageComponent/>} />
-				<Route path="/admin/users/:id" element={<AdminProfilePageComponent/>}/>
-				<Route path="/admin/usefulservices" element={<AdminUsefulServicesComponent/>}/>
-				<Route path= "/events" element={<EventsPageComponent/>}/>
+				<Route path="/admin/users" element={<UsersPageComponent />} />
+				<Route path="/admin/users/:id" element={<AdminProfilePageComponent />} />
+				<Route path="/admin/usefulservices" element={<AdminUsefulServicesComponent />} />
 			</Routes>
 		</BrowserRouter>
 	);
