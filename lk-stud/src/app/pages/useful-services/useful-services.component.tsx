@@ -94,6 +94,7 @@ export const UsefulServicesComponent: React.FC = () => {
             {isWide && <MenuComponent />}
             <div className="useful-services-component__wrapper">
                 <HeaderComponent title={t.title} />
+                <h1 className="useful-services-component__page-title">{t.title}</h1>
                 <NavigationComponent />
                 <div className="useful-services-component__content">
                     {items.map((s) => (

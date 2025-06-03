@@ -12,6 +12,7 @@ import { EventShortDtoPagedListWithMetaData } from "../../api/models/Events";
 import { PaginationComponent } from "../../../shared/ui/pagination/pagination.component";
 import { EventCardComponent } from "../../../shared/ui/event-card/event-card.component";
 import { getPublicEvents } from "../../api/services/event-service";
+import { useAuth } from "../../../shared/hooks/checkAuth";
 
 export const EventsPageComponent: React.FC = () => {
     const [isWide, setIsWide] = useState(window.innerWidth > 1200);
@@ -23,6 +24,8 @@ export const EventsPageComponent: React.FC = () => {
     const [page, setPage] = useState<number>(1);
     const pageSize = 6;
     const [hasQueryParams, setHasQueryParams] = useState<boolean>(false);
+    const { isAuthenticated } = useAuth();
+
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -113,9 +116,10 @@ export const EventsPageComponent: React.FC = () => {
 
     return (
         <div className="events-page-component">
-            {isWide && <MenuComponent />}
+            {isWide && isAuthenticated &&  <MenuComponent />}
             <div className="events-page-component__wrapper">
                 <HeaderComponent title={t.title} />
+                <h1 className="events-page-component__page-title">{t.title}</h1>
                 <NavigationComponent />
                 <div className="events-page-component__search-block">
                     <div className="events-page-component__find">
@@ -138,6 +142,7 @@ export const EventsPageComponent: React.FC = () => {
                     {items.length > 0 ? (
                         items.map((item) => (
                             <EventCardComponent
+                                id={item.id}
                                 key={item.id}
                                 title={item.title}
                                 isTimeFromNeeded={item.isTimeFromNeeded}

@@ -1,3 +1,3 @@
 export interface EventInnerRegisterDto{
-    eventId:string
+    eventId?:string
 }

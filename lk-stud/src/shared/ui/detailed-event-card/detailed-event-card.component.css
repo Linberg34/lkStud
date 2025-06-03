@@ -1,0 +1,122 @@
+.detailed-event-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    padding: 28px 32px;
+    gap: 12px;
+    background-color: #FFF;
+    border-radius: 8px;
+}
+
+.detailed-event-card__description-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+}
+
+.detailed-event-card__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 100%;
+    gap: 8px;
+
+}
+
+.detailed-event-card__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+    gap: 12px;
+    border-bottom: 1px solid #DFDFDF;
+}
+
+.detailed-event-card__row:last-child {
+    @media (max-width: 600px) {
+        flex-direction: column;
+    }
+}
+
+.detailed-event-card__row:last-child {
+    border-bottom: none;
+}
+
+.detailed-event-card__row:first-child {
+    border-bottom: none;
+}
+
+.detailed-event-card__body-label {
+    color: #3a3a3a;
+}
+
+.detailed-event-card__body {
+    padding: inherit;
+}
+
+.detailed-event-card__arrow {
+    transition: transform 200ms ease;
+}
+
+.detailed-event-card__arrow.open {
+    transform: rotate(180deg);
+}
+
+.detailed-event-card__image-block {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 185px;
+    border-bottom: 1px solid #DFDFDF;
+
+
+    @media (min-width: 1536px) {
+        height: 320px;
+    }
+
+    @media (min-width: 901px) and (max-width: 1200px) {
+        height: 270px;
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+        height: 250px;
+    }
+
+    @media (min-width: 376px) and (max-width: 600px) {
+        height: 240px;
+    }
+
+}
+
+.detailed-event-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: inherit;
+}
+
+.detailed-event-card__map {
+    width: 100%;
+    height: 200px;
+    max-height: 270px;
+    border: none;
+}
+
+.detailed-event-card__map .gm-style {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    overflow: hidden;
+}
+
+.detailed-event-card__map .gm-svpc,
+.detailed-event-card__map .gm-iv-address,
+.detailed-event-card__map .gm-style-cc {
+    display: none !important;
+}

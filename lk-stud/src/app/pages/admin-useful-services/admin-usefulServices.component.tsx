@@ -109,6 +109,7 @@ export const AdminUsefulServicesComponent: React.FC = () => {
             />
             <div className="admin-useful-services__wrapper">
                 <HeaderComponent title={t.title} />
+                <h1 className="admin-useful-services__page-title">{t.title}</h1>
                 <NavigationComponent />
                 <div className="admin-useful-services__button">
                     <ButtonComponent

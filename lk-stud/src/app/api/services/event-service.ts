@@ -1,5 +1,17 @@
-import { EventCreateDto, EventDto, EventEditDto, EventEditStatusDto, EventExternalRegisterDto, EventFormat, EventShortDtoPagedListWithMetaData, EventStatus, EventType } from "../models/Events"
+import {
+    EventCreateDto,
+    EventDto,
+    EventEditDto,
+    EventEditStatusDto,
+    EventExternalRegisterDto,
+    EventFormat,
+    EventInnerRegisterDto,
+    EventShortDtoPagedListWithMetaData,
+    EventStatus,
+    EventType
+} from "../models/Events"
 import httpClient from "./http-client"
+import qs from "qs";
 
 const EventsUrl = "/Events"
 
@@ -14,7 +26,7 @@ export interface GetEventsParams {
     pageSize?: number
 }
 
-export async function getPublicEvents(params: GetEventsParams): Promise<EventShortDtoPagedListWithMetaData>{
+export async function getPublicEvents(params: GetEventsParams): Promise<EventShortDtoPagedListWithMetaData> {
     const response = await httpClient.get<EventShortDtoPagedListWithMetaData>(
         `${EventsUrl}/public`,
         { params }
@@ -23,61 +35,67 @@ export async function getPublicEvents(params: GetEventsParams): Promise<EventSho
 }
 
 
-    export const getPublicEventsAuth = (params: GetEventsParams) =>
-        httpClient.get<EventShortDtoPagedListWithMetaData>(
-            `${EventsUrl}/public/auth`,
-            { params }
-        )
+export async function getPublicEventById(id: string): Promise<EventDto> {
+    const response = await httpClient.get<EventDto>(
+        `${EventsUrl}/public/${id}`
+    );
+    return response.data;
+}
 
-    export const getPublicEventById = (id: string, params: GetEventsParams) =>
-        httpClient.get<EventDto>(
-            `${EventsUrl}/public/${id}}`,
-            { params }
-        )
+export async function isParticipant(id: string): Promise<void> {
+    await httpClient.get(`${EventsUrl}/is_participant/${id}`);
+}
 
-    export const isParticipant = (id: string) =>
-        httpClient.get(
-            `${EventsUrl}/is_participant/${id}`
-        )
+export async function registerInnerParticipant(
+    dto: EventInnerRegisterDto
+): Promise<void> {
+    await httpClient.post(`${EventsUrl}/register/inner`, dto);
+}
 
-    export const registerInnerParticipant = () =>
-        httpClient.post(
-            `${EventsUrl}/register/inner`
-        )
+export async function registerExternalParticipant(
+    dto: EventExternalRegisterDto
+): Promise<void> {
+    await httpClient.post(`${EventsUrl}/register/external`, dto);
+}
 
-    export const registerExternalParticipant = () =>
-        httpClient.post<EventExternalRegisterDto>(
-            `${EventsUrl}/register/external`
-        )
+export async function getEventsForAdmin(
+    params: GetEventsParams
+): Promise<EventShortDtoPagedListWithMetaData> {
+    const response = await httpClient.get<EventShortDtoPagedListWithMetaData>(
+        `${EventsUrl}`,
+        {
+            params,
+            paramsSerializer: (params) =>
+                qs.stringify(params, { arrayFormat: "repeat" }),
+        }
+    );
+    return response.data;
+}
 
-    export const getEventsForAdmin = (params: GetEventsParams) => (
-        httpClient.get<EventShortDtoPagedListWithMetaData>(
-            `${EventsUrl}`,
-            { params }
-        )
-    )
+export async function createEvent(): Promise<EventCreateDto> {
+    const response = await httpClient.post<EventCreateDto>(`${EventsUrl}`);
+    return response.data;
+}
 
-    export const createEvent = () =>
-        httpClient.post<EventCreateDto>(
-            `${EventsUrl}`
-        )
+export async function editEvent(): Promise<EventEditDto> {
+    const response = await httpClient.put<EventEditDto>(`${EventsUrl}`);
+    return response.data;
+}
 
-    export const editEvent = () =>
-        httpClient.put<EventEditDto>(
-            `${EventsUrl}`
-        )
+export async function deleteEvent(): Promise<void> {
+    await httpClient.delete(`${EventsUrl}`);
+}
 
-    export const deleteEvent = () =>
-        httpClient.delete(
-            `${EventsUrl}`
-        )
+export async function getFullEventDetails(id: string): Promise<EventDto> {
+    const response = await httpClient.get<EventDto>(`${EventsUrl}/${id}`);
+    return response.data;
+}
 
-    export const getFullEventDetails = (id: string) =>
-        httpClient.get<EventDto>(
-            `${EventsUrl}/${id}`
-        )
-
-    export const editEventStatus = (id: string) =>
-        httpClient.put<EventEditStatusDto>(
-            `${EventsUrl}/${id}/status`
-        )
+export async function editEventStatus(
+    id: string
+): Promise<EventEditStatusDto> {
+    const response = await httpClient.put<EventEditStatusDto>(
+        `${EventsUrl}/${id}/status`
+    );
+    return response.data;
+}

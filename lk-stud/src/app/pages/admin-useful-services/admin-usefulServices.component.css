@@ -4,6 +4,14 @@
     height: 100%;
 }
 
+.admin-useful-services__page-title {
+    display: none;
+
+    @media (max-width:1200px) {
+        display: block;
+    }
+}
+
 .admin-useful-services__wrapper {
     flex: 1;
     display: flex;

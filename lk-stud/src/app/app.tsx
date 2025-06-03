@@ -13,13 +13,14 @@ import { UsersPageComponent } from "./pages/users/users-page.component";
 import { AdminProfilePageComponent } from "./pages/admin-profile/admin-profile-page.component";
 import { AdminUsefulServicesComponent } from "./pages/admin-useful-services/admin-usefulServices.component";
 import { EventsPageComponent } from "./pages/events/events-page.component";
+import { DetailedEventPage } from "./pages/detailed-event/detailed-event.component";
 
 export const App = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path="/events" element={<EventsPageComponent />} />
-				<Route path="/events/:id" element={<EventsPageComponent />} />
+				<Route path="/events/:id" element={<DetailedEventPage />} />
 				<Route path="/login" element={<LoginPageComponent />} />
 				<Route path="*" element={<NotFoundPageComponent />} />
 				<Route path="/500" element={<InternalServerErrPageComponent />} />

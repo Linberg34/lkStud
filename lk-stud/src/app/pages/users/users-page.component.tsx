@@ -18,6 +18,8 @@ import { Link } from "react-router-dom"
 
 
 export const UsersPageComponent: React.FC = () => {
+
+    const [isWide, setIsWide] = useState(window.innerWidth > 1200);
     const dispatch = useDispatch<AppDispatch>()
     const [users, setUsers] = useState<ProfileShortDtoPagedListWithMetadata["results"]>([])
     const [meta, setMeta] = useState<ProfileShortDtoPagedListWithMetadata["metaData"] | null>(null)
@@ -29,6 +31,12 @@ export const UsersPageComponent: React.FC = () => {
     const [currentLetter, setCurrentLetter] = useState<string>("")
     const [collapsed, setCollapsed] = useState<boolean>(true)
     const [view, setView] = useState<"list" | "grid">("list")
+
+    useEffect(() => {
+        const onResize = () => setIsWide(window.innerWidth > 1200);
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, []);
 
     useEffect(() => {
         dispatch(fetchUsersList({ page, pageSize, name: searchQuery }))
@@ -47,9 +55,10 @@ export const UsersPageComponent: React.FC = () => {
 
     return (
         <div className="users-page-component">
-            <MenuComponent />
+            {isWide &&<MenuComponent />}
             <div className="users-page-component__content">
                 <HeaderComponent title={t.users} />
+                <h1 className="users-page-component__page-title">{t.users}</h1>
                 <NavigationComponent />
                 <SearchComponent
                     placeholder={t.hint}

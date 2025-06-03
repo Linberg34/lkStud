@@ -181,7 +181,6 @@ export const DatePickerComponent: React.FC<DatePickerProps> = ({
                                 ? "/assets/svg/interface/black/Date.svg"
                                 : "/assets/svg/interface/black/Date_add.svg"
                         }
-                        alt="toggle calendar"
                         onClick={() => !disabled && setShowCalendar((v) => !v)}
                     />
                 </span>

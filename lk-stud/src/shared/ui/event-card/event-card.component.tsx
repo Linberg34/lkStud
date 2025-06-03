@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import { EventAuditory, EventFormat, EventStatus } from '../../../app/api/models/Events'
 import { useFileBlob } from '../../hooks/fetchFile'
 import './event-card.component.css'
 
 
 interface EventCardComponentProps {
+    id:string,
     title: string
     pictureId?: string,
     isTimeFromNeeded: boolean,
@@ -15,6 +17,7 @@ interface EventCardComponentProps {
     status?: EventStatus,
 }
 export const EventCardComponent: React.FC<EventCardComponentProps> = ({
+    id,
     title,
     pictureId,
     isTimeFromNeeded,
@@ -22,16 +25,18 @@ export const EventCardComponent: React.FC<EventCardComponentProps> = ({
     isTimeToNeeded,
     dateTimeTo,
     format,
-    auditory,
     status,
 }) => {
+    const navigate = useNavigate();
     const { blobUrl: pictureUrl, } = useFileBlob(pictureId ?? "");
     const formatDate = (dt?: string) =>
         dt ? new Date(dt).toLocaleString() : "";
     const statusClass = `event-card__status--${status}`;
 
     return (
-        <div className="event-card__component">
+        <div className="event-card__component"
+            onClick={() => navigate(`/events/${id}`)}
+        >
             <div className="event-card__img">
                 <img
                     src={pictureUrl ?? "/assets/imgs/US-img.jpg"}
@@ -69,12 +74,6 @@ export const EventCardComponent: React.FC<EventCardComponentProps> = ({
                                 Формат мероприятия
                             </span>
                             <span>{format}</span>
-                        </div>
-                        <div className="event-card__text-body-column">
-                            {/* <span className="p2 event-card__text-body-label">
-                                Аудитория
-                            </span> */}
-                            <span>{auditory}</span>
                         </div>
                     </div>
                 </div>
