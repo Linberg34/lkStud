@@ -42,20 +42,25 @@ export async function getPublicEventById(id: string): Promise<EventDto> {
     return response.data;
 }
 
-export async function isParticipant(id: string): Promise<void> {
-    await httpClient.get(`${EventsUrl}/is_participant/${id}`);
+export async function isParticipant(id: string): Promise<number> {
+    const response = await httpClient.get(
+        `${EventsUrl}/is_participant/${id}`
+    );
+    return response.status;
 }
 
 export async function registerInnerParticipant(
     dto: EventInnerRegisterDto
-): Promise<void> {
-    await httpClient.post(`${EventsUrl}/register/inner`, dto);
+): Promise<number> {
+    const response = await httpClient.post(`${EventsUrl}/register/inner`, dto);
+    return response.status
 }
 
 export async function registerExternalParticipant(
     dto: EventExternalRegisterDto
-): Promise<void> {
-    await httpClient.post(`${EventsUrl}/register/external`, dto);
+): Promise<number> {
+    const response = await httpClient.post(`${EventsUrl}/register/external`, dto);
+    return response.status
 }
 
 export async function getEventsForAdmin(

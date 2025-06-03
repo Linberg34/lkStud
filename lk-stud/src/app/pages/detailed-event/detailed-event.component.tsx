@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { DetailedEventCard } from "../../../shared/ui/detailed-event-card/detailed-event-card.component";
 import { MenuComponent } from "../../../shared/ui/menu/menu.component";
@@ -14,15 +15,19 @@ import {
     getPublicEventById,
     registerExternalParticipant,
     registerInnerParticipant,
+    isParticipant,
 } from "../../api/services/event-service";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../../shared/hooks/checkAuth";
 import { EventRegisterForm } from "../../../shared/ui/event-register-form/event-register-form.component";
 
+//TODO: чекнуть работает ли запись на мероприятие, и отображение статуса записи(уже участвую)
+
 export const DetailedEventPage: React.FC = () => {
     const [isWide, setIsWide] = useState(window.innerWidth > 1200);
     const [isOpen, setOpen] = useState(false);
     const [cardInfo, setCardInfo] = useState<EventDto | null>(null);
+    const [participating, setParticipating] = useState(false);
     const { id } = useParams<{ id: string }>();
     const { isAuthenticated } = useAuth();
 
@@ -32,12 +37,18 @@ export const DetailedEventPage: React.FC = () => {
             try {
                 const res = await getPublicEventById(id);
                 setCardInfo(res);
+                if (isAuthenticated) {
+                    const resp = await isParticipant(id);
+                    if (resp === 200) {
+                        setParticipating(true);
+                    }
+                }
             } catch {
                 setCardInfo(null);
             }
         };
         fetchEvent();
-    }, [id]);
+    }, [id, isAuthenticated]);
 
     useEffect(() => {
         const onResize = () => setIsWide(window.innerWidth > 1200);
@@ -50,16 +61,14 @@ export const DetailedEventPage: React.FC = () => {
     }
 
     const handleRegistration = () => {
+        if (participating) return;
         if (isAuthenticated) {
             const dto: EventInnerRegisterDto = { eventId: id! };
             registerInnerParticipant(dto)
                 .then(() => {
-                    alert("Вы успешно зарегистрировались как внутренний участник.");
+                    setParticipating(true);
                 })
-                .catch((err) => {
-                    console.error(err);
-                    alert("Не удалось зарегистрироваться.");
-                });
+                .catch(() => { });
         } else {
             setOpen(true);
         }
@@ -78,16 +87,12 @@ export const DetailedEventPage: React.FC = () => {
             phone: data.phone,
             additionalInfo: data.additionalInfo,
         };
-
         registerExternalParticipant(dto)
             .then(() => {
-                alert("Ваша заявка отправлена. Проверьте почту для подтверждения.");
+                setParticipating(true);
                 setOpen(false);
             })
-            .catch((err) => {
-                console.error(err);
-                alert("Не удалось отправить заявку.");
-            });
+            .catch((err: any) => {console.error(err.response.data) });
     };
 
     return (
@@ -96,6 +101,7 @@ export const DetailedEventPage: React.FC = () => {
 
             <div className="detailed-event__page-wrapper">
                 <EventRegisterForm
+                    eventId={id}
                     isOpen={isOpen}
                     onClose={() => setOpen(false)}
                     onSave={handleExternalSave}
@@ -111,11 +117,21 @@ export const DetailedEventPage: React.FC = () => {
 
                 <div className="detailed-event_page-title">
                     <h2 className="detailed-event__title">{cardInfo.title}</h2>
-                    {cardInfo.isRegistrationRequired && (
-                        <ButtonComponent onClick={handleRegistration}>
+                    {cardInfo.isRegistrationRequired && !participating && (
+                        <ButtonComponent
+                            onClick={handleRegistration}
+                        >
                             Буду участвовать
                         </ButtonComponent>
                     )}
+                    {participating &&
+                        <ButtonComponent
+                            type="outlined"
+                        >
+                            Участвую
+                        </ButtonComponent>
+                    }
+
                 </div>
 
                 <DetailedEventCard

@@ -5,6 +5,7 @@ import { ButtonComponent } from "../button/button.component";
 import { formatPhoneNumber } from "../../utils/phoneUtils";
 
 interface EventRegisterFormProps {
+    eventId?:string
     isOpen: boolean;
     onClose: () => void;
     name?: string;
@@ -12,6 +13,7 @@ interface EventRegisterFormProps {
     email?: string;
     additionalInfo?: string;
     onSave: (data: {
+        eventId:string,
         name: string;
         phone: string;
         email: string;
@@ -20,6 +22,7 @@ interface EventRegisterFormProps {
 }
 
 export const EventRegisterForm: React.FC<EventRegisterFormProps> = ({
+    eventId ="",
     isOpen,
     onClose,
     name: initialName = "",
@@ -51,6 +54,7 @@ export const EventRegisterForm: React.FC<EventRegisterFormProps> = ({
 
     const handleSave = () => {
         onSave({
+            eventId,
             name,
             phone,
             email,
