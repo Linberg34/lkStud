@@ -21,7 +21,6 @@ export const AdminCardComponent: React.FC<AdminCardComponentProps> = ({
                 <img
                     className="admin-card-component__icon"
                     src={iconSrc}
-                    alt=""
                 />
                 <h2 className="admin-card-component__title">
                     {title}

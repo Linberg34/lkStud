@@ -36,7 +36,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             {!loading && !error && (
                 <img
                     src={logoUrl ?? "/assets/imgs/US-img.jpg"}
-                    alt={title}
                     className="service-card-component__body__img__img"
                     onError={(e) => {
                         e.currentTarget.onerror = null

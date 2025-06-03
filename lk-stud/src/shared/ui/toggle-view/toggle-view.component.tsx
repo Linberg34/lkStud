@@ -26,7 +26,6 @@ export const ViewToggle: React.FC<ViewToggleProps> = ({ view, onViewChange }) =>
             >
                 <img
                     src={view === "list" ? icons.list.active : icons.list.inactive}
-                    alt="List view"
                 />
             </button>
             <button
@@ -35,7 +34,6 @@ export const ViewToggle: React.FC<ViewToggleProps> = ({ view, onViewChange }) =>
             >
                 <img
                     src={view === "grid" ? icons.grid.active : icons.grid.inactive}
-                    alt="Grid view"
                 />
             </button>
         </div>

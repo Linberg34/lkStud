@@ -42,7 +42,6 @@ export const Calendar: React.FC<CalendarProps> = ({
                         src="/assets/svg/Arrow/black/Chevron_Left_MD.svg"
                         onClick={prevMonth}
                         className="calendar__nav"
-                        alt="prev month"
                     />
                     <span className="calendar__control-title">
                         {format(currentMonth, "LLLL")}
@@ -51,7 +50,6 @@ export const Calendar: React.FC<CalendarProps> = ({
                         src="/assets/svg/Arrow/black/Chevron_Right_MD.svg"
                         onClick={nextMonth}
                         className="calendar__nav"
-                        alt="next month"
                     />
                 </div>
                 <div className="calendar__control">
@@ -59,7 +57,6 @@ export const Calendar: React.FC<CalendarProps> = ({
                         src="/assets/svg/Arrow/black/Chevron_Left_MD.svg"
                         onClick={prevYear}
                         className="calendar__nav"
-                        alt="prev year"
                     />
                     <span className="calendar__control-title">
                         {format(currentMonth, "yyyy")}
@@ -68,7 +65,6 @@ export const Calendar: React.FC<CalendarProps> = ({
                         src="/assets/svg/Arrow/black/Chevron_Right_MD.svg"
                         onClick={nextYear}
                         className="calendar__nav"
-                        alt="next year"
                     />
                 </div>
             </div>

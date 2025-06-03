@@ -103,7 +103,6 @@ export const DetailedEventCard: React.FC<DetailedEventCardProps> = ({
                 <img
                     className="detailed-event-card__img"
                     src={pictureUrl ?? "/assets/imgs/US-img.jpg"}
-                    alt={title}
                 />
             </div>
 

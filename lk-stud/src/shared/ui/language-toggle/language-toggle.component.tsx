@@ -36,7 +36,6 @@ export const LanguageToggleComponent: React.FC = () => {
                 </span>
                 <img
                     src={`/assets/svg/language/${selectedLanguage}-language.svg`}
-                    alt={`${selectedLanguage} language`}
                 />
                 <div
                     className={`language-toggle-component__arrow ${isOpen ? "language-toggle-component__arrow--open" : ""

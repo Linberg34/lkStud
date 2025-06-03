@@ -20,10 +20,12 @@ import {
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../../shared/hooks/checkAuth";
 import { EventRegisterForm } from "../../../shared/ui/event-register-form/event-register-form.component";
+import { usePageTranslations } from "../../../shared/hooks/usePageTranslations";
 
 //TODO: чекнуть работает ли запись на мероприятие, и отображение статуса записи(уже участвую)
 
 export const DetailedEventPage: React.FC = () => {
+    const t = usePageTranslations("events");
     const [isWide, setIsWide] = useState(window.innerWidth > 1200);
     const [isOpen, setOpen] = useState(false);
     const [cardInfo, setCardInfo] = useState<EventDto | null>(null);
@@ -111,8 +113,8 @@ export const DetailedEventPage: React.FC = () => {
                     additionalInfo=""
                 />
 
-                <HeaderComponent title={"Мероприятия"} />
-                <h1 className="detailed-event__page-title">Мероприятия</h1>
+                <HeaderComponent title={t.title} />
+                <h1 className="detailed-event__page-title">{t.title}</h1>
                 <NavigationComponent username={cardInfo.title} />
 
                 <div className="detailed-event_page-title">
@@ -121,14 +123,14 @@ export const DetailedEventPage: React.FC = () => {
                         <ButtonComponent
                             onClick={handleRegistration}
                         >
-                            Буду участвовать
+                            {t.partButton}
                         </ButtonComponent>
                     )}
                     {participating &&
                         <ButtonComponent
                             type="outlined"
                         >
-                            Участвую
+                            {t.alreadyPart}
                         </ButtonComponent>
                     }
 

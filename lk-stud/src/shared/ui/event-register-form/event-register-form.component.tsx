@@ -3,9 +3,10 @@ import "./event-register-form.component.css";
 import { InputTextComponent } from "../input-text/input-text.component";
 import { ButtonComponent } from "../button/button.component";
 import { formatPhoneNumber } from "../../utils/phoneUtils";
+import { usePageTranslations } from "../../hooks/usePageTranslations";
 
 interface EventRegisterFormProps {
-    eventId?:string
+    eventId?: string
     isOpen: boolean;
     onClose: () => void;
     name?: string;
@@ -13,7 +14,7 @@ interface EventRegisterFormProps {
     email?: string;
     additionalInfo?: string;
     onSave: (data: {
-        eventId:string,
+        eventId: string,
         name: string;
         phone: string;
         email: string;
@@ -22,7 +23,7 @@ interface EventRegisterFormProps {
 }
 
 export const EventRegisterForm: React.FC<EventRegisterFormProps> = ({
-    eventId ="",
+    eventId = "",
     isOpen,
     onClose,
     name: initialName = "",
@@ -31,6 +32,7 @@ export const EventRegisterForm: React.FC<EventRegisterFormProps> = ({
     additionalInfo: initialAdditionalInfo = "",
     onSave,
 }) => {
+    const t = usePageTranslations("events");
     const [name, setName] = useState<string>(initialName);
     const [phone, setPhone] = useState<string>(initialPhone);
     const [email, setEmail] = useState<string>(initialEmail);
@@ -69,36 +71,35 @@ export const EventRegisterForm: React.FC<EventRegisterFormProps> = ({
                     className="event-register-form__close"
                     onClick={onClose}
                     src="/assets/svg/interface/black/Close_MD.svg"
-                    alt="Закрыть"
                 />
                 <div className="event-register-form__header">
-                    <h3 className="event-register-form__title">Регистрация на мероприятие</h3>
+                    <h3 className="event-register-form__title">{t.register}</h3>
                 </div>
 
                 <div className="event-register-form__body">
                     <InputTextComponent
-                        label="ФИО"
+                        label={t.name}
                         value={name}
+                        placeholder=""
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Введите ваше ФИО"
                     />
 
                     <InputTextComponent
-                        label="Телефон"
+                        label={t.phone}
                         placeholder="+7 (___) ___-__-__"
                         value={phone}
                         onChange={handlePhoneChange}
                     />
 
                     <InputTextComponent
-                        label="Email"
+                        label={t.email}
                         value={email}
+                        placeholder=""
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Введите ваш email"
                     />
 
                     <InputTextComponent
-                        label="Дополнительная информация"
+                        label={t.additionalInfo}
                         value={additionalInfo}
                         onChange={(e) => setAdditionalInfo(e.target.value)}
                         placeholder=""
@@ -106,9 +107,9 @@ export const EventRegisterForm: React.FC<EventRegisterFormProps> = ({
                 </div>
 
                 <div className="event-register-form__footer">
-                    <ButtonComponent onClick={handleSave}>Сохранить</ButtonComponent>
+                    <ButtonComponent onClick={handleSave}>{t.saveButton}</ButtonComponent>
                     <ButtonComponent onClick={onClose} type="outlined">
-                        Отменить
+                        {t.cancelButton}
                     </ButtonComponent>
                 </div>
             </div>
