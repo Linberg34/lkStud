@@ -11,6 +11,7 @@ interface SelectProps {
     options: Option[];
     placeholder?: string;
     disabled?: boolean;
+    iconSrc?: string
 }
 
 export const SelectComponent: React.FC<SelectProps> = ({
@@ -21,6 +22,7 @@ export const SelectComponent: React.FC<SelectProps> = ({
     options,
     placeholder,
     disabled = false,
+    iconSrc
 }) => (
     <div className="input-text-component">
         <label className="input-text-component__label">
@@ -45,6 +47,11 @@ export const SelectComponent: React.FC<SelectProps> = ({
                         </option>
                     ))}
                 </select>
+                {<img
+                    src={iconSrc}
+                    aria-hidden="true"
+                    className="input-text-component__arrow"
+                />}
             </span>
         </label>
     </div>

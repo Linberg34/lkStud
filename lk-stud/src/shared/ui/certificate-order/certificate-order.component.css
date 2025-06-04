@@ -1,0 +1,26 @@
+.certificate-order {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+    padding: 24px 32px;
+    border-radius: 8px;
+    gap: 16px;
+}
+
+.certificate-order__content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    @media (max-width:900px) {
+        flex-direction: column;
+    }
+}
+.certificate-order__content .button-component__text{
+    text-transform: uppercase;
+}
+
+.certificate-order__content .input-text-component:first-child{
+    flex: 1;
+}

@@ -1,40 +1,39 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import './navigation.component.css';
+import "./navigation.component.css";
 import { usePageTranslations } from "../../hooks/usePageTranslations";
 
 interface NavigationComponentProps {
     username?: string;
 }
 
-
 export const NavigationComponent: React.FC<NavigationComponentProps> = ({
     username,
 }) => {
-    const t = usePageTranslations('navigation');
+    const t = usePageTranslations("navigation");
     const { pathname } = useLocation();
-    const pathnames = pathname.split('/').filter(x => x);
+    const pathnames = pathname.split("/").filter((x) => x);
 
     const NAVIGATION_NAME_MAP: Record<string, string> = {
-        '/events': t.header,
-        '/profile': t.profile,
-        '/admin': t.admin,
-        '/certificates': t.certificates,
-        '/usefulservices': t.usefulservices,
-        // '/events': t.events,
-        '/admin/users': t.users,
-        '/admin/usefulservices': t.usefulservices,
+        "/": t.header,
+        "/events": t.header,
+        "/profile": t.profile,
+        "/admin": t.admin,
+        "/certificates": t.certificates,
+        "/usefulservices": t.usefulservices,
+        "/admin/users": t.users,
+        "/admin/usefulservices": t.usefulservices,
     };
 
     return (
         <nav className="navigation-component" aria-label="navigation">
-            <div className="p2 navigation__home">
-                {NAVIGATION_NAME_MAP['/']}
-            </div>
+            <div className="p2 navigation__home">{NAVIGATION_NAME_MAP["/"]}</div>
             {pathnames.map((segment, index) => {
-                const to = '/' + pathnames.slice(0, index + 1).join('/');
+                const to = "/" + pathnames.slice(0, index + 1).join("/");
+                if (to === "/events") {
+                    return null;
+                }
                 const isLast = index === pathnames.length - 1;
-
                 const name =
                     isLast && username
                         ? username
@@ -42,7 +41,7 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
 
                 return (
                     <React.Fragment key={to}>
-                        {index > 0 && <span className="p2 navigation__sep">/</span>}
+                        <span className="p2 navigation__sep">/</span>
                         {isLast ? (
                             <span className="p2 navigation__current">{name}</span>
                         ) : (

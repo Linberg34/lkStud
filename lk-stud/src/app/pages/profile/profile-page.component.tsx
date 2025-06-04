@@ -23,7 +23,7 @@ import { updateAvatar } from "../../api/services/profile-service"
 
 //TODO: Пофиксить отображение хедера в мобильной версии
 //TODO: Сделать кастомные ошибки
-//TODO: доделать компонент админ странички с пользователями ( поиск и вид сеткой)
+//TODO: сделать админку только для админа и сделать глобальную проверку на роли
 
 export const ProfilePageComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()

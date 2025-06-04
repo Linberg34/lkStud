@@ -1,18 +1,19 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 class HttpClient {
     private axiosInstance: AxiosInstance;
+    private refreshIntervalId: number | null = null;
 
     constructor(baseURL: string) {
         this.axiosInstance = axios.create({
             baseURL,
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
         });
 
         this.axiosInstance.interceptors.request.use((config) => {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem("accessToken");
             if (token && config.headers) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
@@ -27,30 +28,29 @@ class HttpClient {
                 if (
                     error.response?.status === 401 &&
                     !originalRequest._retry &&
-                    localStorage.getItem('refreshToken')
+                    localStorage.getItem("refreshToken")
                 ) {
                     originalRequest._retry = true;
-
                     try {
-                        const refreshToken = localStorage.getItem('refreshToken');
+                        const refreshToken = localStorage.getItem("refreshToken");
                         const refreshResponse = await axios.post<{
-                            loginSucceeded: boolean;
                             accessToken: string;
                             refreshToken: string;
-                        }>('https://lk-stud.api.kreosoft.space/api/auth/refresh', { refreshToken });
+                        }>(
+                            "https://lk-stud.api.kreosoft.space/api/auth/refresh",
+                            { refreshToken }
+                        );
+                        const { accessToken, refreshToken: newRefreshToken } =
+                            refreshResponse.data;
 
-                        const { accessToken, refreshToken: newRefreshToken } = refreshResponse.data;
+                        localStorage.setItem("accessToken", accessToken);
+                        localStorage.setItem("refreshToken", newRefreshToken);
 
-                        localStorage.setItem('accessToken', accessToken);
-                        localStorage.setItem('refreshToken', newRefreshToken);
-
-                        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+                        originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
                         return this.axiosInstance(originalRequest);
                     } catch (refreshError) {
-                        console.error('Refresh token failed:', refreshError);
-                        localStorage.removeItem('accessToken');
-                        localStorage.removeItem('refreshToken');
-                        window.location.href = '/login';
+                        localStorage.removeItem("accessToken");
+                        localStorage.removeItem("refreshToken");
                         return Promise.reject(refreshError);
                     }
                 }
@@ -63,39 +63,51 @@ class HttpClient {
     }
 
     private startTokenRefresh() {
-        setInterval(async () => {
-            const refreshToken = localStorage.getItem('refreshToken');
+        this.refreshIntervalId = window.setInterval(async () => {
+            const refreshToken = localStorage.getItem("refreshToken");
             if (refreshToken) {
                 try {
                     const refreshResponse = await axios.post<{
-                        loginSucceeded: boolean;
                         accessToken: string;
                         refreshToken: string;
-                    }>('https://lk-stud.api.kreosoft.space/api/auth/refresh', { refreshToken });
-
-                    const { accessToken, refreshToken: newRefreshToken } = refreshResponse.data;
-
-                    localStorage.setItem('accessToken', accessToken);
-                    localStorage.setItem('refreshToken', newRefreshToken);
+                    }>(
+                        "https://lk-stud.api.kreosoft.space/api/auth/refresh",
+                        { refreshToken }
+                    );
+                    const { accessToken, refreshToken: newRefreshToken } =
+                        refreshResponse.data;
+                    localStorage.setItem("accessToken", accessToken);
+                    localStorage.setItem("refreshToken", newRefreshToken);
                 } catch (error) {
-                    console.error('Proactive refresh failed:', error);
-                    localStorage.removeItem('accessToken');
-                    localStorage.removeItem('refreshToken');
-                    window.location.href = '/login';
+                    console.error("Proactive refresh failed:", error);
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    if (this.refreshIntervalId) {
+                        window.clearInterval(this.refreshIntervalId);
+                        this.refreshIntervalId = null;
+                    }
                 }
             }
-        }, 45000); 
+        }, 45000);
     }
 
     get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
         return this.axiosInstance.get<T>(url, config);
     }
 
-    post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    post<T>(
+        url: string,
+        data?: unknown,
+        config?: AxiosRequestConfig
+    ): Promise<AxiosResponse<T>> {
         return this.axiosInstance.post<T>(url, data, config);
     }
 
-    put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    put<T>(
+        url: string,
+        data?: unknown,
+        config?: AxiosRequestConfig
+    ): Promise<AxiosResponse<T>> {
         return this.axiosInstance.put<T>(url, data, config);
     }
 
@@ -103,15 +115,18 @@ class HttpClient {
         return this.axiosInstance.delete<T>(url, config);
     }
 
-    getBlob(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<Blob>> {
+    getBlob(
+        url: string,
+        config?: AxiosRequestConfig
+    ): Promise<AxiosResponse<Blob>> {
         return this.axiosInstance.get<Blob>(url, {
             ...config,
-            responseType: 'blob',
+            responseType: "blob",
         });
     }
 }
 
-const baseURL = 'https://lk-stud.api.kreosoft.space/api';
+const baseURL = "https://lk-stud.api.kreosoft.space/api";
 const httpClient = new HttpClient(baseURL);
 
 export default httpClient;

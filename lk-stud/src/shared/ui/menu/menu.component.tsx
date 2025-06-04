@@ -4,36 +4,33 @@ import "./menu.component.css";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../../store/store";
 import { MenuItem } from "../menu-item/menu-item.component";
-import { logout } from "../../../app/api/services/auth-service";
-import { useNavigate } from "react-router-dom";
+import { logout as apiLogout } from "../../../app/api/services/auth-service";
 import { usePageTranslations } from "../../hooks/usePageTranslations";
-import { fetchProfile } from "../../../store/slices/profileSlice";
+import { clearProfile } from "../../../store/slices/profileSlice";
 import { useAvatarUrl } from "../../hooks/useAvatar";
+
 export const MenuComponent = () => {
     const dispatch = useDispatch<AppDispatch>();
     const [isOpen, setIsOpen] = useState(false);
     const [showLogout, setShowLogout] = useState(false);
-    const navigate = useNavigate();
     const isMobile = useMediaQuery("(max-width:1201px)");
     const menuRef = useRef<HTMLDivElement>(null);
-    const profileId = useSelector((s: RootState) => s.profile.profile?.id);
+
     const profile = useSelector((s: RootState) => s.profile.profile);
+    const profileId = profile?.id;
     const fileId = profile?.avatar?.id;
     const { url: avatarUrl } = useAvatarUrl(fileId);
     const t = usePageTranslations("menu");
 
     const handleLogout = () => {
-        logout();
-        navigate("/login");
-    }
-
-    useEffect(() => {
-        dispatch(fetchProfile());
-    }, [dispatch]);
+        apiLogout();
+        dispatch(clearProfile());
+        window.location.href = "/login";
+    };
 
     const handleAvatarClick = () => {
-        setShowLogout(prev => !prev);
-    }
+        setShowLogout((prev) => !prev);
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -55,15 +52,9 @@ export const MenuComponent = () => {
         >
             {isMobile ? (
                 <>
-                    <div
-                        className="menu-component__burger"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        <img
-                            src="/assets/svg/menu/black/Hamburger.svg"
-                        />
+                    <div className="menu-component__burger" onClick={() => setIsOpen(!isOpen)}>
+                        <img src="/assets/svg/menu/black/Hamburger.svg" />
                     </div>
-
                     {isOpen && (
                         <div className="menu-component__menu">
                             <MenuItem
@@ -111,13 +102,8 @@ export const MenuComponent = () => {
                 </>
             ) : (
                 <>
-                    <div
-                        onClick={handleAvatarClick}
-                        className="menu-component__avatar-wrapper">
-                        <img
-                            src={avatarUrl || ""}
-                            className="menu-component__avatar"
-                        />
+                    <div onClick={handleAvatarClick} className="menu-component__avatar-wrapper">
+                        <img src={avatarUrl || ""} className="menu-component__avatar" />
                         {showLogout && (
                             <div className="menu-component__logout" onClick={handleLogout}>
                                 {!isMobile && <span>{t.logout}</span>}
@@ -125,10 +111,7 @@ export const MenuComponent = () => {
                             </div>
                         )}
                     </div>
-                    <div
-                        className="menu-component__arrow"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
+                    <div className="menu-component__arrow" onClick={() => setIsOpen(!isOpen)}>
                         <img
                             src="/assets/svg/Arrow/white/Chevron_Left_MD.svg"
                             className={isOpen ? "rotated" : ""}

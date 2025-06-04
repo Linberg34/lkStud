@@ -34,7 +34,7 @@
     flex-direction: column;
     width: 100%;
     gap: 20px;
-    padding: 1.5% 10% 0 5%;
+    padding: 1% 5% 0 2.5%;
 }
 
 .users-page-component__card-link {

@@ -4,31 +4,47 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap:12px;
+    gap: 12px;
     padding: 8px;
     background-color: #fff;
     border-bottom: 1px solid #D9D9D9;
 }
-.certificate-card :last-child{
+
+.certificate-card :last-child {
     border-bottom: none;
-} 
+}
 
 .certificate-card__info_block {
     display: flex;
     flex-direction: column;
-    gap:4px;
-    
-}
-.certificate-card__type,
-.certificate-card__material{
-    color:#3a3a3a ;
+    gap: 4px;
+
 }
 
-.certificate-card__status{
+.certificate-card__type,
+.certificate-card__material {
+    color: #3a3a3a;
+}
+
+
+.certificate-card__status-text {
+    color: #fff;
+}
+
+[class^="certificate-card__status"] {
     padding: 5px 12px;
     border-radius: 8px;
+    color: #fff;
+}
+
+.certificate-card__status-Finished {
     background-color: #46B34A;
-    h4{
-        color:#F9F9F9;
-    }
+}
+
+.certificate-card__status-Created {
+    background-color: #9C9C9C;
+}
+
+.certificate-card__status-InProcess {
+    background-color: #F69D1E;
 }
