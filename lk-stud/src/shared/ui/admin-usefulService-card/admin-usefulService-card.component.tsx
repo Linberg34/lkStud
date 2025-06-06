@@ -80,7 +80,7 @@ export const AdminUsefulServicesCard: React.FC<AdminUsefulServicesCardProps> = (
             </div>
             <div className="admin-useful-service-card__card-actions">
                 <img src="/assets/svg/interface/black/Edit.svg" className="icon" onClick={onEdit} />
-                <img src="/assets/svg/interface/black//Trash_bin.svg" className="icon" onClick={onDelete} />
+                <img src="/assets/svg/interface/black/Trash_bin.svg" className="icon" onClick={onDelete} />
             </div>
         </div >
     );

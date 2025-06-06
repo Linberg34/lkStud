@@ -1,0 +1,39 @@
+.role-switch-component {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 292px;
+    height: fit-content;
+    padding: 20px 32px;
+    background-color: #fff;
+    border-radius: 8px;
+    gap: 8px;
+
+    @media (max-width:900px) {
+        background-color: transparent;
+        max-width: none;
+
+        .input-text-component__title {
+            background-color: #EFEFEF !important;
+        }
+    }
+
+}
+
+.role-switch-component__role {
+    border-bottom: 1px solid #D9D9D9;
+    padding: 5px 12px;
+    cursor: pointer;
+}
+
+.role-switch-component__role {
+    border-bottom: 1px solid #D9D9D9;
+    padding: 5px 12px;
+    cursor: pointer;
+}
+
+.role-switch-component__role:hover,
+.role-switch-component__role.active {
+    color: #375fff;
+    border-left: 4px solid #375fff;
+}
