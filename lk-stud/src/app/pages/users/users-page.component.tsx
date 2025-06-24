@@ -1,5 +1,5 @@
 import "./users-page.component.css"
-import React, { useEffect, useState, useMemo } from "react"
+import  { useEffect, useState, useMemo } from "react"
 import { useDispatch } from "react-redux"
 import { MenuComponent } from "../../../shared/ui/menu/menu.component"
 import { PaginationComponent } from "../../../shared/ui/pagination/pagination.component"

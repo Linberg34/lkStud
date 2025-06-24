@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "./profile-education-data.component.css";
 
 export interface EducationItem {

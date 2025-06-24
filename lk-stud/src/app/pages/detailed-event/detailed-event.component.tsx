@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DetailedEventCard } from "../../../shared/ui/detailed-event-card/detailed-event-card.component";
 import { MenuComponent } from "../../../shared/ui/menu/menu.component";
 import "./detailed-event.component.css";

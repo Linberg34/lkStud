@@ -1,4 +1,4 @@
-import React from "react"
+
 import "./user-card.component.css"
 
 interface UserCardComponentProps {

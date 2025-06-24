@@ -1,1 +1,1 @@
-export type CertitifcateStaffType = "ForPlaceOfWork" | "ForExperience" | "ForVisa" | "ForWorkBookCopy";
+export type CertificateStaffType = "ForPlaceOfWork" | "ForExperience" | "ForVisa" | "ForWorkBookCopy";

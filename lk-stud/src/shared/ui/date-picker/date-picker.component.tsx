@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import  { useRef, useEffect, useState } from "react";
 import { format, parse, isValid, parseISO } from "date-fns";
 import "./date-picker.component.css";
 import { Calendar } from "../calendar/calendar";

@@ -1,4 +1,3 @@
-import React from "react";
 import "./input-text.component.css";
 
 export type Option = { value: string; label: string };

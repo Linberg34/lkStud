@@ -1,4 +1,3 @@
-import React from "react";
 import "./checkbox.component.css";
 
 interface CheckboxProps {

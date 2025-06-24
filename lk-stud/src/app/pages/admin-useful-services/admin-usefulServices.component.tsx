@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { HeaderComponent } from "../../../shared/ui/header/header.component";
 import { MenuComponent } from "../../../shared/ui/menu/menu.component";
 import { NavigationComponent } from "../../../shared/ui/navigation/navigation.component";

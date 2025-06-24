@@ -1,4 +1,4 @@
-import React, { useRef, useState, DragEvent } from "react";
+import  { useRef, useState, DragEvent } from "react";
 import "./upload-file.component.css";
 import { uploadFile } from "../../../app/api/services/files-service";
 import { usePageTranslations } from "../../hooks/usePageTranslations";

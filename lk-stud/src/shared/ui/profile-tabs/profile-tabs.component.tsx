@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { ProfileEducationDataComponent, EducationItem } from "../profile-education-data/profile-education-data.component";
 import { ProfileWorkDataComponent, WorkItem } from "../profile-education-data/profile-work-data.component";
 import "./profile-tabs.component.css";

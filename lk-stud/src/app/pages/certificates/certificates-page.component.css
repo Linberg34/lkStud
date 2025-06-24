@@ -38,6 +38,7 @@
 .certificates-page__cert-list {
     display: flex;
     flex-direction: column;
+    height: fit-content;
     gap: 5px;
     padding: 16px;
     width: 100%;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react"
+import  { useState, useEffect, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { HeaderComponent } from "../../../shared/ui/header/header.component"
 import { MenuComponent } from "../../../shared/ui/menu/menu.component"

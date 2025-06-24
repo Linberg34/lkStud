@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react"
+import  { useEffect, useState, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Outlet } from "react-router-dom"
 import "./profile-page.component.css"
@@ -66,7 +66,6 @@ export const ProfilePageComponent: React.FC = () => {
     const onSaveCropped = async () => {
         if (!src || !croppedPixels) return
         const blob = await getCroppedImg(src, croppedPixels)
-        console.log("Blob size:", blob.size);
         const file = new File([blob], "avatar.jpg", { type: "image/jpeg" })
         const result = await uploadFile(file)
         await updateAvatar({ fileId: result.id })

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import "./event-register-form.component.css";
 import { InputTextComponent } from "../input-text/input-text.component";
 import { ButtonComponent } from "../button/button.component";

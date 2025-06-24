@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useMediaQuery } from "@mui/material";
 import { LanguageToggleComponent } from "../language-toggle/language-toggle.component";
 import "./header.component.css";

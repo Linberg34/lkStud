@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import  { useState, useEffect } from "react"
 import "./service-card.component.css"
 import { ButtonComponent } from "../button/button.component"
 import { useFileBlob } from "../../hooks/fetchFile"

@@ -1,4 +1,4 @@
-import React from "react"
+
 import "./toggle-view.component.css"
 
 export interface ViewToggleProps {

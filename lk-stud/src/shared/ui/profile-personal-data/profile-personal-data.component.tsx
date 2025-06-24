@@ -1,4 +1,4 @@
-import React from "react";
+
 import "./profile-personal-data.component.css";
 import { usePageTranslations } from "../../hooks/usePageTranslations";
 

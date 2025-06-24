@@ -1,4 +1,3 @@
-import React from "react";
 import "./error-page.component.css";
 import { ButtonComponent } from "../../../shared/ui/button/button.component";
 

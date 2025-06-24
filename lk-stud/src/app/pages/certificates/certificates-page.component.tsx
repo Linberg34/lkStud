@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import {
@@ -10,17 +10,28 @@ import {
 import {
     CertificatesPersonalData,
     EducationItem,
-    ProfileItem, 
+    ProfileItem,
 } from "../../../shared/ui/certificates-personal-data/certificates-personal-data.component";
 import { CertificateOrder } from "../../../shared/ui/certificate-order/certificate-order.component";
 import { CertificateCard } from "../../../shared/ui/certificate-card/certificate-card.component";
+import { PaginationComponent } from "../../../shared/ui/pagination/pagination.component";
 import { MenuComponent } from "../../../shared/ui/menu/menu.component";
 import { HeaderComponent } from "../../../shared/ui/header/header.component";
 import { NavigationComponent } from "../../../shared/ui/navigation/navigation.component";
-import { getCertificatesByEntity } from "../../api/services/certificates-service";
+import {
+    getCertificatesByEntity,
+    createCertificate,
+} from "../../api/services/certificates-service";
 import "./certificates-page.component.css";
-import { CertificateDto } from "../../api/models/certificates";
+import {
+    CertificateCreateDto,
+    CertificateDto,
+    CertificateReceiveType,
+    CertificateType,
+    CertificateUserType,
+} from "../../api/models/certificates";
 import { RoleSwitchComponent } from "../../../shared/ui/role-switch/role-switch.component";
+import { getFileBlob } from "../../api/services/files-service";
 
 export const CertificatesPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -33,6 +44,20 @@ export const CertificatesPage: React.FC = () => {
     const [certificates, setCertificates] = useState<CertificateDto[]>([]);
     const [isWide, setIsWide] = useState(window.innerWidth > 1201);
     const [selectedRole, setSelectedRole] = useState<string>("");
+    const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const pageSize = 15;
+    const totalPages = Math.ceil(certificates.length / pageSize);
+    const displayedCertificates = certificates.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+    );
+
+    useEffect(() => {
+        setActiveIndex(0);
+        setCurrentPage(1);
+    }, [selectedRole, educationList, employmentList]);
 
     useEffect(() => {
         dispatch(fetchProfile());
@@ -40,14 +65,12 @@ export const CertificatesPage: React.FC = () => {
 
     useEffect(() => {
         if (!profile) return;
-
         if (
             !selectedRole ||
             !profile.userTypes.includes(selectedRole as "Student" | "Employee")
         ) {
             setSelectedRole(profile.userTypes[0]);
         }
-
         if (profile.userTypes.includes("Student")) {
             dispatch(fetchStudentProfile());
         }
@@ -61,15 +84,16 @@ export const CertificatesPage: React.FC = () => {
             setEducationList([]);
             return;
         }
-        const list: EducationItem[] = student.educationEntries.map((e) => ({
-            title: e.faculty?.name ?? "",
-            level: e.educationLevel?.name ?? "",
-            status: e.educationStatus?.name ?? "",
-            faculty: e.faculty?.name ?? "",
-            direction: e.educationDirection?.name ?? "",
-            group: e.group?.name ?? "",
-        }));
-        setEducationList(list);
+        setEducationList(
+            student.educationEntries.map((e) => ({
+                title: e.faculty?.name ?? "",
+                level: e.educationLevel?.name ?? "",
+                status: e.educationStatus?.name ?? "",
+                faculty: e.faculty?.name ?? "",
+                direction: e.educationDirection?.name ?? "",
+                group: e.group?.name ?? "",
+            }))
+        );
     }, [student]);
 
     useEffect(() => {
@@ -77,48 +101,46 @@ export const CertificatesPage: React.FC = () => {
             setEmploymentList([]);
             return;
         }
-
-        const list: ProfileItem[] = employee.posts.map((post) => {
-            const deptNames = post.departments
-                .map((d) => d.name)       
-                .filter((n) => !!n)      
-                .join(", ");
-
-            return {
-                title: post.postName?.name || "Без названия",
-
-                level: "",
-                status: "",
-
-                position: post.postName?.name || "",       
-                postType: post.postType?.name || "",        
-                department: deptNames || "",                
-                employmentType: post.employmentType || "",  
-                dateStart: post.dateStart || "",           
-                dateEnd: post.dateEnd || "",                
-                rate: post.rate,                            
-            };
-        });
-
-        setEmploymentList(list);
+        setEmploymentList(
+            employee.posts.map((post) => {
+                const deptNames = post.departments
+                    .map((d) => d.name)
+                    .filter(Boolean)
+                    .join(", ");
+                return {
+                    title: post.postName.name || "Без названия",
+                    level: "",
+                    status: "",
+                    position: post.postName.name || "",
+                    postType: post.postType.name || "",
+                    department: deptNames,
+                    employmentType: post.employmentType,
+                    dateStart: post.dateStart,
+                    dateEnd: post.dateEnd,
+                    rate: post.rate,
+                };
+            })
+        );
     }, [employee]);
 
     useEffect(() => {
-        if (!profile?.id || !selectedRole) {
+        const ownerId =
+            selectedRole === "Student"
+                ? student?.educationEntries[activeIndex]?.id
+                : employee?.posts[activeIndex]?.id;
+
+        if (!ownerId) {
             setCertificates([]);
             return;
         }
-        if (selectedRole === "Student") {
-            getCertificatesByEntity("Student", profile.id)
-                .then((res) => setCertificates(res))
-                .catch(() => setCertificates([]));
-        }
-        if (selectedRole === "Employee") {
-            getCertificatesByEntity("Employee", profile.id)
-                .then((res) => setCertificates(res))
-                .catch(() => setCertificates([]));
-        }
-    }, [profile, selectedRole]);
+
+        getCertificatesByEntity(
+            selectedRole as CertificateUserType,
+            ownerId
+        )
+            .then((res) => setCertificates(res))
+            .catch(() => setCertificates([]));
+    }, [selectedRole, activeIndex, student, employee]);
 
     useEffect(() => {
         const handleResize = () => setIsWide(window.innerWidth > 1201);
@@ -130,6 +152,49 @@ export const CertificatesPage: React.FC = () => {
         return <div>Загрузка...</div>;
     }
 
+    const handleSave = (
+        type: CertificateType,
+        receiveType: CertificateReceiveType
+    ) => {
+        const dto: CertificateCreateDto = {
+            type,
+            staffType: "ForVisa",
+            userType: selectedRole as CertificateUserType,
+            educationEntryId:
+                selectedRole === "Student"
+                    ? student?.educationEntries[activeIndex]?.id
+                    : undefined,
+            employeePostId:
+                selectedRole === "Employee"
+                    ? employee?.posts[activeIndex]?.id
+                    : undefined,
+            receiveType,
+        };
+        createCertificate(dto)
+    };
+
+    const handleDownload = async (fileId: string, fileName: string = 'file') => {
+        try {
+            const blob = await getFileBlob(fileId);
+
+            const url = window.URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Ошибка при скачивании файла:', error);
+        }
+    };
+
+
+
     const tabsData: ProfileItem[] =
         selectedRole === "Student" ? educationList : employmentList;
 
@@ -140,7 +205,6 @@ export const CertificatesPage: React.FC = () => {
                 <HeaderComponent title="Справки" />
                 <NavigationComponent />
                 <h2 className="certificates-page__title">Заказ Справки</h2>
-
                 <div className="certificates-page__content-wrapper">
                     {profile?.userTypes.includes("Student") &&
                         profile.userTypes.includes("Employee") && (
@@ -149,28 +213,48 @@ export const CertificatesPage: React.FC = () => {
                                 onRoleChange={setSelectedRole}
                             />
                         )}
-
                     <div className="certificates-page__content">
-                        <CertificatesPersonalData profileItems={tabsData} />
+                        <CertificatesPersonalData
+                            profileItems={tabsData}
+                            activeIndex={activeIndex}
+                            onTabChange={setActiveIndex}
+                        />
 
                         <CertificateOrder
-                            onSave={() => {
-                            }}
-                            certificateType="ForPlaceWhereNeeded"
+                            role={selectedRole}
+                            certificateType={
+                                selectedRole === "Student" ? "ForPlaceWhereNeeded" : undefined
+                            }
+                            certificateStaffType={
+                                selectedRole === "Employee" ? "ForPlaceOfWork" : undefined
+                            }
                             certificateReceiveType="Electronic"
+                            onSave={(type, receiveType) =>
+                                handleSave(type as CertificateType, receiveType)
+                            }
                         />
 
                         <div className="certificates-page__cert-list">
-                            {certificates.map((cert) => (
+                            {displayedCertificates.map((cert) => (
                                 <CertificateCard
                                     key={cert.id}
                                     date={cert.dateOfForming || ""}
-                                    certificateType={cert.type}
+                                    certificateType={cert.type || cert.staffType}
                                     certificateReceiveType={cert.receiveType}
                                     certificateStatus={cert.status}
+                                    onDownloadSignature={() => handleDownload(cert.signatureFile.id)}
+                                    onDownloadCertificate={() => handleDownload(cert.certificateFile.id)}
                                 />
                             ))}
                         </div>
+
+                        {totalPages > 1 && (
+                            <PaginationComponent
+                                count={totalPages}
+                                page={currentPage}
+                                onChange={setCurrentPage}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import { EnumDto } from "../EnumDto";
 import { FileDto } from "../Files";
 import { CertificateReceiveType } from "./CertificateReceiveType";
-import { CertitifcateStaffType } from "./CertificateStaffType";
+import { CertificateStaffType } from "./CertificateStaffType";
 import { CertificateStatus } from "./CertificateStatus";
 import { CertificateType } from "./CertificateType";
 import { CertificateUserType } from "./CertificateUserType";
@@ -13,13 +13,13 @@ export interface CertificateDto {
     status: CertificateStatus,
     statusEnumDto: EnumDto,
     type: CertificateType,
-    staffType: CertitifcateStaffType,
+    staffType: CertificateStaffType,
     typeEnumDto: EnumDto,
     staffTypeEnumDto: EnumDto,
     userType: CertificateUserType,
     userTypeEnumDto: EnumDto,
     certificateFile: FileDto,
-    signatureFIle: FileDto,
+    signatureFile: FileDto,
     dateOfForming?: string,
     receiveType: CertificateReceiveType,
     receiveTypeEnumDto: EnumDto

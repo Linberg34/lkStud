@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { InputTextComponent } from "../input-text/input-text.component";
 import { SelectComponent } from "../input-text/select.component";

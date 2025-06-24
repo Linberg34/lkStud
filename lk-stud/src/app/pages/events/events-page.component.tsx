@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./events-page.component.css";
 import { MenuComponent } from "../../../shared/ui/menu/menu.component";

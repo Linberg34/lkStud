@@ -1,4 +1,4 @@
-import React from "react"
+
 import "./alphabet.component.css"
 
 const RUSSIAN_ALPHABET = [

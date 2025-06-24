@@ -1,15 +1,12 @@
-import { useState } from "react";
 import "./certificates-personal-data.component.css";
 
 export interface ProfileItem {
     title: string;
     level: string;
     status: string;
-
     faculty?: string;
     direction?: string;
     group?: string;
-
     position?: string;
     department?: string;
     employmentType?: string;
@@ -21,34 +18,48 @@ export interface ProfileItem {
 
 interface CertificatesPersonalDataProps {
     profileItems: ProfileItem[];
+    activeIndex: number;
+    onTabChange: (idx: number) => void;
 }
 
 export const CertificatesPersonalData: React.FC<CertificatesPersonalDataProps> = ({
     profileItems,
+    activeIndex,
+    onTabChange,
 }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    if (!profileItems.length) {
-        return <p>Нет данных</p>;
+    if (!profileItems || profileItems.length === 0) {
+        return (
+            <div className="certificates-personal-data">
+                <div>Нет данных для отображения</div>
+            </div>
+        );
     }
 
-    const activeProfile = profileItems[activeIndex];
+    const safeActiveIndex = Math.max(0, Math.min(activeIndex, profileItems.length - 1));
+    const activeProfile = profileItems[safeActiveIndex];
+
+    if (!activeProfile) {
+        return (
+            <div className="certificates-personal-data">
+                <div>Профиль не найден</div>
+            </div>
+        );
+    }
 
     return (
         <div className="certificates-personal-data">
             <div className="certificates-personal-data__tabs-header">
                 {profileItems.map((item, index) => {
-                    const isActive = index === activeIndex;
+                    const isActive = index === safeActiveIndex;
 
                     return (
                         <div
                             key={index}
                             className={`certificates-personal-data__tab ${isActive ? "certificates-personal-data__tab--active" : ""
                                 }`}
-                            onClick={() => setActiveIndex(index)}
+                            onClick={() => onTabChange(index)}
                         >
-
-                            {item.position ? (
+                            {item?.position ? (
                                 <>
                                     <h3 className="certificates-personal-data__tab-title">
                                         {item.position}
@@ -59,19 +70,22 @@ export const CertificatesPersonalData: React.FC<CertificatesPersonalDataProps> =
                                             Тип занятости: {item.employmentType}
                                         </span>
                                     )}
-
                                 </>
                             ) : (
                                 <>
                                     <h3 className="certificates-personal-data__tab-title">
-                                        {item.title}
+                                        {item?.title || 'Без названия'}
                                     </h3>
-                                    <span className="certificates-personal-data__tab-text">
-                                        Уровень: {item.level}
-                                    </span>
-                                    <span className="certificates-personal-data__tab-text">
-                                        Статус: {item.status}
-                                    </span>
+                                    {item?.level && (
+                                        <span className="certificates-personal-data__tab-text">
+                                            Уровень: {item.level}
+                                        </span>
+                                    )}
+                                    {item?.status && (
+                                        <span className="certificates-personal-data__tab-text">
+                                            Статус: {item.status}
+                                        </span>
+                                    )}
                                 </>
                             )}
 
@@ -84,8 +98,7 @@ export const CertificatesPersonalData: React.FC<CertificatesPersonalDataProps> =
             </div>
 
             <div className="certificates-personal-data__content">
-
-                {activeProfile.level && (
+                {activeProfile.level && activeProfile.status && (
                     <div className="certificates-personal-data__content-row">
                         <div className="certificates-personal-data__content-column">
                             <span className="p2 certificates-personal-data__column-label">
@@ -95,10 +108,6 @@ export const CertificatesPersonalData: React.FC<CertificatesPersonalDataProps> =
                                 {activeProfile.level}
                             </span>
                         </div>
-                    </div>
-                )}
-                {activeProfile.status && (
-                    <div className="certificates-personal-data__content-row">
                         <div className="certificates-personal-data__content-column">
                             <span className="p2 certificates-personal-data__column-label">
                                 Статус
@@ -109,6 +118,7 @@ export const CertificatesPersonalData: React.FC<CertificatesPersonalDataProps> =
                         </div>
                     </div>
                 )}
+
                 {activeProfile.faculty && (
                     <div className="certificates-personal-data__content-row">
                         <div className="certificates-personal-data__content-column">
@@ -121,7 +131,8 @@ export const CertificatesPersonalData: React.FC<CertificatesPersonalDataProps> =
                         </div>
                     </div>
                 )}
-                {activeProfile.direction && (
+
+                {activeProfile.direction && activeProfile.group && (
                     <div className="certificates-personal-data__content-row">
                         <div className="certificates-personal-data__content-column">
                             <span className="p2 certificates-personal-data__column-label">
@@ -131,10 +142,6 @@ export const CertificatesPersonalData: React.FC<CertificatesPersonalDataProps> =
                                 {activeProfile.direction}
                             </span>
                         </div>
-                    </div>
-                )}
-                {activeProfile.group && (
-                    <div className="certificates-personal-data__content-row">
                         <div className="certificates-personal-data__content-column">
                             <span className="p2 certificates-personal-data__column-label">
                                 Группа
@@ -179,17 +186,16 @@ export const CertificatesPersonalData: React.FC<CertificatesPersonalDataProps> =
                         </div>
                     </div>
                 )}
+
                 {activeProfile.employmentType && (
                     <div className="certificates-personal-data__content-row">
-                        <div className="certificates-personal-data__content-row">
-                            <div className="certificates-personal-data__content-column">
-                                <span className="p2 certificates-personal-data__column-label">
-                                    Тип должности
-                                </span>
-                                <span className="p1 certificates-personal-data__column-text">
-                                    {activeProfile.postType}
-                                </span>
-                            </div>
+                        <div className="certificates-personal-data__content-column">
+                            <span className="p2 certificates-personal-data__column-label">
+                                Тип должности
+                            </span>
+                            <span className="p1 certificates-personal-data__column-text">
+                                {activeProfile.postType || 'Не указано'}
+                            </span>
                         </div>
                         <div className="certificates-personal-data__content-column">
                             <span className="p2 certificates-personal-data__column-label">
@@ -201,7 +207,6 @@ export const CertificatesPersonalData: React.FC<CertificatesPersonalDataProps> =
                         </div>
                     </div>
                 )}
-                
             </div>
         </div>
     );
