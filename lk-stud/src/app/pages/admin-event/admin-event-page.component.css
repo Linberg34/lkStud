@@ -1,0 +1,120 @@
+.admin-event-page-component {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.admin-event-page-component__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1% 5% 0 2.5%;
+    gap: 20px;
+}
+
+.admin-event-page-component__search-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 8px;
+    padding: 28px 32px;
+    background-color: rgba(255, 255, 255, 1);
+    gap: 12px;
+}
+
+.admin-event-page-component__search-block-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    justify-content: space-between;
+}
+
+.admin-event-page-component__search-block-header .button-component {
+    width: 120px;
+    height: fit-content;
+    padding: none;
+}
+
+.admin-event-page-component__search-block-function {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+
+    @media (max-width:599px) {
+        flex-direction: column;
+
+        .button-component {
+            width: 100%;
+        }
+    }
+
+    .input-text-component {
+        width: 100%;
+    }
+
+    @media (min-width:600px) {
+        .button-component {
+            width: 20%;
+        }
+    }
+}
+
+.admin-event-page-component__filters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+    gap: 16px;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.admin-event-page-component__filters .date-picker-component {
+    max-width: none !important;
+    width: 100% !important;
+}
+
+
+.admin-event-page__cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-event-page-component__button .button-component {
+    width: 100%;
+    border-color: #375FFF;
+
+    .button-component__text {
+        color: #375FFF;
+    }
+}
+
+.admin-event-page-component__button .button-component:hover {
+    border: none;
+    background-color: #375FFF;
+
+    .button-component__text {
+        color: #fff;
+    }
+
+}
+
+.admin-event-page-component__search-block-header .button-component_outlined {
+    --background-color: #fff;
+    --border-color: #375FFF;
+    --text-color: #375FFF;
+}
+
+.admin-event-page-component__search-block-header .button-component_outlined:hover {
+    --background-hover-color: #E8F0FF;
+    --border-hover-color: #375FFF;
+    --text-hover-color: #375FFF;
+}

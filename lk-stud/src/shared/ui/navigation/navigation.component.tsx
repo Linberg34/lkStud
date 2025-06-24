@@ -19,6 +19,7 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
         "/events": t.header,
         "/profile": t.profile,
         "/admin": t.admin,
+        "/admin/events": t.events,
         "/certificates": t.certificates,
         "/usefulservices": t.usefulservices,
         "/admin/users": t.users,

@@ -15,6 +15,7 @@ import { AdminUsefulServicesComponent } from "./pages/admin-useful-services/admi
 import { EventsPageComponent } from "./pages/events/events-page.component";
 import { DetailedEventPage } from "./pages/detailed-event/detailed-event.component";
 import { CertificatesPage } from "./pages/certificates/certificates-page.component";
+import { AdminEventPageComponent } from "./pages/admin-event/admin-event-page.component";
 
 export const App = () => {
 	return (
@@ -34,6 +35,8 @@ export const App = () => {
 				<Route path="/admin/users" element={<UsersPageComponent />} />
 				<Route path="/admin/users/:id" element={<AdminProfilePageComponent />} />
 				<Route path="/admin/usefulservices" element={<AdminUsefulServicesComponent />} />
+				<Route path="/admin/events" element={<AdminEventPageComponent />} />
+
 			</Routes>
 		</BrowserRouter>
 	);

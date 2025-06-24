@@ -1,0 +1,121 @@
+.admin-event-card {
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 16px 32px 12px 32px;
+
+    @media (max-width:1200px) {
+        flex-direction: column;
+    }
+}
+
+.admin-event-card__icons {
+    display: flex;
+    gap: 8px;
+}
+
+
+.admin-event-card__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    border-radius: 8px;
+    min-width: 260px;
+    max-height: 273px;
+
+    @media (min-width: 1200px) {
+        max-width: 260px;
+    }
+
+    @media (min-width: 601px) and (max-width: 1199px) {
+        width: 100%;
+    }
+
+    @media (min-width: 376px) and (max-width: 600px) {
+        max-width: 488px;
+    }
+
+    @media (max-width: 375px) {
+        max-width: 311px;
+    }
+
+}
+
+.admin-event-card__content {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-event-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.admin-event-card__status {
+    width: fit-content;
+    padding: 5px 12px;
+    border-radius: 8px;
+}
+
+.status--Actual {
+    background-color: #0c7019;
+
+}
+
+.status--Finished {
+    background-color: #46B34A;
+
+}
+
+.status--InProcess {
+    background-color: #ffd966;
+    color: #664d03;
+}
+
+.status--Archive {
+    background-color: #6c757d;
+}
+
+.status--Draft {
+    background-color: #6C757D;
+
+}
+
+.admin-event-card__details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px 24px;
+}
+
+.admin-event-card__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+}
+
+.admin-event-card__row {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.admin-event-card__row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    color: #888;
+}
+
+.value {
+    color: #333;
+}
