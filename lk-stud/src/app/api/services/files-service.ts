@@ -13,7 +13,6 @@ export async function getFileBlob(fileId: string): Promise<Blob> {
 export async function uploadFile(file: File): Promise<FileResultDto> {
     const form = new FormData();
     form.append("file", file);
-    console.log("FormData entries:", Array.from(form.entries()));
     const response = await httpClient.post<FileResultDto>(
         FilesUrl,
         form,
