@@ -105,7 +105,7 @@ export const AdminEventPageComponent: React.FC = () => {
                         type="outlined"
                         iconSrc="/assets/svg/interface/red/Add.svg"
                         hoverIconSrc="/assets/svg/interface/white/Add.svg"
-                        onClick={() => { }}
+                        onClick={() => {navigate('/admin/events/create') }}
                     >
                         Добавить мероприятие
                     </ButtonComponent>

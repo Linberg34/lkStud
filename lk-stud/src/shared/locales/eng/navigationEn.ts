@@ -5,4 +5,5 @@ export default{
     certificates:"Certificates",
     usefulservices:"Useful services",
     events:"Events",  
+    eventsCreate:"Create event"
 }

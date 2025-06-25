@@ -13,4 +13,5 @@ export default {
     additionalInfo:"Дополнительная информация",
     saveButton:"Соханить",
     cancelButton:"Отменить"
+    
 }
