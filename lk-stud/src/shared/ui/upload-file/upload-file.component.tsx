@@ -23,7 +23,7 @@ export const FileUploadComponent: React.FC<FileUploadProps> = ({
     const [preview, setPreview] = useState<string | null>(null);
     const [uploading, setUploading] = useState(false);
 
-    label= t.uploadImage;
+    label= t.uploadImage || t.uploadFile;
 
     const clearFile = () => {
         setPreview(null);

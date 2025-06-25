@@ -15,6 +15,11 @@
     gap: 8px;
 }
 
+.create-event-form__component .date-picker-component {
+    max-width: none !important;
+    width: 100% !important;
+}
+
 
 .create-event-form__row {
     display: flex;
@@ -22,11 +27,6 @@
     align-items: center;
     width: 100%;
     gap: 8px;
-}
-
-.create-event-form__row .date-picker-component {
-    max-width: none !important;
-    width: 100% !important;
 }
 
 .create-event-form__row .input-text-component {
@@ -43,7 +43,13 @@
 .create-event-form__date-field {
     display: flex;
     align-items: center;
+    width: 100%;
     gap: 12px;
+}
+
+.create-event-form__date-field .date-picker-component {
+    max-width: none !important;
+    width: 100% !important;
 }
 
 .create-event-form__coords {
@@ -51,8 +57,18 @@
     gap: 16px;
 }
 
+.create-event-form__coords .input-text-component {
+    max-width: none !important;
+    width: 100% !important;
+}
+
 .create-event-form__actions {
     display: flex;
     gap: 12px;
     justify-content: flex-end;
+    width: 100%;
+}
+
+.create-event-form__actions .button-component {
+    width: 25%;
 }

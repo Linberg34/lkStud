@@ -18,8 +18,12 @@ import { ButtonComponent } from '../../../shared/ui/button/button.component'
 import { PaginationComponent } from '../../../shared/ui/pagination/pagination.component'
 import { usePageTranslations } from '../../../shared/hooks/usePageTranslations'
 import './admin-event-page.component.css'
+import { fetchProfile } from '../../../store/slices/profileSlice'
+import { AppDispatch } from '../../../store/store'
+import { useDispatch } from 'react-redux'
 
 export const AdminEventPageComponent: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>()
     const t = usePageTranslations('events')
     const navigate = useNavigate()
     const { search } = useLocation()
@@ -42,6 +46,10 @@ export const AdminEventPageComponent: React.FC = () => {
         return () => window.removeEventListener('resize', onResize)
     }, [])
 
+    useEffect(() => {
+        dispatch(fetchProfile())
+    }, [dispatch])
+
     const loadEvents = async (pageToLoad = page) => {
         const qp = new URLSearchParams()
         if (searchField) qp.set('name', searchField)
@@ -50,7 +58,6 @@ export const AdminEventPageComponent: React.FC = () => {
         if (format) qp.set('format', format)
         if (date) qp.set('eventDate', date)
         qp.set('page', String(pageToLoad))
-        console.log('Query Params:', qp.toString())
         navigate({ search: qp.toString() }, { replace: true })
         const res = await getEventsForAdmin({
             page: pageToLoad,
@@ -105,7 +112,7 @@ export const AdminEventPageComponent: React.FC = () => {
                         type="outlined"
                         iconSrc="/assets/svg/interface/red/Add.svg"
                         hoverIconSrc="/assets/svg/interface/white/Add.svg"
-                        onClick={() => {navigate('/admin/events/create') }}
+                        onClick={() => { navigate('/admin/events/create') }}
                     >
                         Добавить мероприятие
                     </ButtonComponent>

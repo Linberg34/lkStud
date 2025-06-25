@@ -77,18 +77,18 @@ export async function getEventsForAdmin(
     return response.data;
 }
 
-export async function createEvent(): Promise<EventCreateDto> {
-    const response = await httpClient.post<EventCreateDto>(`${EventsUrl}`);
-    return response.data;
+export async function createEvent(dto: EventCreateDto): Promise<EventDto> {
+    const response = await httpClient.post<EventDto>(`${EventsUrl}`, dto)
+    return response.data
 }
 
-export async function editEvent(): Promise<EventEditDto> {
-    const response = await httpClient.put<EventEditDto>(`${EventsUrl}`);
-    return response.data;
+export async function editEvent(dto: EventEditDto): Promise<EventDto> {
+    const response = await httpClient.put<EventDto>(`${EventsUrl}/${dto.id}`, dto)
+    return response.data
 }
 
-export async function deleteEvent(): Promise<void> {
-    await httpClient.delete(`${EventsUrl}`);
+export async function deleteEvent(id: string): Promise<void> {
+    await httpClient.delete(`${EventsUrl}/${id}`);
 }
 
 export async function getFullEventDetails(id: string): Promise<EventDto> {

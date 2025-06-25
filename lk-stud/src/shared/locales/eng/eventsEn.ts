@@ -12,5 +12,6 @@ export default {
     email:"Email",
     additionalInfo:"Additional info",
     saveButton:"Save",
-    cancelButton:"Cancel"
+    cancelButton:"Cancel",
+    uploadFile:"Upload file",
 }
