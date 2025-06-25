@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { EventAuditory, EventFormat, EventStatus } from '../../../app/api/models/Events'
+import { EventAuditory, EventFormat, EventStatus, EventType } from '../../../app/api/models/Events'
 import { useFileBlob } from '../../hooks/fetchFile'
 import './admin-event-card.component.css'
 
@@ -11,6 +11,7 @@ interface AdminEventCardProps {
     dateTimeTo?: string
     format?: EventFormat
     auditory?: EventAuditory
+    type?: EventType
     status?: EventStatus
     onEdit?: () => void
     onDelete?: () => void
@@ -26,6 +27,7 @@ export const AdminEventCard: React.FC<AdminEventCardProps> = ({
     auditory,
     status,
     onDelete,
+    type,
     onEdit
 }) => {
     const navigate = useNavigate()
@@ -61,7 +63,7 @@ export const AdminEventCard: React.FC<AdminEventCardProps> = ({
                 <div className="admin-event-card__row">
                     <div className="admin-event-card__column">
                         <span className="label">Тип мероприятия</span>
-                        <span className="value">{format || '-'}</span>
+                        <span className="value">{type || '-'}</span>
                     </div>
 
                     <div className="admin-event-card__column">

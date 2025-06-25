@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { AdminEventCard } from '../../../shared/ui/admin-event-card/admin-event-card.component'
-import { getPublicEvents } from '../../api/services/event-service'
+import { getEventsForAdmin } from '../../api/services/event-service'
 import {
     EventFormat,
     EventShortDtoPagedListWithMetaData,
@@ -11,25 +12,28 @@ import { MenuComponent } from '../../../shared/ui/menu/menu.component'
 import { HeaderComponent } from '../../../shared/ui/header/header.component'
 import { NavigationComponent } from '../../../shared/ui/navigation/navigation.component'
 import { InputTextComponent } from '../../../shared/ui/input-text/input-text.component'
+import { SelectComponent } from '../../../shared/ui/input-text/select.component'
 import { DatePickerComponent } from '../../../shared/ui/date-picker/date-picker.component'
 import { ButtonComponent } from '../../../shared/ui/button/button.component'
 import { PaginationComponent } from '../../../shared/ui/pagination/pagination.component'
 import { usePageTranslations } from '../../../shared/hooks/usePageTranslations'
 import './admin-event-page.component.css'
-import { SelectComponent } from '../../../shared/ui/input-text/select.component'
 
 export const AdminEventPageComponent: React.FC = () => {
     const t = usePageTranslations('events')
+    const navigate = useNavigate()
+    const { search } = useLocation()
+    const params = new URLSearchParams(search)
     const [isWide, setIsWide] = useState(window.innerWidth > 1200)
-    const [showFilters, setShowFilters] = useState(false)
+    const [showFilters, setShowFilters] = useState(!!params.toString())
     const [events, setEvents] = useState<EventShortDtoPagedListWithMetaData['results']>([])
     const [meta, setMeta] = useState<EventShortDtoPagedListWithMetaData['metaData'] | null>(null)
-    const [page, setPage] = useState(1)
-    const [searchField, setSearchField] = useState('')
-    const [status, setStatus] = useState<EventStatus | ''>('')
-    const [type, setType] = useState<EventType | ''>('')
-    const [format, setFormat] = useState<EventFormat | ''>('')
-    const [date, setDate] = useState('')
+    const [page, setPage] = useState(Number(params.get('page') || 1))
+    const [searchField, setSearchField] = useState(params.get('name') || '')
+    const [status, setStatus] = useState<EventStatus | ''>((params.get('status') as EventStatus) || '')
+    const [eventType, setEventType] = useState<EventType | ''>((params.get('eventType') as EventType) || '')
+    const [format, setFormat] = useState<EventFormat | ''>((params.get('format') as EventFormat) || '')
+    const [date, setDate] = useState(params.get('eventDate') || '')
     const pageSize = 5
 
     useEffect(() => {
@@ -38,25 +42,28 @@ export const AdminEventPageComponent: React.FC = () => {
         return () => window.removeEventListener('resize', onResize)
     }, [])
 
-    const loadEvents = async (pageToLoad = 1) => {
-        const params = {
+    const loadEvents = async (pageToLoad = page) => {
+        const qp = new URLSearchParams()
+        if (searchField) qp.set('name', searchField)
+        if (status) qp.set('status', status)
+        if (eventType) qp.set('eventType', eventType)
+        if (format) qp.set('format', format)
+        if (date) qp.set('eventDate', date)
+        qp.set('page', String(pageToLoad))
+        console.log('Query Params:', qp.toString())
+        navigate({ search: qp.toString() }, { replace: true })
+        const res = await getEventsForAdmin({
             page: pageToLoad,
             pageSize,
             name: searchField || undefined,
             status: status || undefined,
-            type: type || undefined,
+            eventType: eventType || undefined,
             format: format || undefined,
             eventDate: date || undefined,
             timezoneOffset: new Date().getTimezoneOffset(),
-        }
-        try {
-            const res = await getPublicEvents(params)
-            setEvents(res.results)
-            setMeta(res.metaData)
-        } catch {
-            setEvents([])
-            setMeta(null)
-        }
+        })
+        setEvents(res.results)
+        setMeta(res.metaData)
     }
 
     useEffect(() => {
@@ -92,9 +99,7 @@ export const AdminEventPageComponent: React.FC = () => {
             <div className="admin-event-page-component__wrapper">
                 <HeaderComponent title="Администрирование" />
                 <NavigationComponent />
-
                 <h1 className="admin-event-page-component__page-title">Мероприятия</h1>
-
                 <div className="admin-event-page-component__button">
                     <ButtonComponent
                         type="outlined"
@@ -105,7 +110,6 @@ export const AdminEventPageComponent: React.FC = () => {
                         Добавить мероприятие
                     </ButtonComponent>
                 </div>
-
                 <div className="admin-event-page-component__search-block">
                     <div className="admin-event-page-component__search-block-header">
                         <h2 className="admin-event-page-component__search-block-title">Панель поиска</h2>
@@ -122,7 +126,6 @@ export const AdminEventPageComponent: React.FC = () => {
                             Фильтры
                         </ButtonComponent>
                     </div>
-
                     <div className="admin-event-page-component__search-block-function">
                         <InputTextComponent
                             label={t.nameOfEvent}
@@ -132,7 +135,6 @@ export const AdminEventPageComponent: React.FC = () => {
                         />
                         <ButtonComponent onClick={handleSearch}>НАЙТИ</ButtonComponent>
                     </div>
-
                     {showFilters && (
                         <div className="admin-event-page-component__filters">
                             <SelectComponent
@@ -147,8 +149,8 @@ export const AdminEventPageComponent: React.FC = () => {
                             <SelectComponent
                                 label="Тип мероприятия"
                                 name="type"
-                                value={type}
-                                onChange={e => setType(e.target.value as EventType)}
+                                value={eventType}
+                                onChange={e => setEventType(e.target.value as EventType)}
                                 options={typeOptions}
                                 placeholder="Выберите тип"
                                 iconSrc="/assets/svg/Arrow/black/Caret_Down_MD.svg"
@@ -171,7 +173,6 @@ export const AdminEventPageComponent: React.FC = () => {
                         </div>
                     )}
                 </div>
-
                 <div className="admin-event-page__cards-container">
                     {events.map(ev => (
                         <AdminEventCard
@@ -189,7 +190,6 @@ export const AdminEventPageComponent: React.FC = () => {
                         />
                     ))}
                 </div>
-
                 {meta && meta.pageCount > 1 && (
                     <div className="admin-event-page-component__pagination">
                         <PaginationComponent
