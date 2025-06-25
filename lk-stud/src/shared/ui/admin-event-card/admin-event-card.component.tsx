@@ -35,7 +35,7 @@ export const AdminEventCard: React.FC<AdminEventCardProps> = ({
     const formatDate = (dt?: string) => (dt ? new Date(dt).toLocaleString() : '')
 
     return (
-        <div className="admin-event-card" onClick={() => navigate(`/events/${id}`)}>
+        <div className="admin-event-card" onClick={() => navigate(`/admin/events/${id}`)}>
             <div className="admin-event-card__img">
                 <img src={pictureUrl ?? '/assets/imgs/US-img.jpg'} alt="" />
             </div>

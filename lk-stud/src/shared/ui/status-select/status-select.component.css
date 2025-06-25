@@ -1,0 +1,128 @@
+.status-select {
+    position: relative;
+    display: inline-block;
+    font-family: Raleway, sans-serif;
+    font-size: 12px;
+}
+
+.status-select__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: #46b34a;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+
+    transition: background-color .2s, border-color .2s;
+}
+
+.status-select__trigger:hover {
+    background-color: #3f9f41;
+}
+
+.status-select__icon {
+    width: 14px;
+    height: 14px;
+}
+
+.status-select__dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    min-width: 150px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.status-select__option {
+    width: 100%;
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.status-select__option:hover {
+    background: #f0f0f0;
+}
+
+.status--active {
+    --bg: #46b34a;
+}
+
+.status--finished {
+    --bg: #375fff;
+}
+
+.status--draft {
+    --bg: #6c757d;
+}
+
+.status--archive {
+    --bg: #aaa;
+}
+
+.status-select__trigger.status--active {
+    background-color: var(--bg);
+}
+
+.status-select__option.status--active {
+    background-color: var(--bg);
+    color: #fff;
+}
+
+.status-select__option.status--active:hover {
+    opacity: 0.9;
+}
+
+.status-select__trigger.status--finished {
+    background-color: var(--bg);
+}
+
+.status-select__option.status--finished {
+    background-color: var(--bg);
+    color: #fff;
+}
+
+.status-select__option.status--finished:hover {
+    opacity: 0.9;
+}
+
+.status-select__trigger.status--draft {
+    background-color: var(--bg);
+}
+
+.status-select__option.status--draft {
+    background-color: var(--bg);
+    color: #fff;
+}
+
+.status-select__option.status--draft:hover {
+    opacity: 0.9;
+}
+
+.status-select__trigger.status--archive {
+    background-color: var(--bg);
+}
+
+.status-select__option.status--archive {
+    background-color: var(--bg);
+    color: #fff;
+}
+
+.status-select__option.status--archive:hover {
+    opacity: 0.9;
+}
