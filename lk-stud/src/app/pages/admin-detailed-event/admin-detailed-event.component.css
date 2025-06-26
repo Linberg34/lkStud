@@ -7,28 +7,33 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 1% 5% 5% 2.5%;
+    padding: 1% 10% 5% 2.5%;
     gap: 16px;
 }
 
-.admin-detailed-event__content{
+.admin-detailed-event__content {
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap:8px;
+    gap: 8px;
 }
 
-.admin-detailed-event__header{
+.admin-detailed-event__header {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
-.admin-detailed-event__header-actions{
+
+.admin-detailed-event__header-actions {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
+}
+
+.admin-detailed-event__icon {
+    cursor: pointer;
 }

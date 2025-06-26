@@ -72,7 +72,7 @@ export const AdminDetailedEventComponent: React.FC = () => {
     }
 
     const handleEdit = () => {
-        if (id) navigate(`/admin/events/${id}`)
+        if (id) navigate(`/admin/events/create/${id}`)
     }
 
     if (!event) {
@@ -96,14 +96,14 @@ export const AdminDetailedEventComponent: React.FC = () => {
                                 onChange={handleStatusChange}
                             />
                             <img
+                                className="admin-detailed-event__icon"
                                 src="/assets/svg/interface/black/Edit.svg"
                                 onClick={handleEdit}
-                                alt="Редактировать"
                             />
                             <img
+                                className="admin-detailed-event__icon"
                                 src="/assets/svg/interface/black/Trash_bin.svg"
                                 onClick={handleDelete}
-                                alt="Удалить"
                             />
                         </div>
                     </div>

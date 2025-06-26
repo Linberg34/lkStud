@@ -14,7 +14,10 @@
     cursor: pointer;
     width: 100%;
     gap: 8px;
+}
 
+.detailed-event-card__description{
+    word-break: break-all;
 }
 
 .admin-detailed-event-card__row {

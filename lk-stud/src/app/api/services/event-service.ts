@@ -83,7 +83,7 @@ export async function createEvent(dto: EventCreateDto): Promise<EventDto> {
 }
 
 export async function editEvent(dto: EventEditDto): Promise<EventDto> {
-    const response = await httpClient.put<EventDto>(`${EventsUrl}/${dto.id}`, dto)
+    const response = await httpClient.put<EventDto>(`${EventsUrl}`, dto)
     return response.data
 }
 

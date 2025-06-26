@@ -38,7 +38,7 @@ export const App = () => {
 				<Route path="/admin/users/:id" element={<AdminProfilePageComponent />} />
 				<Route path="/admin/usefulservices" element={<AdminUsefulServicesComponent />} />
 				<Route path="/admin/events" element={<AdminEventPageComponent />} />
-				<Route path="/admin/events/create" element={<AdminCreateEventPageComponent />} />
+				<Route path="/admin/events/create/:id?" element={<AdminCreateEventPageComponent />} />
 				<Route path="/admin/events/edit/:id" element={<AdminCreateEventPageComponent />} />
 				<Route path="/admin/events/:id" element={<AdminDetailedEventComponent />} />
 

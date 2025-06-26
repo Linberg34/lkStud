@@ -242,9 +242,11 @@ export const CreateEventFormComponent: React.FC<CreateEventFormProps> = ({
 
             <p className="p1 create-event-form__label">Файлы</p>
             <FileUploadComponent
-                onFileSelect={(id) => setFormData((p) => ({ ...p, logoId: id || "" }))}
-                accept={['image/*']}
+                initialFileId={formData.pictureId}
+                accept={["image/*"]}
+                multiple={false}
                 t={t}
+                onFileSelect={(id) => handleChange("pictureId", id || "")}
             />
 
             <div className="create-event-form__actions">

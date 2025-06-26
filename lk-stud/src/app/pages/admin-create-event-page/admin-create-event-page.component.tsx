@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../../store/store'
+import { fetchProfile } from '../../../store/slices/profileSlice'
 import { HeaderComponent } from '../../../shared/ui/header/header.component'
 import { MenuComponent } from '../../../shared/ui/menu/menu.component'
 import { NavigationComponent } from '../../../shared/ui/navigation/navigation.component'
 import { CreateEventFormComponent } from '../../../shared/ui/create-event-form/create-event-form.component'
-import {
-    EventCreateDto,
-    EventDto,
-} from '../../api/models/Events'
-import {
-    createEvent,
-    editEvent,
-    getFullEventDetails,
-} from '../../api/services/event-service'
+import { EventCreateDto, EventDto } from '../../api/models/Events'
+import { createEvent, editEvent, getFullEventDetails } from '../../api/services/event-service'
 import './admin-create-event-page.component.css'
-import { AppDispatch } from '../../../store/store'
-import { useDispatch } from 'react-redux'
-import { fetchProfile } from '../../../store/slices/profileSlice'
 
 export const AdminCreateEventPageComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -28,26 +21,66 @@ export const AdminCreateEventPageComponent: React.FC = () => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        dispatch(fetchProfile())
+    }, [dispatch])
+
+    useEffect(() => {
         const onResize = () => setIsWide(window.innerWidth > 1200)
         window.addEventListener('resize', onResize)
         return () => window.removeEventListener('resize', onResize)
     }, [])
 
     useEffect(() => {
-        if (isEdit) {
+        if (isEdit && id) {
             setLoading(true)
-            getFullEventDetails(id!)
+            getFullEventDetails(id)
                 .then((dto: EventDto) => {
-                    const { id: _, ...rest } = dto
-                    setInitialData(rest)
+                    const {
+                        title,
+                        description,
+                        digestText,
+                        picture,
+                        isTimeFromNeeded,
+                        dateTimeFrom,
+                        isTimeToNeeded,
+                        dateTimeTo,
+                        link,
+                        addressName,
+                        latitude,
+                        longitude,
+                        isRegistrationRequired,
+                        registrationLastDate,
+                        isDigestNeeded,
+                        notificationText,
+                        type,
+                        format,
+                        auditory,
+                    } = dto
+                    setInitialData({
+                        title,
+                        description,
+                        digestText,
+                        pictureId: picture?.id,
+                        isTimeFromNeeded,
+                        dateTimeFrom,
+                        isTimeToNeeded,
+                        dateTimeTo,
+                        link,
+                        addressName,
+                        latitude,
+                        longitude,
+                        isRegistrationRequired,
+                        registrationLastDate,
+                        isDigestNeeded,
+                        notificationText,
+                        type,
+                        format,
+                        auditory,
+                    })
                 })
                 .finally(() => setLoading(false))
         }
-    }, [id, isEdit])
-
-    useEffect(() => {
-        dispatch(fetchProfile())
-    }, [dispatch])
+    }, [isEdit, id])
 
     const handleSave = async (data: EventCreateDto) => {
         const payload: Partial<EventCreateDto> = { ...data }
@@ -62,11 +95,10 @@ export const AdminCreateEventPageComponent: React.FC = () => {
         })
 
         try {
-            let result: EventDto
-            if (isEdit) {
-                result = await editEvent({ id: id!, ...payload } as EventDto)
+            if (isEdit && id) {
+                await editEvent({ id, ...payload } as EventDto)
             } else {
-                result = await createEvent(payload as EventCreateDto)
+                await createEvent(payload as EventCreateDto)
             }
             navigate('/admin/events')
         } catch (err: any) {
@@ -75,7 +107,7 @@ export const AdminCreateEventPageComponent: React.FC = () => {
         }
     }
 
-    if (loading) { <p>Загрузка...</p> }
+    if (loading) return <p className="admin-create-event-page__loading">Загрузка...</p>
 
     return (
         <div className="admin-create-event-page">

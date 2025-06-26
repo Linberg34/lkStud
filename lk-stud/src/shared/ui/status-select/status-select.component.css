@@ -39,6 +39,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
+    gap:6px;
     list-style: none;
     padding: 4px 0;
     margin: 0;
@@ -47,6 +48,7 @@
 .status-select__option {
     width: 100%;
     padding: 6px 12px;
+    border-radius: 8px;
     border: none;
     background: transparent;
     text-align: left;
@@ -60,19 +62,19 @@
 }
 
 .status--active {
-    --bg: #46b34a;
+    --bg: #A0D000;
 }
 
 .status--finished {
-    --bg: #375fff;
+    --bg: #46B34A;
 }
 
 .status--draft {
-    --bg: #6c757d;
+    --bg: #9C9C9C;
 }
 
 .status--archive {
-    --bg: #aaa;
+    --bg: #3A3A3A;
 }
 
 .status-select__trigger.status--active {

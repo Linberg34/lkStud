@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './status-select.component.css'
-import ChevronDownIcon from '/assets/svg/Arrow/red/Chevron_Down.svg'
-import ChevronUpIcon from '/assets/svg/Arrow/red/Chevron_Down.svg'
+import ChevronDownIcon from '/assets/svg/Arrow/black/Chevron_Down.svg'
+import ChevronUpIcon from '/assets/svg/Arrow/black/Chevron_Down.svg'
 import { EventStatus } from '../../../app/api/models/Events'
 
 export type StatusOption = {

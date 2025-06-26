@@ -31,7 +31,7 @@ export const FullEventDetailsCard: React.FC<FullEventDetailCardProps> = ({ event
     const { blobUrl: pictureUrl } = useFileBlob(picture?.id ?? '')
     const formatDate = (dt?: string) => dt ? new Date(dt).toLocaleString() : ''
 
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = () => setIsOpen((prev) => !prev);
 
     const { isLoaded, loadError } = useLoadScript({
